@@ -1,0 +1,13 @@
+Process_backup_new_files is a simple program written in C# to backup only new files.
+It is a fast way to backup picture and music files since this files are rarely modified after being created. 
+It is not recommended for files that change like docs, xls since updated files are not copied/backed up.
+For this type of files a full backup or another version verifying the content, slower to process, is recommended.
+
+To use is very simple. See below:
+
+
+Processa_backup_novos_arquivos.exe SOURCE_FOLDER TARGET_FOLDER MASK
+
+E.g.
+
+Processa_backup_novos_arquivos.exe c:\dados\fmv\music e:\backup\fmv\music *.MP3
