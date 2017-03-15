@@ -1,0 +1,261 @@
+================================================================================================================================================
+
+404. Sum of Left Leaves 
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public int sumOfLeftLeaves(TreeNode root) {
+        
+        int sum=0;
+        if (root!=null)
+         {
+          if (root.right!=null) sum=sum+sumOfLeftLeaves(root.right);
+          if (root.left!=null) 
+           { 
+             if ((root.left.left==null) && (root.left.right==null)) 
+              sum=sum+root.left.val; 
+             else
+              sum=sum+sumOfLeftLeaves(root.left);
+           }
+         }
+
+        return(sum);
+    }
+}
+
+================================================================================================================================================
+
+412. Fizz Buzz 
+
+public class Solution {
+    public List<String> fizzBuzz(int n) {
+        
+        int i;
+        
+        List<String> a = new ArrayList<>();
+        
+        String r="";
+        for (i=1;i<=n;i++)
+        {   
+         r="";
+         if (((i%5)*(i%3))!=0) r=r+i;
+          else
+         { 
+          if (i%3==0) r=r+"Fizz";
+          if (i%5==0) r=r+"Buzz";
+         }
+         a.add(r);
+        }
+        return(a);
+        
+    }
+}
+================================================================================================================================================
+
+415. Add Strings 
+
+
+public class Solution {
+    public String addStrings(String num1, String num2) {
+        
+        String r="";
+        
+        int i=0,x;
+        boolean vaium=false;
+        
+        while  ((i<num1.length()) || (i<num2.length()))
+         {
+          x=0;
+          if (i<num1.length()) x=x+(num1.charAt(num1.length()-1-i))-'0';    
+          if (i<num2.length()) x=x+(num2.charAt(num2.length()-1-i))-'0';    
+          x= vaium ? x+1 : x ;
+          r=(char)(x%10+'0')+r;
+          vaium=(x/10!=0);
+          i++;
+         }
+        return (vaium ? '1'+r : r);
+        
+        
+    }
+}
+
+================================================================================================================================================
+
+437. Path Sum III 
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public int pathSum(TreeNode root, int sum) {
+         
+        int r=0;
+        if (root!=null)
+         { 
+          if (root.val==sum) r++;
+          if (root.left!=null)  r=r+pathSum(root.left,sum)+startsum(root.left,sum-root.val);
+          if (root.right!=null) r=r+pathSum(root.right,sum)+startsum(root.right,sum-root.val);
+         }
+        return (r);
+    }
+    
+    public int startsum(TreeNode root, int sum)
+    {
+     int r=0;
+     if (root.val==sum) r++;
+     if (root.left!=null) r=r+startsum(root.left,sum-root.val);
+     if (root.right!=null) r=r+startsum(root.right,sum-root.val);
+     return(r);
+    }
+}
+
+================================================================================================================================================
+
+448. Find All Numbers Disappeared in an Array
+
+public class Solution {
+    public List<Integer> findDisappearedNumbers(int[] nums) {
+        
+        int i,j,x;
+        
+        
+        for (i=1;i<=nums.length;i++)
+        {
+         if (nums[i-1]!=i)
+          {
+           j=nums[i-1]; 
+           while (nums[j-1]!=j)
+            {
+             x=nums[j-1];
+             nums[j-1]=j;
+             j=x;
+            }
+          }
+        }
+        
+        List<Integer> r = new ArrayList<Integer>();
+        
+        for (i=1;i<=nums.length;i++)
+        {
+         if (nums[i-1]!=i)
+          {
+           r.add(i); 
+          }
+        }
+        
+        return(r);
+    }
+}
+
+================================================================================================================================================
+
+463. Island Perimeter
+
+public class Solution {
+    public int islandPerimeter(int[][] grid) {
+        int i,j,p=0;
+        
+        for (i=0;i<grid.length;i++)
+        {
+            for (j=0;j<grid[i].length;j++)
+            {
+                if (grid[i][j]==1)
+                {
+                 if (i==0) 
+                   p++;
+                 else
+                  if (grid[i-1][j]==0) p++;
+                 if (j==0) 
+                  p++;
+                 else
+                  if (grid[i][j-1]==0) p++;
+                 if (i==grid.length-1) 
+                   p++;
+                 else
+                  if (grid[i+1][j]==0) p++;
+                 if (j==grid[i].length-1) 
+                   p++;
+                 else
+                  if (grid[i][j+1]==0) p++;                 
+                }
+            }
+        }
+        return(p);
+    }
+    
+}
+
+================================================================================================================================================
+
+530. Minimum Absolute Difference in BST 
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public int getMinimumDifference(TreeNode root) {
+     int r=-1,l=-1;        
+     if (root!=null)
+      {
+       if (root.left!=null)
+        {
+         l=findMinDiff(root.left,root.val);
+         int x=getMinimumDifference(root.left);
+         if ((x>=0) && (x<l)) l=x;
+        }
+       if (root.right!=null)
+        {
+         r=findMinDiff(root.right,root.val);
+         int x=getMinimumDifference(root.right);
+         if ((x>=0) && (x<r)) r=x;
+        }
+      }
+     if ((r>=0) && (l>=0)) return (r < l ? r : l);
+     return ( r < 0 ? l : r);
+    }
+
+int findMinDiff(TreeNode root, int n)
+ {
+  int dif,l,r;
+  if (root==null) return (-1);
+  dif=Math.abs(root.val-n);
+  if (root.left!=null) 
+   {
+    if (Math.abs(root.left.val-n)<dif) dif=Math.abs(root.left.val-n);
+    int x=findMinDiff(root.left,n);
+    if ((x>=0) && (x<dif)) dif=x;
+   }
+  if (root.right!=null)
+   {
+    if (Math.abs(root.right.val-n)<dif) dif=Math.abs(root.right.val-n);
+    int x=findMinDiff(root.right,n);
+    if ((x>=0) && (x<dif)) dif=x;
+   }
+  return(dif);
+ }
+}
+
+
+================================================================================================================================================
