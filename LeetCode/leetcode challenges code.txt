@@ -1,5 +1,31 @@
 ================================================================================================================================================
 
+389. Find the Difference  
+
+
+public class Solution {
+    public char findTheDifference(String s, String t) {
+        
+        int i;
+        String temp;
+        
+        i=0;
+        temp=t.substring(i,i+1);
+        
+        while (s.contains(temp))
+        {
+         s=s.substring(0,s.indexOf(temp))+s.substring(s.indexOf(temp)+1);
+         i++;
+         temp=t.substring(i,i+1);
+        }
+        return(t.charAt(i));
+
+}
+}
+
+
+================================================================================================================================================
+
 404. Sum of Left Leaves 
 
 /**
