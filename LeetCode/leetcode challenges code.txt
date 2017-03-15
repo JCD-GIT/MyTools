@@ -1,5 +1,172 @@
 ================================================================================================================================================
 
+336. Palindrome Pairs
+
+public class Solution {
+
+
+    public List<List<Integer>> palindromePairs(String[] words) {
+        Map<String, List<Integer>> complements = new HashMap<>();
+        
+        int i,j,k;
+        int dif_start;
+        
+        List<List<Integer>> r = new ArrayList<List<Integer>>();
+        
+        for (i=0; i<words.length;i++)            /* Add all words to a hash table */
+        {
+            if (!complements.containsKey(words[i])) /* If word is not repeated it's added as a new entry */
+             {
+              List<Integer> temp = new ArrayList<Integer>();
+              temp.add(i);
+              complements.put(words[i],temp);
+             }
+            else                                 /* If word is repeated it's added as a same entry adding sequence number to list */     
+             {
+              List<Integer> temp = new ArrayList<Integer>();
+              temp = complements.get(words[i]); 
+              temp.add(i);
+              complements.put(words[i],temp);
+             }
+        }
+        
+        for (i=0; i<words.length;i++)
+        {
+         if ((isPalindrome(words[i])) && complements.containsKey(""))  
+          {
+            List<Integer> temp = new ArrayList<Integer>();
+            temp = complements.get("");
+            for (k=0; k<temp.size(); k++)
+             {
+                 if (i!=temp.get(k))
+                  {
+                   List<Integer> rtemp = new ArrayList<Integer>();
+                   rtemp.add(i);
+                   rtemp.add(temp.get(k));
+                   r.add(rtemp);
+                   List<Integer> rtemp2 = new ArrayList<Integer>();
+                   rtemp2.add(temp.get(k));
+                   rtemp2.add(i);
+                   r.add(rtemp2);
+                  }
+             }
+          }
+
+
+         if (complements.containsKey(reverse(words[i]))) /* add i with found key to answer if not i */ 
+          {
+            List<Integer> temp = new ArrayList<Integer>();
+            temp = complements.get(reverse(words[i]));
+            for (k=0; k<temp.size(); k++)
+             {
+                 if (i!=temp.get(k))
+                  {
+                   List<Integer> rtemp = new ArrayList<Integer>();
+                   rtemp.add(i);
+                   rtemp.add(temp.get(k));
+                   r.add(rtemp);
+                  }
+             }
+          }
+         
+         for (j=1;j<words[i].length();j=j+1)    
+          {
+           if(isPalindrome(words[i].substring(0,words[i].length()-j)))  /* Trying to find palindromes to last letters */
+            {
+             if (complements.containsKey(reverse(words[i].substring(words[i].length()-j)))) /* add i with found key to answer if not i */
+             {
+              List<Integer> temp = new ArrayList<Integer>();
+              temp = complements.get(reverse(words[i].substring(words[i].length()-j)));
+              for (k=0; k<temp.size(); k++)
+               {
+                if (i!=temp.get(k))
+                 {
+                  List<Integer> rtemp = new ArrayList<Integer>();
+                  rtemp.add(temp.get(k));
+                  rtemp.add(i);
+                  r.add(rtemp);
+                 }
+               }
+             }
+           }           
+          if(isPalindrome(words[i].substring(j)))    /* Trying to find palindromes to first letters */
+            {
+             if (complements.containsKey(reverse(words[i].substring(0,j)))) /* add i with found key to answer if not i */ 
+              {
+               List<Integer> temp = new ArrayList<Integer>();
+               temp = complements.get(reverse(words[i].substring(0,j)));
+               for (k=0; k<temp.size(); k++)
+                {
+                 if (i!=temp.get(k))
+                  {
+                   List<Integer> rtemp = new ArrayList<Integer>();
+                   rtemp.add(i);
+                   rtemp.add(temp.get(k));
+                   r.add(rtemp);
+                  }
+                }
+              }
+            }
+
+         }
+         
+    }
+    return(r);
+}
+    
+ String reverse (String s)
+  {
+   int i;
+   String r="";
+   for (i=0;i<s.length();i++)
+    {
+     r=s.charAt(i)+r;         
+    }
+   return(r); 
+  }
+    
+boolean isPalindrome (String s)
+  {
+   int i;
+   
+   for (i=0;i<s.length()-i;i++)
+    {
+     if(s.charAt(i)!=s.charAt(s.length()-i-1)) return(false);         
+    }
+   return(true); 
+  }
+    
+}
+
+================================================================================================================================================
+
+374. Guess Number Higher or Lower   
+
+/* The guess API is defined in the parent class GuessGame.
+   @param num, your guess
+   @return -1 if my number is lower, 1 if my number is higher, otherwise return 0
+      int guess(int num); */
+
+public class Solution extends GuessGame {
+    public int guessNumber(int n) {
+        
+        int min=1, max=n, x=0, status=2;
+        
+        while (status!=0)
+         {
+          x=(max-min)/2+min;
+          status=guess(x);
+          if (status==1) 
+            min=x+1;
+           else
+            max=x-1;
+          } 
+        return(x);
+    }
+}
+
+================================================================================================================================================
+
 389. Find the Difference  
 
 
