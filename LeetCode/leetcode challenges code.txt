@@ -1,5 +1,271 @@
 ================================================================================================================================================
 
+118. Pascal's Triangle 
+
+public class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        
+        int i,j;
+        
+        List<List<Integer>> r = new ArrayList<>();
+  
+        int prev_line[] = new int[numRows];
+        int line[] = new int [numRows];
+        
+        for (i=1;i<=numRows;i++)
+        {
+         List<Integer> l = new ArrayList<>();
+         line[0]=1;
+         for (j=1;j<i-1;j++)
+          {
+           line[j]=prev_line[j-1]+prev_line[j];   
+          }
+         line[i-1]=1;
+         for (j=0;j<i;j++)
+          {
+           prev_line[j]=line[j];
+           l.add(line[j]);
+          }
+          r.add(l);
+          /* l.clear();  */
+          l=null; /* To release the memory used for l */
+        }
+        return(r);
+    }
+}
+
+================================================================================================================================================
+
+122. Best Time to Buy and Sell Stock II 
+
+public class Solution {
+    public int maxProfit(int[] prices) {
+        
+        int i,dif=0,profit=0;
+        
+        int min=-1;
+        
+        for (i=0;i<prices.length;i++)
+        {
+         if (min<0) 
+          min=prices[i];
+         else
+          { 
+           if (prices[i]>min+dif) dif=prices[i]-min; 
+           if ((prices[i]<prices[i-1]) && (dif!=0))
+            {
+              profit=profit+dif;
+              dif=0;
+              min=prices[i];
+            }
+           if (prices[i]<min) min=prices[i];
+          }
+ 
+        }
+        profit=profit+dif;
+        return(profit);
+    }
+}
+
+================================================================================================================================================
+
+143. Reorder List 
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public void reorderList(ListNode head) {
+
+        ListNode p,p1=head,p2=head;
+        
+        /*  Find Center */
+        
+        while (p2!=null)
+         {
+          p2=p2.next;
+          if (p2!=null) 
+           { 
+               p2=p2.next;
+               p1=p1.next;
+           }
+         }
+        if (p1!=null)
+         {
+             p2=p1.next;
+             p1.next=null;
+             p1=p2;
+         }
+
+/* print_cadeia(head);
+print_cadeia(p1);*/
+
+        /* Invert (half) list */
+
+        ListNode p_prev=null;
+        while (p1!=null)
+        {
+         ListNode p_next=p1.next;
+         p1.next=p_prev;
+         p_prev=p1;
+         p1=p_next;
+        }
+        p1=p_prev;
+        
+/* print_cadeia(head);
+print_cadeia(p1);*/
+
+        /* Merge */
+        p2=head;
+        while ((p1!=null) && (p2!=null))
+        {
+            ListNode p2_next=p2.next;
+            p2.next=p1;
+            ListNode p1_next=p1.next;
+            p1.next=p2_next;
+            p2=p2_next;
+            p1=p1_next;
+        }
+
+/* print_cadeia(head); */
+
+}
+    
+void print_cadeia(ListNode p)
+{
+while (p.next!=null)
+{
+    System.out.print(p.val+" ");
+    p=p.next;
+}
+System.out.println(p.val);
+}
+    
+    
+}
+
+================================================================================================================================================
+
+150. Evaluate Reverse Polish Notation 
+
+public class Solution {
+    public int evalRPN(String[] tokens) {
+        Deque <Integer> p = new LinkedList<>();
+        
+        int i,temp;
+        
+        boolean isNumber;
+        
+        for (i=0;i<tokens.length;i++)
+        {
+         isNumber=true;
+         if  (tokens[i].equals("+"))
+         {
+          temp=p.removeFirst();
+          temp=p.removeFirst()+temp;
+          p.addFirst(temp);
+          isNumber=false;
+         }
+         if  (tokens[i].equals("-"))
+         {
+          temp=p.removeFirst();
+          temp=p.removeFirst()-temp;
+          p.addFirst(temp);
+          isNumber=false;
+         }
+         if  (tokens[i].equals("*"))
+         {
+          temp=p.removeFirst();
+          temp=p.removeFirst()*temp;
+          p.addFirst(temp);
+          isNumber=false;
+         }
+         if  (tokens[i].equals("/"))
+         {
+          temp=p.removeFirst();
+          temp=p.removeFirst()/temp;
+          p.addFirst(temp);
+          isNumber=false;
+         }
+         if (isNumber)
+          {
+           p.addFirst(Integer.parseInt(tokens[i]));  
+          }
+        }
+        return (p.peekFirst());
+    }
+}
+
+================================================================================================================================================
+
+155. Min Stack  
+
+/* public class MinStack {
+    long min;
+    Stack<Long> stack;
+
+    public MinStack(){
+        stack=new Stack<>();
+    }
+*/
+public class MinStack {
+
+    Deque <Integer> stack;
+    Deque <Integer> minstack;
+    
+    /** initialize your data structure here. */
+    public MinStack() {
+        /* Create two stacks, 1 for min */ 
+        stack = new LinkedList<>(); 
+        minstack = new LinkedList<>(); 
+        
+    }
+    
+    public void push(int x) {
+        /* If x < min push x to minstack, if not push min */
+        
+        int min=x;
+        stack.addFirst(x);
+        if (!minstack.isEmpty()) min = getMin();
+        if (x < min)  min =x;
+        minstack.addFirst(min);
+        
+    }
+    
+    public void pop() {
+        /* Get and remove last value from stack and min stack */
+        minstack.removeFirst();
+        stack.removeFirst();
+    }
+    
+    public int top() {
+        /* Get last value from stack */
+        return (stack.peekFirst());
+    }
+    
+    public int getMin() {
+        /* Get last value from min stack */
+        
+        return (minstack.peekFirst());
+    }
+}
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack obj = new MinStack();
+ * obj.push(x);
+ * obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.getMin();
+ */
+
+================================================================================================================================================
+
 217. Contains Duplicate  
 
 public class Solution {
