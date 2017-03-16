@@ -1,5 +1,460 @@
 ================================================================================================================================================
 
+1. Two Sum
+
+public class Solution {
+    public int[] twoSum(int[] nums, int target) {
+ 
+
+    int i,j;
+ 
+    int r[]=new int[2];
+    
+    for (i=0;i<nums.length-1;i++)
+    {
+        for (j=i+1;j<nums.length;j++)
+        {
+         if (nums[i]+nums[j]==target)
+         {
+          r[0]=i;
+          r[1]=j;
+          return(r);
+         }
+       }
+    }
+
+   return (null); 
+}
+}
+
+================================================================================================================================================
+
+7. Reverse Integer 
+
+public class Solution {
+    public int reverse(int x) {
+        
+ 
+    int r[] = new int[1000];
+    int i,j;
+    int neg=0;
+    
+    if (x<0) 
+     {
+         neg=1;
+         x=-x;
+     }
+    j=0;
+    while (x!=0)
+    {
+        r[j]=x%10;
+        x=x/10;
+        j++;
+    }
+    for (i=0;i<j;i++)
+    {
+        if (x*10/10!=x) return (0);     
+        x=x*10+r[i];
+    }
+    if (neg==1) 
+      return(-x);
+    else
+      return (x);
+  }
+}
+
+================================================================================================================================================
+
+8. String to Integer (atoi)  
+
+int myAtoi(char* str) {
+    
+    int i,st=0;
+    int value=0;
+
+    int signal=1;
+    i=st;
+    while (str[i]==' ')
+     {
+         i++;
+     }   
+    st=i;
+    if (str[st]=='-')
+     {
+         signal=-signal;
+         st++;
+     }
+    else if (str[st]=='+')
+     {
+         st++;
+     }
+
+    for (i=st;i<strlen(str);i++)
+    {
+     if ((str[i]>='0') && (str[i]<='9'))
+      {
+       if (value*10/10!=value)
+        {
+           if (signal>0) return (0x7FFFFFFF);
+           if (signal<0) return (0x80000000);
+        }
+       value=value*10-'0'+str[i];
+   /*    printf(" %d\n",value);  */
+       if (value < 0) 
+        {
+            if (signal>0) return (0x7FFFFFFF);
+            if (signal<0) return (0x80000000);
+        }
+      }
+     else
+      break;
+    }
+    return(signal*value);
+}
+================================================================================================================================================
+
+20. Valid Parentheses 
+
+public class Solution {
+    public boolean isValid(String s) {
+        
+    String parse="";
+    
+    String open="[{("";
+    int i,size;
+    
+    size=s.length;
+    
+    for (i=0;i<size;i++)
+    {
+     if (open.indexOf(s.substring(i,i))
+      {
+          parse=parse+s.substring(i,i);
+      }
+      else
+      {
+          if is(s.substring(i,i))
+      }
+    }
+ 
+    }
+}
+
+----------------------------------------------------------------
+
+bool isValid(char* s) {
+
+    char parse[1000];
+    
+    
+    int i,j,size;
+    bool status=false; 
+    j=0;
+    size=strlen(s);
+ 
+    for (i=0;i<size;i++)
+    {
+     if ((s[i]=='(') || (s[i]=='[') || (s[i]=='{'))
+      {
+          parse[j]=s[i];
+          j++;
+      }
+      else
+      {  
+          j--;
+          if (parse[j]=='(')
+           {
+               if (s[i]!=')') return(status);
+           }
+          else
+           {
+            if (parse[j]=='[')
+             {
+               if (s[i]!=']') return(status);
+             }
+            else /* parse[j]=='{' */
+             {
+                if (s[i]!='}') return(status);
+             }
+           }
+           
+       }
+      
+     }
+     if (j==0) status=true;
+     return(status);
+}
+
+================================================================================================================================================
+
+27. Remove Element 
+
+int removeElement(int* nums, int numsSize, int val) {
+    
+    int i,j;
+    
+    i=0;
+    j=0;
+    
+    while (j<numsSize)
+    {
+        if (nums[j]==val)
+         {
+          j++;
+         }
+        else
+         {
+          nums[i]=nums[j];        
+          i++;
+          j++;
+         }
+         
+         
+    }
+    return (i);
+}
+
+================================================================================================================================================
+
+28. Implement strStr()  
+
+int strStr(char* haystack, char* needle) {
+    
+    int i;
+    
+    
+    if(strlen(haystack)<strlen(needle)) return(-1);
+    
+    
+    for (i=0;i<=(strlen(haystack)-strlen(needle));i++)
+    {
+        
+        if (strncmp(haystack+i,needle,strlen(needle))==0) return (i);
+    }
+    
+    return(-1);
+}
+
+================================================================================================================================================
+
+30. Substring with Concatenation of All Words 
+
+public  class Solution {
+        public  List<Integer> findSubstring(String s, String[] words) {
+
+         int i,j,k, pr;
+
+         String toFind, isgood="", isbad="";
+         
+         List<Integer> result=new ArrayList<Integer>();
+         
+         boolean found=false;
+         
+         int nwords=words.length;
+         
+         int swords=words[0].length();
+         
+         
+         boolean ispart[] = new boolean[nwords];
+         
+         
+         
+         pr=0;
+         
+         if (nwords*swords>s.length()) return (result);   
+         
+
+         for (j=0;j<=(s.length()-nwords*swords);j++)
+            {
+             if (isgood.contains(":::"+s.substring(j,j+nwords*swords)+"==="))
+             {
+              result.add(pr,j);
+              pr++; 
+             }
+             else
+             {
+              if (!isbad.contains(":::"+s.substring(j,j+nwords*swords)+"==="))
+              {
+               for (i=0;i<nwords;i++) ispart[i]=false; 
+               for (k=0;k<nwords;k++)
+                {
+                 toFind=s.substring(j+k*swords,j+swords*(k+1));
+                 found=false;
+                 for (i=0;i<nwords;i++) 
+                  {
+                   if ((!ispart[i]) && (toFind.equals(words[i])))
+                    {
+                     ispart[i]=true;
+                     found=true;
+                     break;
+                    }
+                  }
+                 if (!found) 
+                  {
+                   isbad=isbad+":::"+s.substring(j,j+nwords*swords)+"===";
+                   break;
+                  }
+               }
+                if (found)
+                 {
+                  isgood=isgood+":::"+s.substring(j,j+nwords*swords)+"===";
+                  result.add(pr,j);
+                  pr++;
+                 }
+               }
+              }
+            }
+
+         return(result);
+     }
+ }
+
+
+ 
+
+================================================================================================================================================
+
+43. Multiply Strings 
+
+public class Solution {
+    public String multiply(String num1, String num2) {
+        
+        String r="0",r2;
+        
+        int i,j,k,x;
+        
+        for (i=0;i<num1.length();i++)
+         {
+          for (j=0;j<num2.length();j++)
+           {
+            x=(num1.charAt(num1.length()-i-1)-'0')*(num2.charAt(num2.length()-j-1)-'0');
+            String st="";
+            if (x/10>0) st=st+(char)('0'+x/10);
+            st=st+(char)('0'+x%10);
+            r2=r.substring(r.length()-i-j);
+            r=adds(r.substring(0,r.length()-i-j),st);
+            r=r+r2;
+           }          
+         }
+        while ((r.charAt(0)=='0') && (r.length()>1))
+         {
+          r=r.substring(1);
+         }
+        return(r);
+    }
+    
+    public String adds(String num1, String num2)
+    {
+        int i,x,togo=0;
+        String res="";
+        String s,l;
+        if (num2.length() > num1.length())
+         {
+          s=num1;
+          l=num2;
+         }
+        else
+         {
+          s=num2;
+          l=num1;
+         }
+        for (i=0;i<l.length();i++)
+        {
+         if (i<s.length())
+          {
+           x=s.charAt(s.length()-i-1)-'0'+l.charAt(l.length()-i-1)-'0'+togo;
+           togo=x/10;
+           res=(char)('0'+x%10)+res;
+          }
+         else
+          {
+           if (togo>0)
+            {
+             x=l.charAt(l.length()-i-1)-'0'+togo;
+             togo=x/10;
+             res=(char)('0'+x%10)+res;
+            }
+           else
+            {
+             res=l.substring(0,l.length()-i)+res;
+             break;  
+            }
+            
+          }
+        }
+        if (togo==1) res="1"+res;
+        return(res);
+    }
+    
+}
+
+================================================================================================================================================
+
+48. Rotate Image 
+
+public  class Solution {
+    public  void rotate(int[][] matrix) {
+
+
+
+        int i=0;
+        int j=0;
+        int size;
+
+        size=matrix.length;
+
+        int[][] m=new int[size][size];
+
+
+        for (i=0;i<size;i++)
+        {
+            for (j=0;j<size;j++)
+            {
+                m[j][size-i-1]=matrix[i][j];
+            }
+        }
+
+        for (i=0;i<size;i++)
+        {
+            for (j=0;j<size;j++)
+            {
+                matrix[i][j]=m[i][j];
+
+
+            }
+        }
+
+    }
+}
+
+-------------------------------------------------------------------------------
+
+void rotate(int** matrix, int matrixRowSize, int matrixColSize) {
+    
+    int i=0;
+    int j=0;
+    
+    int m[matrixRowSize][matrixColSize];
+    
+    for (i=0;i<matrixRowSize;i++)
+    {
+        for (j=0;j<matrixColSize;j++)
+        {
+            m[j][matrixColSize-i-1]=matrix[i][j];
+        }
+    }
+
+    for (i=0;i<matrixRowSize;i++)
+    {
+        for (j=0;j<matrixColSize;j++)
+        {
+            matrix[i][j]=m[i][j];
+        }
+    }
+}    
+
+================================================================================================================================================
+
 118. Pascal's Triangle 
 
 public class Solution {
@@ -358,7 +813,48 @@ public class Solution {
         return (false);
     }
 }
+==============================================================================================================================================-=
 
+322. Coin Change
+
+public class Solution {
+    public int coinChange(int[] coins, int amount) {
+        int n=0,v=0,tmp,i,j;
+        for (i=0;i<coins.length-1;i++)
+         {
+          for (j=0;j<coins.length-1-i;j++)
+           {
+            if (coins[j+1]>coins[j])
+             {
+              tmp=coins[j];
+              coins[j]=coins[j+1];
+              coins[j+1]=tmp;
+             }
+           }
+         } 
+    return (calcChange(coins, amount, 0));   
+    }
+    
+int calcChange(int coins[], int amount, int start)
+{
+ int i,r=-1,min=-1;    
+ if (amount==0) return (0);
+ if (amount<coins[coins.length-1]) return (-1);
+ for (i=start;i<=coins.length-1;i++)
+  {
+   if (amount==coins[i]) return(1);  
+  }
+ for (i=start;i<=coins.length-1;i++)
+  {
+   if (amount>coins[i])
+    {
+     if (((min==-1) || (min>((amount-coins[i])/coins[i])))) r=calcChange(coins, amount-coins[i],i);
+     if ((r!=-1) && ((min==-1) || (min>r+1))) min = r+1;
+    }
+  }
+  return(min);    
+ }
+}
 ================================================================================================================================================
 
 336. Palindrome Pairs
