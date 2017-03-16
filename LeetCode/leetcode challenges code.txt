@@ -1309,3 +1309,42 @@ int findMinDiff(TreeNode root, int n)
 
 
 ================================================================================================================================================
+
+541. Reverse String II 
+
+
+char* reverseStr(char* s, int k) {
+ int i=0;
+ bool invert=true;
+ 
+ while (i+k<strlen(s))
+  {
+   if (invert)
+    {
+     revertK(s+i,k);
+     invert=false;
+    }
+   else
+    invert=true;
+   i=i+k;
+  }      
+ if (invert) revertK(s+i,strlen(s)-i); 
+ return(s);
+}
+
+void revertK (char* s, int k)
+{
+ int i=0;
+ char c;
+ 
+ while (i<k-i-1)
+  {
+   c=s[i];
+   s[i]=s[k-i-1];
+   s[k-i-1]=c;
+   i++;
+  }
+}
+
+
+================================================================================================================================================
