@@ -1,5 +1,100 @@
 ================================================================================================================================================
 
+217. Contains Duplicate  
+
+public class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        
+       Map<Integer, Integer> ns = new HashMap<>();
+       
+       int i;
+       
+       for (i=0; i< nums.length; i++)
+        {
+         if (ns.containsKey(nums[i]))
+          return (true);
+         else
+          ns.put(nums[i],i);
+        }
+        return(false);
+    }
+}
+
+
+================================================================================================================================================
+
+231. Power of Two 
+
+public class Solution {
+    public boolean isPowerOfTwo(int n) {
+        int x,c=0;
+        
+        for (x=1;(x>0)&&(n>0);x=x<<1)
+        {
+         if ((n&x)!=0) c++;
+         if (c==2) return (false);
+        }
+        return (c==1) ? true : false;  
+        
+/* Solution using hashmap */        
+        
+/* Map<Integer,Integer> power2 = new HashMap<>();  
+int x=1;
+while ( (x>0) && (!power2.containsKey(n)) )
+ {
+  power2.put(x,x);
+  x=x<<1;
+ }
+return(power2.containsKey(n)); */
+        
+    }
+}
+
+================================================================================================================================================
+
+283. Move Zeroes 
+
+void moveZeroes(int* nums, int numsSize) {
+    
+    int i,j;
+    
+    i=0;
+    j=0;
+    
+    while (j<numsSize)
+    {
+        if (nums[j]==0)
+         {
+          j++;
+         }
+        else
+         {
+          if (i!=j) nums[i]=nums[j];        
+          i++;
+          j++;
+         }
+    }
+    for (;i<numsSize;i++) nums[i]=0;
+    return;
+}
+
+
+================================================================================================================================================
+
+292. Nim Game
+
+public class Solution {
+    public boolean canWinNim(int n) {
+        if (n>0)
+         {
+          if (n%4!=0) return (true);
+         }
+        return (false);
+    }
+}
+
+================================================================================================================================================
+
 336. Palindrome Pairs
 
 public class Solution {
