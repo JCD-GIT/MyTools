@@ -1,5 +1,7 @@
 Short description of each folder:
 
+FastBackup - C# code to backup only new files.
+FindRepeatedFiles - Java code to search for repeated files in a folder.
 LeetCode - Java and C code solution for some problems in website.
 LetTheMusicPlay - Program in Java to handle music files.
 MachineLearningExperience - Code in C and R and project documentation about a Text language identification experiment.
