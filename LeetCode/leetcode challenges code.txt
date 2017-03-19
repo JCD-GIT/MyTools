@@ -1076,6 +1076,78 @@ public class Solution {
 
 ================================================================================================================================================
 
+394. Decode String
+
+public class Solution {
+    public String decodeString(String s) {
+        int i=0,k;
+        char c;
+        int rep=0;
+        String strtotal="";
+        String str="";
+        String todecode="";
+        boolean strb=false;
+        while (i<s.length())
+         {
+          c=s.charAt(i);
+          i++;
+          if (c==']')
+           {
+            strb=false;
+            for (k=0;k<rep;k++) strtotal=strtotal+str;
+            rep=0;
+            str="";
+           }
+          else
+           if (c=='[')
+            {
+             strb=true; 
+             str="";
+            } 
+           else
+            {
+             if ((c<'0') || (c>'9') && (strb))
+              {
+               str=str+c;   
+              }
+             if ((c>='0') && (c<='9') && (strb)) 
+              {
+               todecode=todecode+c;
+               int j=1;  
+               boolean firsttime=true;
+               while (j>0)
+                {
+                 c=s.charAt(i);
+                 i++;
+                 if (c=='[')
+                  {
+                   if (firsttime)
+                    firsttime=false;
+                   else
+                    j++;
+                  }
+                 if (c==']') j--;
+                 todecode=todecode+c;
+                }
+               str=str+decodeString(todecode); 
+               todecode="";
+              }
+             if ((c>='0') && (c<='9') && (!strb)) 
+              {
+               rep=rep*10+c-'0';   
+              }
+             if ((c<'0') || (c>'9') && (!strb))
+              {
+               strtotal=strtotal+c;   
+              }
+            }
+         }
+        return(strtotal); 
+    }
+}
+
+================================================================================================================================================
+
 404. Sum of Left Leaves 
 
 /**
