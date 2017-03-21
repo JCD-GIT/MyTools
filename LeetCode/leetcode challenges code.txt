@@ -1441,6 +1441,71 @@ int findMinDiff(TreeNode root, int n)
  }
 }
 
+================================================================================================================================================
+
+535. Encode and Decode TinyURL 
+
+public class Codec {
+
+Map<String, String> urls = new HashMap<>();  
+char max=126; 
+char min=33;  
+
+
+    // Encodes a URL to a shortened URL.
+    public String encode(String longUrl) {
+        
+        if (urls.containsKey(longUrl))
+         return(urls.get(longUrl));
+        else
+         {
+          Random rand = new Random();    
+          String str="xxx";
+          while (str.equals("xxx"))
+           {
+            str="http://tinyurl.com/";
+            for (int i=0;i<6;i++)
+             {
+              str=str+(char)(min+rand.nextInt(max-min+1));     
+             }
+            if (urls.containsValue(str)) str="xxx";
+           }
+          urls.put(longUrl,str);
+          System.out.println(str);
+          return(str);
+         }
+    }
+
+    // Decodes a shortened URL to its original URL.
+    public String decode(String shortUrl) {
+        if (!urls.containsValue(shortUrl))
+         return("");
+        else
+         {
+          for(Map.Entry entry: urls.entrySet())
+           {
+            if(shortUrl.equals(entry.getValue()))
+             {
+              return(""+entry.getKey());
+
+             }
+           }
+         }
+         return("");
+    }
+        
+
+// Your Codec object will be instantiated and called as such:
+// Codec codec = new Codec();
+// codec.decode(codec.encode(url));
+
+
+// Your Codec object will be instantiated and called as such:
+// Codec codec = new Codec();
+// codec.decode(codec.encode(url));
+
+
+}
 
 ================================================================================================================================================
 
