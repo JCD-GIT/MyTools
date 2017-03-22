@@ -29,6 +29,71 @@ public class Solution {
 
 ================================================================================================================================================
 
+5. Longest Palindromic Substring
+
+public class Solution {
+    public String longestPalindrome(String s) {
+
+ 
+   int i,j,k,kk,jj,v;
+   int imax=0;
+   int jmax=1;
+   
+   if (s.length()==0) return(s);
+   
+ 
+  
+   for (i=0;i<s.length();i++) /* Looking each char in the string */
+    {
+     k=i;
+     j=jmax;
+     for (v=0;v<=1;v++) /* Twice, for even and odd size palindromes*/
+      {
+       j++;
+       if ((k-j/2+j<=s.length()) && (k-j/2>=0)) /* Checking if verification is not outside of the string */
+        {
+         if (ispal (s.substring(k-j/2,k-j/2+j)))  /* If is palindrome ... */
+          { 
+           kk=k-j/2;
+           jj=j;
+           while (s.charAt(kk)==s.charAt(kk+jj-1)) /* Try to see if adding one more char on each side is still palindrome */
+            {
+             kk--;
+             jj++;
+             jj++;
+             if ((kk<0) || (kk+jj>s.length())) break; /* If not inside string, stop */
+            }
+           kk++;  /* Discard last two chars that did not work */
+           jj--;
+           jj--;
+           imax=kk;  /* New max values */
+           jmax=jj;
+           j=jmax;
+          }
+        }
+      } 
+    }
+   return (s.substring(imax,imax+jmax)); /* Return the longest string */
+}
+        
+
+
+  boolean ispal (String s)  /* Check if string is palindrome */
+    {
+     int i;    
+     for (i=0;i<s.length()-i-1;i++)
+      {
+       if (s.charAt(i)!=s.charAt(s.length()-i-1)) return (false);      
+      }
+     return (true); 
+    }  
+    
+
+    
+}
+
+================================================================================================================================================
+
 7. Reverse Integer 
 
 public class Solution {
