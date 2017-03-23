@@ -1088,6 +1088,32 @@ boolean isPalindrome (String s)
 
 ================================================================================================================================================
 
+367. Valid Perfect Square 
+
+public class Solution {
+    public boolean isPerfectSquare(int num) {
+
+        if (num<2) return(true);
+        
+        int min = 0;
+        int max = num;
+        int t;
+        
+        while (max-min>1)
+         {
+          t=(min+max)/2;
+          if ((num/t==t) && (num%t==0)) return(true);
+          if (t>num/t) 
+           max=t;
+          else
+           min=t;
+         }
+        return(false);
+    }
+}
+
+================================================================================================================================================
+
 374. Guess Number Higher or Lower   
 
 /* The guess API is defined in the parent class GuessGame.
