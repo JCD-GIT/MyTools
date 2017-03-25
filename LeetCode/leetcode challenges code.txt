@@ -812,6 +812,69 @@ public class MinStack {
 
 ================================================================================================================================================
 
+207. Course Schedule
+
+public class Solution {
+    
+    Map<Integer, List<Integer>> cursos = new HashMap<>();
+    
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+
+        int i,j,k,x;
+        
+        for (i=0;i<prerequisites.length;i++)        /* Creating hash table with courses with pre requisites */
+         {
+          if (!cursos.containsKey(prerequisites[i][0]))
+            {
+             List<Integer> temp = new ArrayList<Integer>();
+             temp.add(prerequisites[i][1]);
+             cursos.put(prerequisites[i][0],temp);
+            }
+           else
+            {
+             List<Integer> temp =cursos.get(prerequisites[i][0]);
+             temp.add(prerequisites[i][1]);
+             cursos.put(prerequisites[i][0],temp);
+            }
+         }
+        int cstatus []=new int[numCourses];       /* Verify if each course pass in pre req test */
+        for (i=0;i<numCourses;i++) cstatus[i]=0;
+        for (i=0;i<numCourses;i++)
+         {
+          if (cstatus[i]==0)
+           {
+            if (cursos.containsKey(i))
+             {
+              if (!passC(i,cstatus)) return(false);     
+             }
+           }
+         }
+        return(true); 
+    }
+
+    Boolean passC(int n, int[] status)    
+     {
+      if (status[n]==1) return(false);
+      status[n]=1;
+
+      if (cursos.containsKey(n))   /* Not in has table, no pre, ok */
+       {
+        int i;
+        List<Integer> temp = new ArrayList<Integer>();
+        temp=cursos.get(n);
+        for (i=0;i<temp.size();i++)  /* Verify pre of pre */
+         {
+          if (!passC(temp.get(i),status)) return(false);  /* If any not ok, return not ok (false) */
+         }  
+       }
+      status[n]=2;   /* if all good, ok, true */
+      return(true);
+     }
+    
+}
+
+================================================================================================================================================
+
 217. Contains Duplicate  
 
 public class Solution {
@@ -831,7 +894,6 @@ public class Solution {
         return(false);
     }
 }
-
 
 ================================================================================================================================================
 
