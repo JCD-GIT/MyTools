@@ -897,6 +897,58 @@ public class Solution {
 
 ================================================================================================================================================
 
+221. Maximal Square
+
+public class Solution {
+    public int maximalSquare(char[][] matrix) {
+        
+    int i,ii,j,jj,cnt,max=0;
+    boolean isbox,loopend;
+    
+    for (i=0;i<matrix.length;i++)       /* For every line */
+     {
+      cnt=0;     
+      for (j=0;j<matrix[i].length;j++)   /* and every row */
+       {
+        if (matrix[i][j]=='0')           /* When 0, reset word count */  
+         cnt=0;
+        else 
+         {
+          cnt++; 
+          if ((cnt>max) && (cnt<=i+1))    /* When N '1s' are found check if there is a box above */
+           {
+            isbox=true;
+            ii=0;
+            jj=0;
+            loopend=false;
+            while ((isbox) && (!loopend))
+             {
+              if (matrix[i-ii][j-jj]=='0') 
+               isbox=false;
+              jj++;
+              if (jj==cnt)
+               {
+                jj=0;   
+                ii++;
+                if (ii==cnt) loopend=true;
+               }
+             }
+            if (isbox)                     /* If  box update Max */
+             {
+              max=cnt;
+             }
+            else                           /* If not reduce counter and continues */
+             cnt--;
+           }
+         }
+       }
+     }
+    return(max*max); 
+   }
+}
+
+================================================================================================================================================
+
 231. Power of Two 
 
 public class Solution {
