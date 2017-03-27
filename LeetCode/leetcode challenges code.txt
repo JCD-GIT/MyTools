@@ -546,6 +546,36 @@ void rotate(int** matrix, int matrixRowSize, int matrixColSize) {
 
 ================================================================================================================================================
 
+69. Sqrt(x)
+
+public class Solution{
+    
+    public int mySqrt(int x) {
+        
+        if (x==0) return(0);
+        if (x<4) return(1);
+        
+        long i,max,min;
+        
+        min=0;
+        max=x;
+        i=(min+max)/2;
+
+     while (max-min>1)
+        {
+         i=(min+max)/2;
+         if (i*i==x) return((int)i);
+         if (i*i>x) 
+          max=i;
+         else
+          min=i;
+        }    
+        return((int)min);
+    }
+} 
+
+================================================================================================================================================
+
 118. Pascal's Triangle 
 
 public class Solution {
