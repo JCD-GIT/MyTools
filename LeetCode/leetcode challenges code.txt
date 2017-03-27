@@ -1369,6 +1369,54 @@ public class Solution {
 
 ================================================================================================================================================
 
+400. Nth Digit 
+
+public class Solution {
+    public int findNthDigit(int n) {
+
+    long i,pos;
+    long dig;
+    long ndigit=0;
+    long pr_ndigit=0;
+    long ldigits;
+    
+    long x=n;
+    
+    x++; /* Including zero */
+    
+    dig=0;
+    ldigits=0;
+    while (ndigit<x)    /* Calculating how many digits */
+     {
+      pr_ndigit=ndigit;      
+      dig++;
+      long tmp=(long)Math.pow(10,dig);
+      ndigit=tmp*dig-ldigits;
+      ldigits=ldigits+tmp;
+     }
+    ndigit=pr_ndigit;
+    pos=ndigit-dig+1;
+    
+    if (pos<=0) pos=1;      /* Pointing to last number with 1 digit less */
+    i=(long)Math.pow(10,dig-1)-1;
+
+    i=i+(x-pos)/dig;             /* Find what nummer has the nth digit */
+    pos=(x)-(x-pos)%dig; 
+    pos=pos+dig-1;
+
+    while (pos!=x)          /* Getting digit */
+     {
+      i=i/10;
+      pos--;
+     }
+    i=i%10;
+    
+   return((int)i);
+  }
+}
+
+================================================================================================================================================
+
 404. Sum of Left Leaves 
 
 /**
