@@ -1,12 +1,10 @@
 
-import java.awt.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.*;
-import java.util.Objects;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 import com.sun.media.jfxmedia.MediaPlayer;
 import javafx.scene.media.Media;
@@ -168,7 +166,7 @@ class Arquivo {
           }
     }
 
-    public void comparefiles(Arquivo mus, int n, int op) throws FileNotFoundException {
+    public void comparefiles_old(Arquivo mus, int n, int op) throws FileNotFoundException {
         int i, j;
         File f1, f2;
         boolean flag1sttime;
@@ -231,6 +229,90 @@ class Arquivo {
         return;
     }
 
+    public void comparefiles(Arquivo mus, int n, int op) throws FileNotFoundException {
+        int i, j,k;
+        File f1, f2;
+        boolean flag1sttime=false;
+
+
+
+        Map<String, List<Integer>> findR = new HashMap<>();
+
+        for (i = 0; i < n; i++)
+        {
+            /*System.out.print(".");*/
+            f1 = AllFiles[i];
+            String strk = "";
+            if (op == 1) strk = f1.getName();
+            if (op == 2) strk = strk + f1.length();
+            if (op == 3) strk = f1.getName() + f1.length();
+
+            if (findR.containsKey(strk))
+            {
+                List<Integer> tmp = findR.get(strk);
+                tmp.add(i);
+                findR.put(strk, tmp);
+            }
+            else
+            {
+                List<Integer> tmp = new ArrayList<>();
+                tmp.add(i);
+                findR.put(strk, tmp);
+            }
+        }
+
+
+        Set<String> keys = findR.keySet();
+        for(String strk: keys)
+        {
+                List<Integer> tmp = findR.get(strk);
+                if (tmp.size() > 1)
+                {
+                    if (op==1)
+                    {
+                        System.out.println("\n-----------------------------------------------------------------");
+                        for (j = 0; j < tmp.size(); j++)
+                        {
+                            f1 = AllFiles[tmp.get(j)];
+                            System.out.println(f1.getAbsolutePath());
+                        }
+                    }
+                    else
+                    {
+                        for (j=0; j < tmp.size(); j++)
+                        {
+                            flag1sttime=true;
+                            if (tmp.get(j)>=0)
+                            {
+                                for (k = j+1; k < tmp.size(); k++)
+                                {
+                                    if (tmp.get(k)>=0)
+                                    {
+                                        if (AreTheSame(AllFiles[tmp.get(j)], AllFiles[tmp.get(k)]))
+                                        {
+                                            if (flag1sttime)
+                                            {
+                                                System.out.println("\n-----------------------------------------------------------------");
+                                                f1 = AllFiles[tmp.get(j)];
+                                                System.out.println(f1.getAbsolutePath());
+                                            }
+                                            flag1sttime=false;
+                                            f1 = AllFiles[tmp.get(k)];
+                                            System.out.println(f1.getAbsolutePath());
+                                            tmp.set(k, -1);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+
+                    }
+                }
+
+       }
+       return;
+    }
 
 
 }

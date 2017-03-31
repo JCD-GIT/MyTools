@@ -20,7 +20,7 @@ java Main c:\music -cn
 
 
 
-To find files with same content (this option takes more time):
+To find files with same content:
 
 java Main c:\music -c
 
