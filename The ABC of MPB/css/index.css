@@ -90,17 +90,20 @@ color:yellow;
 }
 
 #A a{
+	
 	text-decoration:none;
+	color: green;
 }
 
 #A:hover {
-	background-color: #EFEFEF;
-	cursor: crosshair;
+	
+	background-color: yellow;
 }
+
 
 #A p{
 	margin: -0px;
-	color:grey;
+	
 }
 
 #B{
@@ -193,17 +196,20 @@ color:yellow;
 }
 
 #D a{
+	
 	text-decoration:none;
+	color: green;
 }
 
 #D:hover {
-	background-color: #EFEFEF;
-	cursor: crosshair;
+	
+	background-color: yellow;
 }
+
 
 #D p{
 	margin: -0px;
-	color:grey;
+	
 }
 
 
