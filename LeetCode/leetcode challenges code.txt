@@ -185,24 +185,32 @@ public class Solution {
         
     String parse="";
     
-    String open="[{("";
+    String open="[{(";
+    String close="]})";
     int i,size;
     
-    size=s.length;
+    size=s.length();
     
     for (i=0;i<size;i++)
     {
-     if (open.indexOf(s.substring(i,i))
+     if (open.contains(""+s.charAt(i)))
       {
-          parse=parse+s.substring(i,i);
+          parse=parse+s.charAt(i);
       }
       else
       {
-          if is(s.substring(i,i))
+          if (close.contains(""+s.charAt(i)))
+           {
+            if (parse.length()==0) return(false);   
+            if ((close.indexOf(s.charAt(i)))!=open.indexOf(parse.charAt(parse.length()-1))) return(false);
+            parse=parse.substring(0,parse.length()-1);
+           }
       }
     }
  
-    }
+    if (parse.length()==0) return(true);
+    return(false);
+ }
 }
 
 ----------------------------------------------------------------
