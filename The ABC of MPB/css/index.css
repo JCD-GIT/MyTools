@@ -120,19 +120,21 @@ color:yellow;
 }
 
 #B a{
+	
 	text-decoration:none;
+	color: green;
 }
 
 #B:hover {
-	background-color: #EFEFEF;
-	cursor: crosshair;
+	
+	background-color: yellow;
 }
+
 
 #B p{
 	margin: -0px;
-	color:grey;
+	
 }
-
 
 
 #C{
@@ -167,11 +169,7 @@ color:yellow;
 	
 }
 
-#C a{
-	
-	text-decoration:none;
-	color: green;
-}
+
 
 #C:hover {
 	
@@ -374,16 +372,15 @@ color:yellow;
 
 #J a{
 	text-decoration:none;
+	color:green;
 }
 
 #J:hover {
-	background-color: #EFEFEF;
-	cursor: crosshair;
+	background-color: yellow;
 }
 
 #J p{
 	margin: -0px;
-	color:grey;
 }
 
 
@@ -402,17 +399,17 @@ color:yellow;
 
 #K a{
 	text-decoration:none;
+	color:green;
 }
 
 #K:hover {
-	background-color: #EFEFEF;
-	cursor: crosshair;
+	background-color: yellow;
 }
 
 #K p{
 	margin: -0px;
-	color:grey;
 }
+
 
 
 #L{
@@ -488,17 +485,20 @@ color:yellow;
 }
 
 #N a{
+	
 	text-decoration:none;
+	color: green;
 }
 
 #N:hover {
-	background-color: #EFEFEF;
-	cursor: crosshair;
+	
+	background-color: yellow;
+	
 }
+
 
 #N p{
 	margin: -0px;
-	color:grey;
 }
 
 
@@ -663,18 +663,22 @@ color:yellow;
 }
 
 #T a{
+	
 	text-decoration:none;
+	color: green;
 }
 
 #T:hover {
-	background-color: #EFEFEF;
-	cursor: crosshair;
+	
+	background-color: yellow;
+	
 }
+
 
 #T p{
 	margin: -0px;
-	color:grey;
 }
+
 
 
 #U{
@@ -719,17 +723,20 @@ color:yellow;
 }
 
 #V a{
+	
 	text-decoration:none;
+	color: green;
 }
 
 #V:hover {
-	background-color: #EFEFEF;
-	cursor: crosshair;
+	
+	background-color: yellow;
+	
 }
+
 
 #V p{
 	margin: -0px;
-	color:grey;
 }
 
 
@@ -803,17 +810,20 @@ color:yellow;
 }
 
 #W a{
+	
 	text-decoration:none;
+	color: green;
 }
 
 #W:hover {
-	background-color: #EFEFEF;
-	cursor: crosshair;
+	
+	background-color: yellow;
+	
 }
+
 
 #W p{
 	margin: -0px;
-	color:grey;
 }
 
 
@@ -840,7 +850,6 @@ color:yellow;
 #Z:hover {
 	
 	background-color: yellow;
-	
 	
 }
 
