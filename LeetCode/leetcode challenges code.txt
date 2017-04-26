@@ -994,6 +994,54 @@ public class Solution {
 
 ================================================================================================================================================
 
+219. Contains Duplicate II 
+
+
+public class Solution {
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        
+        Map<Integer, Integer> v = new HashMap<>();
+        
+        int i,x;
+        
+        for (i=0;i<nums.length;i++)
+         {
+          if (v.containsKey(nums[i]))
+           {
+            x=v.get(nums[i]);
+            if ((i-x)<=k) return(true);
+            v.put(nums[i],i);
+           }
+          else
+           v.put(nums[i],i);
+         }
+        return(false); 
+    }
+}
+
+================================================================================================================================================
+
+public class Solution {
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        
+        Map<Integer, Integer> v = new HashMap<>();
+        
+        int i,x;
+        
+        for (i=0;i<nums.length;i++)
+         {
+          if (v.containsKey(nums[i]))
+           {
+            x=v.get(nums[i]);
+            if ((i-x)<=k) return(true);
+            v.put(nums[i],i);
+           }
+          else
+           v.put(nums[i],i);
+         }
+        return(false); 
+    }
+}
 221. Maximal Square
 
 public class Solution {
@@ -1071,114 +1119,6 @@ while ( (x>0) && (!power2.containsKey(n)) )
 return(power2.containsKey(n)); */
         
     }
-}
-
-
-================================================================================================================================================
-
-263. Ugly Number 
-
-public class Solution {
-    public boolean isUgly(int num) {
-        
-    int primes[]={2,3,5};
-    int i=0;
-    int x=num;
-    
-    if (x==0) return(false);
-    for (i=0;i<=2;i++) while (x%primes[i]==0) x=x/primes[i];
-
-    return (x==1  ? true : false);
-        
-    }
-}
-
-================================================================================================================================================
-
-264. Ugly Number II 
-
-public class Solution {
-    public int nthUglyNumber(int n) {
-    
-    int ugly[]=new int[1700];  
-    
-    int i=1; 
-    int m2=2;
-    int m3=3;
-    int m5=5;
-    
-    int i2=1;
-    int i3=1;
-    int i5=1;
-    
-    ugly[i]=1;
-    
-    while (i!=n)
-     {
-      i++;
- /*     System.out.println(m2+" "+m3+" "+m5+" "+i+" "); */
-      if ((m2<m3) && (m2<m5))
-       {
-        ugly[i]=m2;
-        i2++;
-        m2=2*ugly[i2];
-       }
-      else 
-       if ((m3<m2) && (m3<m5))
-        {
-         ugly[i]=m3;
-         i3++;
-         m3=3*ugly[i3];
-        }
-       else
-        if ((m5<m2) && (m5<m3))
-         {
-          ugly[i]=m5;
-          i5++;
-          m5=5*ugly[i5];
-         }
-        else
-         if ((m5==m2) && (m5<m3))
-          {
-           ugly[i]=m5;
-           i2++;
-           m2=2*ugly[i2];
-           i5++;
-           m5=5*ugly[i5];
-          }
-         else
-          if ((m3==m2) && (m3<m5))
-           {
-            ugly[i]=m3; 
-            i2++;
-            m2=2*ugly[i2];
-            i3++;
-            m3=3*ugly[i3];
-           }
-          else  
-           if ((m3==m5) && (m3<m2))
-            {
-             ugly[i]=m3; 
-             i5++;
-             m5=5*ugly[i5];
-             i3++;
-             m3=3*ugly[i3];
-            }
-           else
-            if ((m3==m5) && (m3==m2))
-             {
-              ugly[i]=m3; 
-              i2++;
-              m2=2*ugly[i2];
-              i3++;
-              m3=3*ugly[i3];
-              i5++;
-              m5=5*ugly[i5];
-             }
-       
-     }
-  return(ugly[n]);
-  }     
 }
 
 ================================================================================================================================================
@@ -2019,5 +1959,71 @@ void revertK (char* s, int k)
   }
 }
 
+
+================================================================================================================================================
+
+
+542. 01 Matrix
+
+public class Solution {
+    public int[][] updateMatrix(int[][] matrix) {
+        
+        int i,j,search=0;
+        int up,down,left,right;
+        
+        boolean redo=true;
+        
+        while (redo)
+         {
+          redo=false;
+          for (i=0;i<matrix.length;i++)
+           {
+            for (j=0;j<matrix[i].length;j++)
+             {
+              if (matrix[i][j]==search)
+               {
+                if (vup(matrix,i,j)==1)     matrix[i-1][j]=search-1;
+                if (vdown(matrix,i,j)==1)   matrix[i+1][j]=search-1;
+                if (vleft(matrix,i,j)==1)   matrix[i][j-1]=search-1;
+                if (vright(matrix,i,j)==1)  matrix[i][j+1]=search-1;
+               }
+              else
+               if (matrix[i][j]==1) redo=true;
+             }
+           }
+          search--;
+         }
+        for (i=0;i<matrix.length;i++)
+         for (j=0;j<matrix[i].length;j++)
+          matrix[i][j]=-matrix[i][j];
+        return(matrix);  
+    }
+    
+int vup (int [][] m, int i, int j)
+{
+ if (i==0) return (11000);
+ return (m[i-1][j]);
+}
+
+
+int vdown (int [][] m, int i, int j)
+{
+ if (i==m.length-1) return (11000);
+ return (m[i+1][j]);
+}
+
+int vleft (int [][] m, int i, int j)
+{
+ if (j==0) return (11000);
+ return (m[i][j-1]);
+}
+
+int vright (int [][] m, int i, int j)
+{
+ if (j==m[i].length-1) return (11000);
+ return (m[i][j+1]);
+}
+
+}
 
 ================================================================================================================================================
