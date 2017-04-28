@@ -343,16 +343,15 @@ color:yellow;
 
 #I a{
 	text-decoration:none;
+	color:green;
 }
 
 #I:hover {
-	background-color: #EFEFEF;
-	cursor: crosshair;
+	background-color: yellow;
 }
 
 #I p{
 	margin: -0px;
-	color:grey;
 }
 
 
@@ -426,17 +425,20 @@ color:yellow;
 }
 
 #L a{
+	
 	text-decoration:none;
+	color: green;
 }
 
 #L:hover {
-	background-color: #EFEFEF;
-	cursor: crosshair;
+	
+	background-color: yellow;
+	
 }
+
 
 #L p{
 	margin: -0px;
-	color:grey;
 }
 
 
@@ -634,17 +636,20 @@ color:yellow;
 }
 
 #S a{
+	
 	text-decoration:none;
+	color: green;
 }
 
 #S:hover {
-	background-color: #EFEFEF;
-	cursor: crosshair;
+	
+	background-color: yellow;
+	
 }
+
 
 #S p{
 	margin: -0px;
-	color:grey;
 }
 
 
