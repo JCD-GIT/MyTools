@@ -315,16 +315,15 @@ color:yellow;
 
 #H a{
 	text-decoration:none;
+	color:green;
 }
 
 #H:hover {
-	background-color: #EFEFEF;
-	cursor: crosshair;
+	background-color: yellow;
 }
 
 #H p{
 	margin: -0px;
-	color:grey;
 }
 
 
