@@ -517,19 +517,21 @@ color:yellow;
 }
 
 #O a{
+	
 	text-decoration:none;
+	color: green;
 }
 
 #O:hover {
-	background-color: #EFEFEF;
-	cursor: crosshair;
+	
+	background-color: yellow;
+	
 }
+
 
 #O p{
 	margin: -0px;
-	color:grey;
 }
-
 
 #P{
 	border: solid 5px #566778;
