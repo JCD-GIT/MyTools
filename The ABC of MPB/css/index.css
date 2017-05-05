@@ -760,17 +760,20 @@ color:yellow;
 }
 
 #X a{
+	
 	text-decoration:none;
+	color: green;
 }
 
 #X:hover {
-	background-color: #EFEFEF;
-	cursor: crosshair;
+	
+	background-color: yellow;
+	
 }
+
 
 #X p{
 	margin: -0px;
-	color:grey;
 }
 
 
