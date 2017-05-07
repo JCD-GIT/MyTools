@@ -10,9 +10,14 @@ namespace ccolor
 
             Random rnd = new Random();
             int bcor = rnd.Next(15);
-            int fcor = rnd.Next(7);
+            int fcor=bcor;
 
-            if (bcor <= 7) fcor = fcor + 8;
+            while (fcor == bcor) fcor = rnd.Next(15);
+
+
+/*          int fcor = rnd.Next(7);
+
+            if (bcor <= 7) fcor = fcor + 8; */
 
             Console.BackgroundColor = (ConsoleColor)bcor;
             Console.ForegroundColor = (ConsoleColor)fcor;
