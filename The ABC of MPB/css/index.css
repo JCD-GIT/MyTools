@@ -578,19 +578,21 @@ color:yellow;
 }
 
 #Q a{
+	
 	text-decoration:none;
+	color: green;
 }
 
 #Q:hover {
-	background-color: #EFEFEF;
-	cursor: crosshair;
+	
+	background-color: yellow;
+	
 }
+
 
 #Q p{
 	margin: -0px;
-	color:grey;
 }
-
 
 #R{
 	border: solid 5px #566778;
@@ -701,17 +703,20 @@ color:yellow;
 }
 
 #U a{
+	
 	text-decoration:none;
+	color: green;
 }
 
 #U:hover {
-	background-color: #EFEFEF;
-	cursor: crosshair;
+	
+	background-color: yellow;
+	
 }
+
 
 #U p{
 	margin: -0px;
-	color:grey;
 }
 
 
