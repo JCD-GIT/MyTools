@@ -1585,7 +1585,64 @@ public class Solution {
 }
 
 ================================================================================================================================================
+401. Binary Watch
 
+public class Solution {
+    public List<String> readBinaryWatch(int num) {
+         
+        Map<Integer, List<Integer>> times = new HashMap<>();
+        
+        List<String> r= new ArrayList<>(); 
+        
+        int i,j,x,c;
+        
+        /* Create hashtable with number of bits X decimal number */
+        for (i=0;i<60;i++)
+         {
+          x=i;
+          c=0;
+          while (x!=0)
+           {
+            c=c+(x&1);
+            x=x>>1;
+           }
+          List <Integer> temp = new ArrayList<>(); 
+          if (times.containsKey(c)) temp=times.get(c);
+          temp.add(i);
+          times.put(c,temp);
+         }
+        
+        
+        /* Find all possible case that matches num */
+        
+        for (i=0;i<4;i++)
+         for (j=0;j<6;j++)
+          {
+           if ((i+j)==num)  /* When sum == num find all possible combinations */ 
+            {
+             List <Integer> tempi = new ArrayList<>(); 
+             if (times.containsKey(i)) tempi=times.get(i);
+             List <Integer> tempj = new ArrayList<>(); 
+             if (times.containsKey(j)) tempj=times.get(j);
+             int ii,jj;
+             for (ii=0;ii<tempi.size();ii++)
+              for (jj=0;jj<tempj.size();jj++)
+               {
+                if (tempi.get(ii)<12)
+                 {
+                  String str=""+tempi.get(ii)+":";
+                  if (tempj.get(jj)<10) str=str+"0";
+                  str=str+tempj.get(jj);
+                  r.add(str);
+                 }
+               }
+            }
+          }
+        return(r);  
+          
+    }
+}
+================================================================================================================================================
 404. Sum of Left Leaves 
 
 /**
