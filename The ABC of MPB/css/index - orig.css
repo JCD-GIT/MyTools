@@ -12,15 +12,14 @@ body {
 
 header {
 	
-	border: solid 5px #566778;
+	border: solid 5px #566778;p
 	height:50px;
-	
 	
 }
 
 header h1{
 	background-color:#77AAEE;
-	color:#305682;
+	color:#0000CC;
 	text-align:center;
 	font-size:70px;
 	font-style:bold;
@@ -29,12 +28,11 @@ header h1{
 }
 
 .webmessage{
-	background-color:#305682; 
+	background-color:#0000CC; 
 	
 	border: solid 5px #566778;
 	margin: 5px auto;
 	height: 250px;
-	
     text-decoration:none;
 	
 }
@@ -53,11 +51,11 @@ color:yellow;
 }
 	
 .keys_ON{
-	background-color: #FFFFFF;
+	background-color:#FFFFFF;
 	position: fixed;
-	/* [disabled]width: 50px; */
+	width:50px;
 	text-align: center;
-	border-radius: 20px;
+	border-radius: 20px ;
 
 	
 	
@@ -82,7 +80,6 @@ color:yellow;
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 40px;
-	margin-left:0%;
 	width:100px;
 	height:100px;
 	position:fixed;
@@ -113,7 +110,6 @@ color:yellow;
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 210px;
-	margin-left: 11%;
 	width:100px;
 	height:100px;
 	position:fixed;
@@ -146,7 +142,6 @@ color:yellow;
 	float:left;
 	margin-top: 20px;
 	margin-left: 380px;
-	margin-left: 22%;
 	width:100px;
 	height:100px;
 	position:fixed;
@@ -188,7 +183,6 @@ color:yellow;
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 550px;
-	margin-left: 33%;
 	width:100px;
 	height:100px;
 	position:fixed;
@@ -221,7 +215,6 @@ color:yellow;
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 720px;
-	margin-left:44%;
 	width:100px;
 	height:100px;
 	position:fixed;
@@ -253,7 +246,6 @@ color:yellow;
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 890px;
-	margin-left: 55%;
 	width:100px;
 	height:100px;
 	position:fixed;
@@ -285,7 +277,6 @@ color:yellow;
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 1060px;
-	margin-left:66%;
 	width:100px;
 	height:100px;
 	position:fixed;
@@ -313,7 +304,6 @@ color:yellow;
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 1230px;
-	margin-left: 77%;
 	width:100px;
 	height:100px;
 	position:fixed;
@@ -341,7 +331,6 @@ color:yellow;
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 1400px;
-	margin-left:88%;
 	width:100px;
 	height:100px;
 	position:fixed;
@@ -370,7 +359,6 @@ color:yellow;
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 125px;
-	margin-left: 5.5%;
 	width:100px;
 	height:100px;
 	position:fixed;
@@ -398,7 +386,6 @@ color:yellow;
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 295px;
-	margin-left: 16.5%;
 	width:100px;
 	height:100px;
 	position:fixed;
@@ -427,7 +414,6 @@ color:yellow;
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 465px;
-	margin-left: 27.5%;
 	width:100px;
 	height:100px;
 	position:fixed;
@@ -459,7 +445,6 @@ color:yellow;
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 635px;
-	margin-left: 38.5%;
 	width:100px;
 	height:100px;
 	position:fixed;
@@ -491,7 +476,6 @@ color:yellow;
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 805px;
-	margin-left: 49.5%;
 	width:100px;
 	height:100px;
 	position:fixed;
@@ -523,7 +507,6 @@ color:yellow;
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 975px;
-	margin-left: 60.5%;
 	width:100px;
 	height:100px;
 	position:fixed;
@@ -554,7 +537,6 @@ color:yellow;
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 1145px;
-	margin-left: 71.5%;
 	width:100px;
 	height:100px;
 	position:fixed;
@@ -586,7 +568,6 @@ color:yellow;
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 1315px;
-	margin-left: 82.5%;
 	width:100px;
 	height:100px;
 	position:fixed;
@@ -617,7 +598,6 @@ color:yellow;
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 40px;
-	margin-left: 0%;
 	width:100px;
 	height:100px;
 	position:fixed;
@@ -649,13 +629,12 @@ color:yellow;
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 210px;
-	margin-left: 11%;
 	width:100px;
 	height:100px;
 	position:fixed;
 	border-radius: 100px ;
 	font-size:80px;
-    margin-top: 250px; 
+    margin-top: 250px;	
 	background-color:#FFFFFF;
 }
 
@@ -682,7 +661,6 @@ color:yellow;
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 380px;
-	margin-left: 22%;
 	width:100px;
 	height:100px;
 	position:fixed;
@@ -715,7 +693,6 @@ color:yellow;
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 550px;
-	margin-left: 33%;
 	width:100px;
 	height:100px;
 	position:fixed;
@@ -747,7 +724,6 @@ color:yellow;
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 720px;
-	margin-left: 44%;
 	width:100px;
 	height:100px;
 	position:fixed;
@@ -779,7 +755,6 @@ color:yellow;
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 890px;
-	margin-left: 55%;
 	width:100px;
 	height:100px;
 	position:fixed;
@@ -811,7 +786,6 @@ color:yellow;
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 1060px;
-	margin-left: 66%;
 	width:100px;
 	height:100px;
 	position:fixed;
@@ -840,7 +814,6 @@ color:yellow;
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 1230px;
-	margin-left: 77%;
 	width:100px;
 	height:100px;
 	position:fixed;
@@ -872,7 +845,6 @@ color:yellow;
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 1400px;
-	margin-left: 88%;
 	width:100px;
 	height:100px;
 	position:fixed;
@@ -902,180 +874,3 @@ color:yellow;
 
 
 
-
-
-
-@media (max-width : 1350px )  {
-	#container .webmessage p {  font-size: 28px; } 
-				
-}
-
-@media (max-width : 1200px ){
-	#container .webmessage p {  font-size: 25px; }
-}
-@media (max-width : 1050px ){
-	/* Windows Phone */
-	#container .webmessage p {  font-size: 45px; } 
-	#container .webmessage   {  height: 750px; }
-
-	
-	#container #A 
-	   {  margin-left: 0%;
-	      margin-top: 30px; }
-	#container #B 
-	   {  margin-left: 16.5%;
-	      margin-top: 30px; }
-	#container #C 
-	   {  margin-left: 33%;
-	      margin-top: 30px; }
-	#container #D 
-	   {  margin-left: 49.5%;
-	      margin-top: 30px; }
-	#container #E 
-	   {  margin-left: 66%;
-	      margin-top: 30px; }
-	#container #F 
-	   {  margin-left: 82.5%;
-	      margin-top: 30px; }
-	#container #G 
-	   {  margin-left: 8.25%;
-	      margin-top: 140px; }
-	#container #H 
-	   {  margin-left: 24.75%;
-	      margin-top: 140px; }
-	#container #I 
-	   {  margin-left: 57.75%;
-	      margin-top: 140px; }
-	#container #J 
-	   {  margin-left: 74.25%;
-	      margin-top: 140px; }
-	#container #K 
-	   {  margin-left: 0%;
-	      margin-top: 250px; }
-	#container #L 
-	   {  margin-left: 16.5%;
-	      margin-top: 250px; }
-	#container #M 
-	   {  margin-left: 33%;
-	      margin-top: 250px; }
-	#container #N 
-	   {  margin-left: 49.5%;
-	      margin-top: 250px; }
-	#container #O 
-	   {  margin-left: 66%;
-	      margin-top: 250px; }
-	#container #P 
-	   {  margin-left: 82.5%;
-	      margin-top: 250px; }	
-	#container #Q 
-	   {  margin-left: 8.25%;
-	      margin-top: 360px; }
-	#container #R 
-	   {  margin-left: 24.75%;
-	      margin-top: 360px; }
-	#container #S 
-	   {  margin-left: 57.75%;
-	      margin-top: 360px; }
-	#container #T 
-	   {  margin-left: 74.25%;
-	      margin-top: 360px; }
-	#container #U 
-	   {  margin-left: 0%;
-	      margin-top: 470px; }
-	#container #V 
-	   {  margin-left: 16.5%;
-	      margin-top: 470px; }
-	#container #X 
-	   {  margin-left: 33%;
-	      margin-top: 470px; }
-	#container #Y 
-	   {  margin-left: 49.5%;
-	      margin-top: 470px; }
-	#container #W 
-	   {  margin-left: 66%;
-	      margin-top: 470px; }
-	#container #Z 
-	   {  margin-left: 82.5%;
-	      margin-top: 470px; }
-}
-
-@media (max-width : 1000px ){
-	/* Fire */
-	#container .webmessage p {  font-size: 30px; } 
-	#container .webmessage   {  height: 500px; }
-	#container header {height: 70px;}
-	#container header h1 {height: 90px;}
-	}
-@media (max-width : 960px ){
-	#container .webmessage p {  font-size: 22px; }
-    #container .webmessage   {  height: 250px; }
-}
-
-@media (max-width : 750px ){
-	#container .webmessage p {  font-size: 20px; }
-	
-	
-	
-}
-
-@media (max-width : 570px ){
-	#container .webmessage p {  font-size: 18px; }
-	#container header h1 {  font-size: 60px; }
-}
-
-@media (max-width : 480px ){
-	#container .webmessage p {  font-size: 16px; }
-	#container header h1 {  font-size: 50px; }
-	
-}
-
-@media (max-width : 400px ){
-	#container .webmessage p {  font-size: 14px; }
-	#container header h1 {  font-size: 40px; }
-	
-}
-
-@media (max-width : 350px ){
-	#container .webmessage p {  font-size: 13px; }
-	#container header h1 {  font-size: 30px; }
-}
-
-@media (max-width : 300px ){
-	#container .webmessage p {  font-size: 12px; }
-}
-
-@media (max-width : 220px ){
-	#container .webmessage p {  font-size: 9px; }
-}
-/*
-@media (max-height : 1200px ){
-	#container .webmessage p {  font-size: 45px; }
-	#container .webmessage   {  height: 450px; }
-}
-
-@media (max-height : 900px ){
-	#container .webmessage p {  font-size: 35px; }
-	#container .webmessage   {  height: 300px; }
-}
-
-@media (max-height : 750px ){
-	#container .webmessage p {  font-size: 30px; }
-	#container .webmessage   {  height: 200px; }
-}
-
-@media (max-height : 650px ){
-	#container .webmessage p {  font-size: 25px; }
-	#container .webmessage   {  height: 150px; }
-}
-
-@media (max-height : 580px ){
-	#container .webmessage p {  font-size: 20px; }
-	#container .webmessage   {  height: 100px; }
-}
-
-@media (max-height : 540px ){
-	#container .webmessage p {  font-size: 15px; }
-	#container .webmessage   {  height: 50px; }
-}
-*/
-}
