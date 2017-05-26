@@ -2032,6 +2032,110 @@ return(r);
 
 }
 
+-----And another solution using one vector linked to another and not using malloc -------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+char* frequencySort(char* s) 
+{
+    
+    
+ unsigned char* r;  
+    
+ int i;
+    
+ int k,j,len,next;
+    
+ int max=0;
+     
+ unsigned int cmax=0;
+    
+ unsigned int cmin=255;
+    
+ int cnt[256];
+     
+    
+    
+ for (i=0;s[i]!=0;i++) {};  /* Find strlen since strlen is breaking with a very long string */
+    
+ int lens=i;
+    
+ int ss[lens+1];
+    
+ char strR[lens+1];
+    
+    
+ for (i=0;i<128;i++)   cnt[i]=0; 
+    
+ for (i=0;i<=lens;i++) ss[i]=0; 
+
+    
+ for (i=0;i<lens;i++) /* Count each char */
+     
+  {
+
+    cnt[s[i]]++;
+      
+    if (cnt[s[i]]>max) max=cnt[s[i]];
+      
+    if (s[i]>cmax) cmax=s[i];
+      
+    if (s[i]<cmin) cmin=s[i];
+     
+  } 
+  
+    
+for (i=cmax;i>=cmin;i--)  /* For all chars in the string */
+    
+ { 
+     if (cnt[i]>0)
+      
+   {
+   
+    next=ss[cnt[i]];       
+       
+    ss[cnt[i]]=i;          /* Point occurrences vector to char vector */
+       
+    cnt[i]=next;         /* Point char to next char */
+      
+   } 
+    
+ } 
+ 
+    
+k=0;
+    
+for (j=max;j>0;j--)   /* Take all cases and repeat number of occurrences to build string */
+     
+ {
+      
+  next=ss[j];  
+      
+  while (next!=0)
+      
+    {
+        
+     for (i=j;i>0;i--) 
+        
+      { 
+        strR[k]=next;
+         
+       k++;
+         
+     } 
+        
+    next=cnt[next];
+      
+   } 
+     
+ }  
+    
+ strR[k]=0; 
+    
+ r=strR;
+    
+ return(r);
+
+}
 ================================================================================================================================================
 
 463. Island Perimeter
