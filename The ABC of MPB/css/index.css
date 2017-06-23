@@ -51,6 +51,11 @@ header h1{
 text-decoration:none;
 color:yellow;
 }
+
+.mpbchar:hover {
+cursor: pointer;
+color:yellow;
+}
 	
 .keys_ON{
 	background-color: #FFFFFF;
@@ -58,6 +63,7 @@ color:yellow;
 	/* [disabled]width: 50px; */
 	text-align: center;
 	border-radius: 20px;
+                 cursor: pointer;
 
 	
 	
@@ -807,40 +813,13 @@ color:yellow;
 }
 
 
-#Y{
-	border: solid 5px #566778;
-	float:left;
-	margin-left: 1060px;
-	margin-left: 66%;
-	width:100px;
-	height:100px;
-	position:fixed;
-	border-radius: 100px ;
-	font-size:80px;
-    margin-top: 250px;	
-	background-color:#FFFFFF;
-}
-
-#Y a{
-	text-decoration:none;
-}
-
-#Y:hover {
-	background-color: #EFEFEF;
-	cursor: crosshair;
-}
-
-#Y p{
-	margin: -0px;
-	color:grey;
-}
 
 
 #W{
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 1230px;
-	margin-left: 77%;
+	margin-left: 66%;
 	width:100px;
 	height:100px;
 	position:fixed;
@@ -872,13 +851,13 @@ color:yellow;
 	border: solid 5px #566778;
 	float:left;
 	margin-left: 1400px;
-	margin-left: 88%;
+	margin-left: 77%;
 	width:100px;
 	height:100px;
 	position:fixed;
 	border-radius: 100px ;
 	font-size:80px;
-    margin-top: 250px;	
+                margin-top: 250px;	
 	background-color:#FFFFFF;
 	
 }
@@ -901,6 +880,34 @@ color:yellow;
 }
 
 
+#user-input{
+	border: solid 5px #566778;
+	float:left;
+	margin-left: 1060px;
+	margin-left: 88%;
+	width:100px;
+	height:100px;
+	position:fixed;
+	border-radius: 100px ;
+	font-size:80px;
+                margin-top: 250px;	
+	background-color:#FFFFFF;
+}
+
+#user-input a{
+	text-decoration:none;
+                color: green;
+            
+}
+
+#user-input:hover {
+	background-color: yellow;
+}
+
+#user-input p{
+	margin: -0px;
+	
+}
 
 
 
@@ -921,97 +928,98 @@ color:yellow;
 	
 	#container #A 
 	   {  margin-left: 0%;
-	      margin-top: 30px; }
+	      margin-top: 20px; }
 	#container #B 
 	   {  margin-left: 16.5%;
-	      margin-top: 30px; }
+	      margin-top: 20px; }
 	#container #C 
 	   {  margin-left: 33%;
-	      margin-top: 30px; }
+	      margin-top: 20px; }
 	#container #D 
 	   {  margin-left: 49.5%;
-	      margin-top: 30px; }
+	      margin-top: 20px; }
 	#container #E 
 	   {  margin-left: 66%;
-	      margin-top: 30px; }
+	      margin-top: 20px; }
 	#container #F 
 	   {  margin-left: 82.5%;
-	      margin-top: 30px; }
+	      margin-top: 20px; }
 	#container #G 
 	   {  margin-left: 8.25%;
-	      margin-top: 140px; }
+	      margin-top: 130px; }
 	#container #H 
 	   {  margin-left: 24.75%;
-	      margin-top: 140px; }
+	      margin-top: 130px; }
 	#container #I 
 	   {  margin-left: 57.75%;
-	      margin-top: 140px; }
+	      margin-top: 130px; }
 	#container #J 
 	   {  margin-left: 74.25%;
-	      margin-top: 140px; }
+	      margin-top: 130px; }
 	#container #K 
 	   {  margin-left: 0%;
-	      margin-top: 250px; }
+	      margin-top: 240px; }
 	#container #L 
 	   {  margin-left: 16.5%;
-	      margin-top: 250px; }
+	      margin-top: 240px; }
 	#container #M 
 	   {  margin-left: 33%;
-	      margin-top: 250px; }
+	      margin-top: 240px; }
 	#container #N 
 	   {  margin-left: 49.5%;
-	      margin-top: 250px; }
+	      margin-top: 240px; }
 	#container #O 
 	   {  margin-left: 66%;
-	      margin-top: 250px; }
+	      margin-top: 240px; }
 	#container #P 
 	   {  margin-left: 82.5%;
-	      margin-top: 250px; }	
+	      margin-top: 240px; }	
 	#container #Q 
 	   {  margin-left: 8.25%;
-	      margin-top: 360px; }
+	      margin-top: 350px; }
 	#container #R 
 	   {  margin-left: 24.75%;
-	      margin-top: 360px; }
+	      margin-top: 350px; }
 	#container #S 
 	   {  margin-left: 57.75%;
-	      margin-top: 360px; }
+	      margin-top: 350px; }
 	#container #T 
 	   {  margin-left: 74.25%;
-	      margin-top: 360px; }
+	      margin-top: 350px; }
 	#container #U 
 	   {  margin-left: 0%;
-	      margin-top: 470px; }
+	      margin-top: 460px; }
 	#container #V 
 	   {  margin-left: 16.5%;
-	      margin-top: 470px; }
+	      margin-top: 460px; }
 	#container #X 
 	   {  margin-left: 33%;
-	      margin-top: 470px; }
-	#container #Y 
-	   {  margin-left: 49.5%;
-	      margin-top: 470px; }
+	      margin-top: 460px; }
+	
 	#container #W 
-	   {  margin-left: 66%;
-	      margin-top: 470px; }
+	   {  margin-left: 49.5%;
+	      margin-top: 460px; }
 	#container #Z 
+	   {  margin-left: 66%;
+	      margin-top: 460px; }
+                 #container #user-input  
 	   {  margin-left: 82.5%;
-	      margin-top: 470px; }
+	      margin-top: 460px; }
 }
 
-@media (max-width : 1000px ){
+@media (max-width : 1000px ) {
 	/* Fire */
 	#container .webmessage p {  font-size: 30px; } 
 	#container .webmessage   {  height: 500px; }
 	#container header {height: 70px;}
 	#container header h1 {height: 90px;}
 	}
-@media (max-width : 960px ){
-	#container .webmessage p {  font-size: 22px; }
+@media (max-width : 960px ), (max-height : 750px ) {
+	#container .webmessage p {  font-size: 21px; }
     #container .webmessage   {  height: 250px; }
 }
 
-@media (max-width : 750px ){
+@media (max-width : 750px ),(max-height : 580px )  {
 	#container .webmessage p {  font-size: 20px; }
 	
 	
@@ -1023,17 +1031,13 @@ color:yellow;
 	#container header h1 {  font-size: 60px; }
 }
 
-@media (max-width : 480px ){
-	#container .webmessage p {  font-size: 16px; }
+@media (max-width : 480px ),(max-height : 540px ){
+	#container .webmessage p {  font-size: 14px; }
 	#container header h1 {  font-size: 50px; }
 	
 }
 
-@media (max-width : 400px ){
-	#container .webmessage p {  font-size: 14px; }
-	#container header h1 {  font-size: 40px; }
-	
-}
+
 
 @media (max-width : 350px ){
 	#container .webmessage p {  font-size: 13px; }
@@ -1047,35 +1051,29 @@ color:yellow;
 @media (max-width : 220px ){
 	#container .webmessage p {  font-size: 9px; }
 }
-/*
-@media (max-height : 1200px ){
-	#container .webmessage p {  font-size: 45px; }
-	#container .webmessage   {  height: 450px; }
-}
 
-@media (max-height : 900px ){
-	#container .webmessage p {  font-size: 35px; }
-	#container .webmessage   {  height: 300px; }
-}
+
 
 @media (max-height : 750px ){
-	#container .webmessage p {  font-size: 30px; }
-	#container .webmessage   {  height: 200px; }
+	
+	#container .webmessage   {  height: 220px; }
 }
 
 @media (max-height : 650px ){
-	#container .webmessage p {  font-size: 25px; }
-	#container .webmessage   {  height: 150px; }
+	
+	#container .webmessage   {  height: 160px; }
 }
 
 @media (max-height : 580px ){
-	#container .webmessage p {  font-size: 20px; }
-	#container .webmessage   {  height: 100px; }
+	
+	#container .webmessage   {  height: 130px; }
+	
+	                         
 }
 
 @media (max-height : 540px ){
-	#container .webmessage p {  font-size: 15px; }
-	#container .webmessage   {  height: 50px; }
+	
+	#container .webmessage   {  height: 60px; }
 }
 */
 }

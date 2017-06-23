@@ -1,5 +1,13 @@
 <!doctype html>
 
+<script type="text/javascript">
+
+function random() {
+    window.location=arguments[Math.round(Math.random()*(10*arguments.length))%arguments.length]
+}
+
+</script>
+
 <html>
 <head>
 <meta charset = "UTF-8">
@@ -14,8 +22,36 @@ The ABC of MPB
 <!--html comment -->
 <div id ="container">
 <header>
-<h1> The ABC of MPB</h1> 
+<h1> The ABC of <a onClick="random('pages/aroro.html',
+'pages/adoniran.html',
+'pages/belchior.html',
+'pages/chico.html',
+'pages/djavan.html',
+'pages/elis.html',
+'pages/fagner.html',
+'pages/gil.html',
+'pages/hyldon.html',
+'pages/ivanl.html',
+'pages/ira.html',
+'pages/jbosco.html',
+'pages/kikoz.html',
+'pages/luizm.html',
+'pages/luizm_v1.html',
+'pages/milton.html',
+'pages/ney.html',
+'pages/oswaldom.html',
+'pages/pviola.html',
+'pages/quartetocy.html',
+'pages/rita.html',
+'pages/simone.html',
+'pages/tim.html',
+'pages/ultraje.html',
+'pages/vcantuaria.html',
+'pages/wfranco.html',
+'pages/xivbis.html',
+'pages/zeramalho.html')" <section class="mpbchar">  MPB </section> </a></h1> 
 </header>
+
  <section class="webmessage"> 
  <!-- Artist Name -->
  <p>If you think that the best of Brazil comes from soccer you probably do not know about the music from there. 
@@ -33,7 +69,7 @@ The ABC of MPB
 
 <section class="keys_ON">
 	<div id="A">
-	   <a href="pages/aroro.html"><p>A</p></a>
+	  <a onClick="random('pages/aroro.html','pages/adoniran.html')"><p>A</p></a>
 	</div>   
 	<div id="B">
 	   <a href="pages/belchior.html"><p>B</p></a>
@@ -57,7 +93,7 @@ The ABC of MPB
 	   <a href="pages/hyldon.html"><p>H</p></a>
 	</div> 
 	<div id="I">
-	   <a href="pages/ivanl.html"><p>I</p></a>
+	   <a onClick="random('pages/ivanl.html','pages/ira.html')"><p>I</p></a>
 	</div>	
 	<div id="J">
 	   <a href="pages/jbosco.html"><p>J</p></a>
@@ -66,7 +102,7 @@ The ABC of MPB
 	   <a href="pages/kikoz.html"><p>K</p></a>
 	</div>   	
 	<div id="L">
-	   <a href="pages/luizm.html"><p>L</p></a>
+                   <a onClick="random('pages/luizm.html','pages/luizm_v1.html')"><p>L</p></a>
 	</div>   
 	<div id="M">
 	   <a href="pages/milton.html"><p>M</p></a>
@@ -104,6 +140,9 @@ The ABC of MPB
 	<div id="X">
 	   <a href="pages/xivbis.html"><p>X</p></a>
 	</div> 
+    <div id="user-input">
+	   <a href="../CMS_playground/send-feedback/"><p>+</p></a>
+	</div>   
 	<div id="Z">
 	   <a href="pages/zeramalho.html"><p>Z</p></a>
 	</div>   
@@ -119,9 +158,7 @@ The ABC of MPB
   
    
   
-	<div id="Y">
-	   <p>Y</p>
-	</div>   
+	
 </section>
  
  

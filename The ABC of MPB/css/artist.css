@@ -80,7 +80,15 @@ nav ul .home {
 	top:0px;
 	border: solid 5px #566778;
 }
-	
+
+.artistweb {
+	text-decoration:none;
+	color:#225522;
+}
+
+.artistweb:hover {
+	color: #77AAEE;
+}
 .lyrics{
 	float: right;
 	background-color:#FEFEFE;
@@ -311,8 +319,28 @@ ul#thumbs a:hover{
 	
 }
 
-@media (max-width : 1000px ) /* and (min-width : 900px )*/ {
+@media (max-width : 1000px )  and (max-height : 1350px) /* and (min-width : 900px )*/ {
 	/* For Fire */
+	
+	#container .about {
+	top:520px;	
+	height:250px;
+	font-size:30px;	}
+	
+	#container .lyrics {
+	top:770px;	
+	height:250px;
+	font-size:30px;	}
+	
+	#container .trans_lyrics {
+	top:1020px;	
+	height:250px;
+	font-size:30px;	}
+}
+
+
+@media (max-width : 1000px ) and (max-height : 1200px) /* and (-webkit-min-device-pixel-ratio:0) /* and (min-width : 900px )*/ {
+	/* For Ipad */
 	
 	#container .about {
 	top:520px;	
@@ -329,6 +357,10 @@ ul#thumbs a:hover{
 	height:220px;
 	font-size:30px;	}
 }
+
+
+
+
 
 @media (max-width : 780px ){
 /*	#container nav ul li {  	
