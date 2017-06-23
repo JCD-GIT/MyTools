@@ -653,6 +653,54 @@ public class Solution {
 
 ================================================================================================================================================
 
+129. Sum Root to Leaf Numbers
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public int sumNumbers(TreeNode root) {
+
+    int r=0;
+    
+    if (root==null) return(0);
+    
+    if ((root.left==null) && (root.right==null))
+     {
+      return(root.val);
+     }
+    else
+     {
+      if (root.left!=null)  r=r+sumN(root.left,root.val);
+      if (root.right!=null) r=r+sumN(root.right,root.val);
+     }
+     return(r);
+    }
+    
+    
+    public int sumN (TreeNode root, int valor)
+    {
+     if ((root.left==null) && (root.right==null))
+      {
+       return(valor*10+root.val);
+      }
+     else
+      {
+       if (root.left==null) return (sumN(root.right,valor*10+root.val));
+       if (root.right==null) return (sumN(root.left,valor*10+root.val));
+       return (sumN(root.right,valor*10+root.val) + sumN(root.left,valor*10+root.val));
+      }
+    }
+}
+
+================================================================================================================================================
+
 143. Reorder List 
 
 /**
