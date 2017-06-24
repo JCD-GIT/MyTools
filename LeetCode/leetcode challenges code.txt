@@ -2405,6 +2405,37 @@ int vright (int [][] m, int i, int j)
 
 }
 
+
+================================================================================================================================================
+
+605. Can Place Flowers
+
+public class Solution {
+    public boolean canPlaceFlowers(int[] flowerbed, int n) {
+        int i=0;
+        int last=0;
+        int next;
+        
+        while ((i<flowerbed.length) && (n>0))
+         {
+          if ((i+1)<flowerbed.length)
+           next=flowerbed[i+1];
+          else
+           next=0;
+          if ((last+next+flowerbed[i])==0) 
+           {
+            n--;
+            last=1;
+           }
+          else
+           last=flowerbed[i];
+          i++;
+         }
+        return (n==0); 
+    }
+}
+
+
 ================================================================================================================================================
 
 621. Task Scheduler
