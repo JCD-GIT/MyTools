@@ -1069,6 +1069,48 @@ public class Solution {
 
 ================================================================================================================================================
 
+220. Contains Duplicate III
+
+public class Solution {
+    public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
+    
+    int i,j;
+    int x=nums.length;
+    int base=1;
+    
+    if (nums.length<2) return(false); /* Two distincts only if there is two */
+    
+    while (x>0)             /* Index -> Decimal */
+     {
+      x=x/10;
+      base=base*10;
+     }
+    
+    double[] numpos = new double [nums.length];  /* Store nums and index */
+    
+    for (i=0;i<nums.length;i++) 
+     {
+      numpos[i]=(nums[i]>=0) ? (double)nums[i]+(float)i/base : (double)nums[i]-(double)i/base;
+     }
+     
+    Arrays.sort(numpos);   /* Sort to order by value */
+    
+    for (i=0;i<nums.length-1;i++) 
+     {
+         j=i;     /* For each value try to find other values in range */
+         while ((j<nums.length-1) && (Math.abs((long)numpos[i]-(long)numpos[j+1])<=t))
+          {       /* if they meet the index distance return true */
+           if (Math.round(Math.abs((numpos[i]-(int)(numpos[i]))-(numpos[j+1]-(int)numpos[j+1]))*base)<=k) return(true);
+           j++;
+          }
+     }
+    
+    return(false);
+   }
+}
+
+================================================================================================================================================
+
 221. Maximal Square
 
 public class Solution {
