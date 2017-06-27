@@ -2372,6 +2372,44 @@ char min=33;
 
 ================================================================================================================================================
 
+539. Minimum Time Difference
+
+public class Solution {
+    public int findMinDifference(List<String> timePoints) {
+        
+        int i,min=12*60+1;
+        int[] tminutes = new int[timePoints.size()]; 
+     
+        for (i=0;i<tminutes.length;i++)
+         {
+          int j=0;
+          int hour=0;
+          int minute=0;
+          String time=timePoints.get(i);
+          while (time.charAt(j)!=':')
+           {
+            hour=hour*10+time.charAt(j)-'0';
+            j++;
+           }
+          j++;
+          while (j<time.length())
+           {
+            minute=minute*10+time.charAt(j)-'0';
+            j++;
+           }
+          tminutes[i]=hour*60+minute;
+         }
+        Arrays.sort(tminutes);
+        for (i=0;i<tminutes.length-1;i++)
+         {
+          if (min>tminutes[i+1]-tminutes[i]) min=tminutes[i+1]-tminutes[i];    
+         }
+        return (min<24*60+tminutes[0]-tminutes[tminutes.length-1]) ? min : 24*60+tminutes[0]-tminutes[tminutes.length-1];
+    }
+}
+
+================================================================================================================================================
+
 541. Reverse String II 
 
 
