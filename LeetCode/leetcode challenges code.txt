@@ -1399,6 +1399,188 @@ int coinChange(int* coins, int coinsSize, int amount)
 
 ================================================================================================================================================
 
+332. Reconstruct Itinerary
+
+--------------------------------- Recursive solution -----------------------------------
+
+
+public class Solution {
+    public List<String> findItinerary(String[][] tickets) {
+        
+        Map<String, List<String>> tck = new HashMap<>();
+        
+        int i;
+        String from, to;
+        
+        for (i=0;i<tickets.length;i++)                        /* Added fligts to hash table */
+         {
+          from=tickets[i][0];
+          to=tickets[i][1];
+          List<String> temp=new ArrayList<>();
+          if (tck.containsKey(from)) temp=tck.get(from);
+          temp.add(to);
+          Collections.sort(temp);
+          tck.put(from,temp);
+         }
+        List<String> r=new ArrayList<>();                     /* Prepare list for result */
+        r=findIt("JFK",tck);
+        Collections.reverse(r);                               /* Invert result to get right sequence */
+        return(r);
+        
+    }
+    
+public List<String> findIt(String from, Map<String, List<String>> tck)  {  
+    
+        String to,fr;
+        int i;
+    
+        List<String> r=new ArrayList<>();                           /* Prepare return */
+        if (tck.containsKey(from))                                  /* If from is not in the list, return null */
+         {
+          List<String> temp=new ArrayList<>();
+          Map<String, List<String>> tck2 = new HashMap<>(tck);      /* Create new instance to interact */
+          temp=tck2.get(from);
+          if (temp.size()==1)                                       /* If only one To, used it */
+           {
+            to=temp.get(0);   
+            tck2.remove(from);
+            if (tck2.size()>0)                                     /* If not last flight, add this one and get the remaining sequence */
+             {   
+              r = findIt(to, tck2);
+              if (r.size()!=0)
+               {
+                r.add(from);
+                return(r); 
+               }
+             }
+            else                                                    /* If last one, return inverted */
+             {
+              r.add(to);
+              r.add(from);
+              return(r);  
+             } 
+            }   
+          else                                                      /* If more than one To, try each one */
+           {
+            int j;   
+            int count=temp.size();  
+            for (j=0;j<count;j++) 
+             {
+              to=temp.get(0);
+              temp.remove(to);
+              if (temp.size()==0) 
+               tck2.remove(from);
+              else
+               tck2.put(from,temp);
+              r=(findIt(to, tck2));
+              if (r.size()!=0)
+               {
+                 r.add(from);
+                 return(r); 
+               }
+              temp.add(to);                                        /* If does not work, return previous trial before try next one */
+              tck2.put(from,temp); 
+             }
+           }
+          }
+   return(r);     
+ }
+ 
+}
+
+--------------------------------- Another solution using Stack -----------------------------------
+
+public class Solution {
+    public List<String> findItinerary(String[][] tickets) {
+        
+        Map<String, List<String>> tck = new HashMap<>();
+        List<String> r=new ArrayList<>();  
+        
+       
+        int [][] contr = new int [tickets.length][3];
+        int i=0,pos=0;
+        String from, to;
+        
+        for (i=0;i<tickets.length;i++)                        /* Added fligts to hash table */
+         {
+          from=tickets[i][0];
+          to=tickets[i][1];
+          List<String> temp=new ArrayList<>();
+          if (tck.containsKey(from)) temp=tck.get(from);
+          temp.add(to);
+          Collections.sort(temp);
+          tck.put(from,temp);
+         }
+        from="JFK";
+        while (tck.size()>0)
+         {   
+          if (tck.containsKey(from)) 
+           {   
+            r.add(from);
+            List<String> temp=new ArrayList<>();
+            temp=tck.get(from);
+            if (temp.size()==1)                                       /* If only one To, use it */
+             {
+              to=temp.get(0);   
+              tck.remove(from);
+              if (tck.size()==0)                                     /* If not last flight, add this one and get the remaining sequence */
+               {  
+                r.add(to);
+                return(r);  
+               }
+             }
+            else                                                     /* If more than one, add to a stack */
+             {
+              Collections.sort(temp);  
+              to=temp.get(0);
+              temp.remove(0);  
+              tck.put(from,temp); 
+              contr[pos][0]=r.size()-1;
+              contr[pos][1]=0;
+              contr[pos][2]=temp.size();  
+              pos++;
+             }
+            from=to;  
+           }
+          else                                                       /* When not found before ending, use stack to try another way */
+           {
+            r.add(from);  
+            i=r.size()-1;
+            from="";
+            to="";  
+            while (i>=contr[pos-1][0])
+             {
+              from=r.get(i);
+              r.remove(i);
+              if ((from.length()!=0) && (to.length()!=0)) 
+               {   
+                List<String> temp=new ArrayList<>();
+                if (tck.containsKey(from)) temp=tck.get(from);
+                temp.add(to);
+                tck.put(from,temp);
+               }
+              to=from;  
+              i--;
+             }
+            r.add(from);  
+            contr[pos-1][1]++;
+            List<String> temp=new ArrayList<>();
+            if (tck.containsKey(from)) temp=tck.get(from); 
+            Collections.sort(temp);
+            to=temp.get(contr[pos-1][1]);
+            temp.remove(contr[pos-1][1]);
+            if (contr[pos-1][1]==contr[pos-1][2]) pos--;  
+            tck.put(from,temp);
+            from=to;  
+           }  
+        }
+       return(r); 
+    } 
+}   
+
+
+================================================================================================================================================
+
 336. Palindrome Pairs
 
 public class Solution {
