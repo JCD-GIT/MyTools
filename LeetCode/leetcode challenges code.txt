@@ -730,6 +730,76 @@ public class Solution {
 
 ================================================================================================================================================
 
+130. Surrounded Regions
+
+void mark(char** board, int boardRowSize, int boardColSize, int i, int j) {
+    
+    if (board[i][j]!='O') return;                        /* function to mark (change fromO to Z) if is O and have Z up,down,right or left */
+    
+    if ((board[i][j+1]!='Z') && (board[i+1][j]!='Z') && (board[i-1][j]!='Z') && (board[i][j-1]!='Z')) return;
+    
+    board [i][j]='Z';
+                                                         /* When marking, call function again to mark up,down,right and left if needed*/
+    mark (board, boardRowSize, boardColSize, i,   j+1);
+    mark (board, boardRowSize, boardColSize, i+1, j);
+    mark (board, boardRowSize, boardColSize, i,   j-1);
+    mark (board, boardRowSize, boardColSize, i-1, j);
+    
+    return;
+    
+}    
+void solve(char** board, int boardRowSize, int boardColSize) {
+    
+    if ((boardRowSize<3) || (boardColSize<3)) return; 
+    
+    int i,j;
+    
+    
+    i=0;                                                         /* Replace O by Z on edges i or j = 0 or size-1 */
+    for (j=0;j<boardColSize;j++)
+    {
+     if (board[i][j]=='O') board[i][j]='Z';
+    }
+    j=boardColSize-1;
+    for (i=0;i<boardRowSize;i++)
+    {
+     if (board[i][j]=='O') board[i][j]='Z';
+    }
+    i=boardRowSize-1;
+    for (j=boardColSize-1;j>=0;j--)
+    {
+     if (board[i][j]=='O') board[i][j]='Z';
+    }
+    j=0;
+    for (i=boardRowSize-1;i>=0;i--)
+    {
+     if (board[i][j]=='O') board[i][j]='Z';
+    }
+    
+    for (i=1;i<boardRowSize-1;i++)                                             /* For each position, replace O by Z if needed */
+     {
+      for (j=1;j<boardColSize-1;j++)
+       {
+        mark (board, boardRowSize, boardColSize, i, j);  
+       }   
+     }   
+    
+    for (i=0;i<boardRowSize;i++)                                                /* Final adjust remaining O -> X and Z -> O */
+    {
+     for (j=0;j<boardColSize;j++)
+      {
+       if (board[i][j]=='O') board[i][j]='X'; 
+       if (board[i][j]=='Z') board[i][j]='O';  
+      }   
+    }  
+    
+  return;
+    
+}    
+ 
+
+================================================================================================================================================
+
 143. Reorder List 
 
 /**
