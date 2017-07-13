@@ -1910,6 +1910,61 @@ public class Solution extends GuessGame {
 
 ================================================================================================================================================
 
+376. Wiggle Subsequence
+
+int wiggleMaxLength(int* nums, int numsSize) {
+    
+    if (numsSize==0)  return (numsSize);
+    
+
+    int i;
+    int longest=1;
+    int prev=nums[0];
+    int lastmove=0;  //1 up, -1 down, 0 first time
+    
+    for (i=1;i<numsSize;i++)
+     {
+      if (lastmove==1)
+       {
+        if (nums[i]<prev) 
+         {   
+          longest++;
+          lastmove=-1;
+         }  
+        prev=nums[i];   
+       }
+      else
+       {
+        if (lastmove==-1)
+         {
+          if (nums[i]>prev) 
+           {   
+            longest++;
+            lastmove=+1;
+           }
+          prev=nums[i];  
+         }   
+        else // =0 first time 
+         {
+          if (nums[i]<prev) 
+           {   
+            longest++;
+            lastmove=-1;
+           }  
+          if (nums[i]>prev) 
+           {   
+            longest++;
+            lastmove=+1;
+           }  
+          prev=nums[i];   
+         }
+        }   
+      }   
+     return(longest);   
+      
+}
+================================================================================================================================================
+
 389. Find the Difference  
 
 
