@@ -653,6 +653,45 @@ public class Solution{
 
 ================================================================================================================================================
 
+73. Set Matrix Zeroes
+
+public class Solution {
+    public void setZeroes(int[][] matrix) {
+        
+        int i,j,k;
+        
+        List<Integer> zeroi = new ArrayList<>();
+        List<Integer> zeroj = new ArrayList<>();
+        
+        
+        for (i=0;i<matrix.length;i++)
+         {
+          for (j=0;j<matrix[i].length;j++)
+           {
+            if (matrix [i][j]==0)
+             { 
+              if (!zeroi.contains(i)) zeroi.add(i);
+              if (!zeroj.contains(j)) zeroj.add(j);
+                
+             } 
+           }   
+         }   
+        for (k=0;k<zeroi.size();k++)
+         {
+          i=zeroi.get(k);
+          for (j=0;j<matrix[i].length;j++) matrix[i][j]=0;
+         }   
+        for (k=0;k<zeroj.size();k++)
+         {
+          j=zeroj.get(k);
+          for (i=0;i<matrix.length;i++) matrix[i][j]=0;
+         }   
+    }
+}
+
+================================================================================================================================================
+
+
 118. Pascal's Triangle 
 
 public class Solution {
