@@ -176,6 +176,30 @@ int myAtoi(char* str) {
     }
     return(signal*value);
 }
+
+================================================================================================================================================
+
+12. Integer to Roman
+
+public class Solution {
+    public String intToRoman(int num) {
+        
+        String[][] rs = {{"","I","II","III","IV","V","VI","VII","VIII","IX"},
+                         {"","X","XX","XXX","XL","L","LX","LXX","LXXX","XC"},
+                         {"","C","CC","CCC","CD","D","DC","DCC","DCCC","CM"},
+                         {"","M","MM","MMM"}};
+        String r="";
+        int i=0;
+        while (num>0)
+         {
+          r=rs[i][num%10]+r;
+          num=num/10;
+          i++;  
+         }   
+        return(r);
+    } 
+}
+
 ================================================================================================================================================
 
 20. Valid Parentheses 
