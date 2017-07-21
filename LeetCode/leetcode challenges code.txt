@@ -27,6 +27,54 @@ public class Solution {
 }
 }
 
+
+================================================================================================================================================
+
+2. Add Two Numbers
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        
+        ListNode r= new ListNode(0);
+        ListNode rf = r;
+        ListNode pr = r;
+        int togo=0;
+        int vl1=-1;
+        int vl2=-1;
+        
+        while (vl1+vl2-togo<0)
+         {
+          int x=togo;
+          if (vl1<0) x=x+l1.val;
+          if (vl2<0) x=x+l2.val;  
+          togo=x/10;  
+          r.val=x%10;
+          ListNode temp=new ListNode(0);
+          r.next=temp;
+          pr=r;  
+          r=r.next;
+          if (l1.next!=null) 
+           l1=l1.next;
+          else
+           vl1=0;   
+          if (l2.next!=null) 
+           l2=l2.next;
+          else
+           vl2=0;  
+         }  
+     pr.next=null; 
+     return(rf);   
+    }
+}
+
 ================================================================================================================================================
 
 5. Longest Palindromic Substring
