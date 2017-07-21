@@ -736,8 +736,44 @@ public class Solution {
     }
 }
 
+
 ================================================================================================================================================
 
+110. Balanced Binary Tree
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
+
+int depth (struct TreeNode* root)
+{
+ if (root==NULL) return(0);   /* root null, 0 deep */
+    
+ if ((root->left==NULL) && (root->right==NULL)) return(1);  /* Left and Right null, deep 1 */
+   
+ int dl = depth(root->left);
+ int dr = depth(root->right);
+ 
+ if ((dl<0) || (dr<0)) return (-1);  /* subtree returned -1, return -1 */
+    
+ int r=dl;            /* Return the deeper value */
+ if (dr>dl) r=dr;  
+    
+ return ((dl-dr<=1) && (dl-dr>=-1)) ? r+1 : -1;   /* if diff more than one, return -1 */
+}
+
+bool isBalanced(struct TreeNode* root) 
+{
+    int d =  depth (root);     /* Return how deep (and balanced root is */
+    return (d<0) ? false : true;
+}
+
+================================================================================================================================================
 
 118. Pascal's Triangle 
 
