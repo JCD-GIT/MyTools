@@ -60,7 +60,7 @@ namespace NewUpdatedDef
 
 
                         long j;
-                        for (j=0; (i < l1) && (c1==c2); j++)
+                        for (j=0; (j < l1) && (c1==c2); j++)
                         {
                             c1 = f1.ReadByte();
                             c2 = f2.ReadByte();
