@@ -1,0 +1,15 @@
+DifferentialBK is a program written in C# to backup only new or modified files creating a differential backup.
+It is a fast way to backup making simple to restore if needed.
+You should first create a full backup to use as reference. After that you can use DifferentialBK how much you want. 
+
+To use is very simple. See below:
+
+
+DifferentialBK.exe SOURCE_FOLDER  TARGET_FOLDER  MASK  FULL_BACKUP_FOLDER
+
+E.g.
+
+DifferentialBK.exe c:\dados e:\dif_backup *.* e:\backup
+
+
+Note: When full backup folder is empty all files will be copied to target folder, creating a full backup.
