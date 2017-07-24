@@ -56,15 +56,15 @@ namespace NewUpdatedDef
                     {
 
                         
-                        int c1, c2;
+                        int c1=0, c2=0;
 
-                        c1 = 0;
-                        c2 = 0;
 
-                        while ((c1 == c2) && (c1 != -1))
+                        long j;
+                        for (j=0; (i < l1) && (c1==c2); j++)
                         {
                             c1 = f1.ReadByte();
                             c2 = f2.ReadByte();
+
                         }
 
                         if (c1 == c2) tocopy = false;
