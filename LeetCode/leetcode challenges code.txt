@@ -1235,6 +1235,33 @@ public class Solution {
 
 ================================================================================================================================================
 
+169. Majority Element
+
+public class Solution {
+    public int majorityElement(int[] nums) {
+       
+      Map<Integer, Integer> control = new HashMap<>();
+      boolean found=false;
+      int i=0,x=0;
+         
+      while (!found)
+       {
+        x=1;   
+        if (control.containsKey(nums[i]))
+         {
+          x=control.get(nums[i]);
+          x++;
+         }
+        control.put(nums[i],x);
+        i++;
+        if ((x*2)>nums.length) found=true;
+       }
+      return(nums[--i]);  
+     }
+}
+
+================================================================================================================================================
+
 204. Counting Primes
 
 public class Solution {
