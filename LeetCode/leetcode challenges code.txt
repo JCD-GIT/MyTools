@@ -3190,6 +3190,51 @@ int vright (int [][] m, int i, int j)
 
 ================================================================================================================================================
 
+594. Longest Harmonious Subsequence
+
+public class Solution {
+    public int findLHS(int[] nums) {
+    
+    Map<Integer, Integer> control = new HashMap<>();
+    
+    List<Integer> ns = new ArrayList<Integer>();    
+    
+    int i,x,max=0,tmax;
+        
+    for (i=0;i<nums.length;i++)               /* Add all values to list ns and also to hash table control with number of occurrences */
+     {
+      x=0;  
+      if (control.containsKey(nums[i]))
+       {
+        x=control.get(nums[i]);
+       }
+      else
+       {
+        ns.add(nums[i]);   
+       }
+      control.put(nums[i],x+1); 
+     }
+        
+    for (i=0;i<ns.size();i++)                 /* For every value of list ns, try to get value++ and value--and see if occurrences > max */ 
+     {
+      x=ns.get(i);  
+      if (control.containsKey(x+1))
+       {
+        tmax=control.get(x)+control.get(x+1);
+        if (tmax>max) max=tmax;  
+       }      if (control.containsKey(x+1))
+      if (control.containsKey(x-1))
+       {
+        tmax=control.get(x)+control.get(x-1);
+        if (tmax>max) max=tmax;  
+       }   
+     }   
+   return(max);     
+  }
+}
+
+================================================================================================================================================
+
 605. Can Place Flowers
 
 public class Solution {
