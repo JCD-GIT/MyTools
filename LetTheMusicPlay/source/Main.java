@@ -36,7 +36,7 @@ public class Main {
     public static boolean show = false;
     public static boolean number_files = false;
     public static int maxsubgroup;
-    public static boolean subgroup=true;
+    public static boolean subgroup=false;
 
 
     public static void main(String[] args) {
