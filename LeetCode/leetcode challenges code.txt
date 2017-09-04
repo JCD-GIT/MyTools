@@ -2597,6 +2597,33 @@ public class Solution {
 
 ================================================================================================================================================
 
+442. Find All Duplicates in an Array
+
+class Solution {
+    public List<Integer> findDuplicates(int[] nums) {
+        
+    Map<Integer, Integer> processedNumbers = new HashMap<>();
+    List<Integer> r = new ArrayList<>();  
+    int i=0;
+        
+    for (i=0;i<nums.length;i++)
+     {
+      if (processedNumbers.containsKey(nums[i]))
+       {
+        r.add(nums[i]);  
+       }
+      else
+       {
+        processedNumbers.put(nums[i],i);  
+       }   
+     }   
+    return(r);
+    }
+}
+
+
+================================================================================================================================================
+
 448. Find All Numbers Disappeared in an Array
 
 public class Solution {
