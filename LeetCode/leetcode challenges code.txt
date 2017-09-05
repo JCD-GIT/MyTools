@@ -2621,6 +2621,47 @@ class Solution {
     }
 }
 
+---------------------------------------------------------------------------------------------
+
+==> Other solution using no extra memory (no hash table) and running faster 
+
+class Solution {
+    public List<Integer> findDuplicates(int[] nums) {
+        
+   
+    List<Integer> r = new ArrayList<>();  
+    int i=0;
+    int x,val;    
+        
+        
+    while (i<nums.length)
+     {
+      val=nums[i]-1;  
+      if ((val==i) || (val<0))
+       {
+        i++;
+       }
+      else
+       {
+        if (nums[val]!=nums[i])
+         {   
+          x=nums[val];
+          nums[val]=nums[i];
+          nums[i]=x;
+         }
+        else
+         {
+          r.add(val+1);   
+          nums[i]=0;
+          i++;
+         }   
+       }   
+     }   
+    return(r);
+    }
+}
+
+
 
 ================================================================================================================================================
 
