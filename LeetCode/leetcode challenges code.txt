@@ -1937,6 +1937,71 @@ public class Solution {
     } 
 }   
 
+================================================================================================================================================
+
+334. Increasing Triplet Subsequence
+
+class Solution {
+    public boolean increasingTriplet(int[] nums) {
+        
+        int contr=0; 
+        int mins[] = new int [3];
+        
+        int i;
+        
+        for (i=0;i<nums.length;i++)
+         {
+          if (contr==0)       /* No min set yet, setting */
+           {
+            contr=1;
+            mins[0]=nums[i];  
+           }
+          else
+           {
+            if (contr==1)    /* No 2nd min set yet, setting or updating min */
+             {
+              if (nums[i]<=mins[0]) 
+               mins[0]=nums[i];
+              else
+               {
+                contr=2;
+                mins[1]=nums[i];  
+               }   
+             }
+            else               /* Setting another min if value < min */      
+             {
+              if (contr==2)
+               {
+                if (nums[i]>mins[1]) return(true);
+                if (nums[i]>mins[0])
+                 mins[1]=nums[i];  
+                else
+                 {
+                  if (!(nums[i]==mins[0]))
+                  {   
+                   contr=3;
+                   mins[2]=nums[i];   
+                  } 
+                 }   
+               }
+              else
+               {
+                if (nums[i]>mins[1]) return(true); 
+                if (nums[i]<=mins[2])
+                 mins[2]=nums[i];                    /* Another min replace min when Another 2nd min is less */
+                else
+                 {
+                  mins[0]=mins[2];
+                  mins[1]=nums[i];
+                  contr=2;  
+                 }   
+               }   
+             }   
+           }   
+         }  
+        return (false);
+    }
+}
 
 ================================================================================================================================================
 
