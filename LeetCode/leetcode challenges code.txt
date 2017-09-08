@@ -395,6 +395,46 @@ public class Solution {
 
 ================================================================================================================================================
 
+22. Generate Parentheses
+
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        
+        List<String> r = new ArrayList<>();
+        possibcomb(r,"",n,n);
+        return(r);
+    }
+    
+  void possibcomb (List<String> r, String x, int op, int cl)
+   {
+    if (cl==0) return;                  /* 0 -> No string added */
+    if (op==cl)                         /* When open=close, we should open */ 
+     possibcomb (r,x+"(",op-1,cl);
+    else
+     {
+      if (op>0)                         /* When not, both options are ok, open or close */
+       {
+        possibcomb (r,x+"(",op-1,cl);
+        possibcomb (r,x+")",op,cl-1);  
+       }   
+      else
+       {                
+        if (cl>1)                      /* Unless there is no open, in that case close */
+         possibcomb (r,x+")",op,cl-1);
+        else
+         {    
+          r.add(x+")");                /* When last close is available, add to list */
+         }
+       }
+     }
+     return; 
+   }  
+}
+
+
+
+================================================================================================================================================
+
 27. Remove Element 
 
 int removeElement(int* nums, int numsSize, int val) {
