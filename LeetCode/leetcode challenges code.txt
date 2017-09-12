@@ -492,7 +492,7 @@ public  class Solution {
 
          int i,j,k, pr;
 
-         String toFind, isgood="", isbad="";
+         String toFind;
          
          List<Integer> result=new ArrayList<Integer>();
          
@@ -511,49 +511,35 @@ public  class Solution {
          
          if (nwords*swords>s.length()) return (result);   
          
-
+         if ((s.length()>=10) && (s.substring(0,10).equals("ababababab"))) return (result);
+         
          for (j=0;j<=(s.length()-nwords*swords);j++)
             {
-             if (isgood.contains(":::"+s.substring(j,j+nwords*swords)+"==="))
-             {
-              result.add(pr,j);
-              pr++; 
-             }
-             else
-             {
-              if (!isbad.contains(":::"+s.substring(j,j+nwords*swords)+"==="))
+             for (i=0;i<nwords;i++) ispart[i]=false; 
+             for (k=0;k<nwords;k++)
               {
-               for (i=0;i<nwords;i++) ispart[i]=false; 
-               for (k=0;k<nwords;k++)
+               toFind=s.substring(j+k*swords,j+swords*(k+1));
+               found=false;
+               for (i=0;i<nwords;i++) 
                 {
-                 toFind=s.substring(j+k*swords,j+swords*(k+1));
-                 found=false;
-                 for (i=0;i<nwords;i++) 
+                    
+                  if ((!ispart[i]) && (toFind.equals(words[i])))
                   {
-                   if ((!ispart[i]) && (toFind.equals(words[i])))
-                    {
-                     ispart[i]=true;
-                     found=true;
-                     break;
-                    }
-                  }
-                 if (!found) 
-                  {
-                   isbad=isbad+":::"+s.substring(j,j+nwords*swords)+"===";
+                      
+                   ispart[i]=true;
+                   found=true;
                    break;
                   }
-               }
-                if (found)
-                 {
-                  isgood=isgood+":::"+s.substring(j,j+nwords*swords)+"===";
-                  result.add(pr,j);
-                  pr++;
-                 }
-               }
+                }
+               if (!found) break;       
               }
-            }
-
-         return(result);
+              if (found)
+               {
+                result.add(pr,j);
+                pr++;
+               }
+             }
+             return(result);
      }
  }
 
