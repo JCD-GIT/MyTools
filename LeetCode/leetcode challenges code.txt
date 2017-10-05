@@ -3869,6 +3869,44 @@ int vright (int [][] m, int i, int j)
 
 }
 
+================================================================================================================================================
+
+575. Distribute Candies
+
+class Solution {
+    public int distributeCandies(int[] candies) {
+        
+    int total=0;
+    int types=0;
+    int i;
+    int[] control=new int[200001];   
+    for (i=0;i<candies.length;i++)
+     {
+      if (++control[candies[i]+100000]==1) types++;
+      total++;  
+     }   
+     return (types<=total/2 ? types : total/2);  
+        
+    }
+}
+
+------------------------------------------------------------------------
+
+int distributeCandies(int* candies, int candiesSize) {
+    int total=0;
+    int types=0;
+    int i;
+    int control[200001];   
+    
+    for (i=0;i<=200000;i++) control[i]=0;    // In C is needed to start values / reset the array 
+    for (i=0;i<candiesSize;i++)
+     {
+      if (++control[candies[i]+100000]==1) types++;  
+      total++;  
+     }   
+     return (types<=total/2 ? types : total/2);  
+    
+}
 
 ================================================================================================================================================
 
