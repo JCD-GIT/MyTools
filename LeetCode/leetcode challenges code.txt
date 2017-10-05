@@ -511,8 +511,6 @@ public  class Solution {
          
          if (nwords*swords>s.length()) return (result);   
          
-         if ((s.length()>=10) && (s.substring(0,10).equals("ababababab"))) return (result);
-         
          for (j=0;j<=(s.length()-nwords*swords);j++)
             {
              for (i=0;i<nwords;i++) ispart[i]=false; 
@@ -542,6 +540,145 @@ public  class Solution {
              return(result);
      }
  }
+
+----------------------------------------------------------------
+
+// C solution using strstr, pointer and recursivity
+
+/**
+* Return an array of size *returnSize.
+* Note: The returned array must be malloced, assume caller calls free().
+*/
+bool issub (char* s, char* strw, int lw)
+{
+  if (strncmp(s,strw,strlen(strw)-1)==0) return (true);   /* If strings match return true */
+  char tosearch[lw+2];
+  char *p;
+  tosearch[lw+1]=0;
+  tosearch[lw]='\t';
+  strncpy(tosearch,s,lw);
+  p=strstr(strw,tosearch);
+   
+  if (p==NULL) return(false);                 /* If is not a substring return false */
+  while (*(p+lw+1)!=0)                        /* If is a substring, remove it from search and from string and do it again */
+   {
+    *p=*(p+lw+1);
+    p++;
+   }
+  *p=0;
+  p=s+lw; 
+  return (issub(p,strw,lw));
+} 
+
+
+int* findSubstring(char* s, char** words, int wordsSize, int* returnSize) {
+int lwords=strlen(words[0]);                          /* length of the words */
+   
+if (strlen(s)<lwords*wordsSize) return(NULL);          /* String should be greater than length of the words multiplied by number of words */
+  
+int* r;
+r=(int *)malloc(strlen(s)-lwords*wordsSize+1);         /* Setting return array with largest possible size */
+                                                       /* Using malloc to be able to return */
+  
+    
+char strw[(lwords+1)*wordsSize+1];                     /* Template to search */
+strw[(lwords+1)*wordsSize]=0;
+char strwTemp[(lwords+1)*wordsSize+1];
+  
+int i,k;
+char* p=strw;  
+for (i=0;i<wordsSize;i++)                              /* Add all words to an unique string with line breaks */
+{
+  strncpy(p,words[i],lwords);
+  p=p+lwords;
+  *p='\t';
+  p++;
+}
+i=0;
+k=0;  
+    
+while (i<=strlen(s)-lwords*wordsSize)                  /* For every position of the string, check if is a substring */
+{
+  strcpy(strwTemp,strw);
+  p=s+i;
+  if (issub(p,strwTemp,lwords))                       /* If yes, mark */
+  {
+   r[k]=i;
+   k++; 
+  }
+  i++;
+} 
+
+*returnSize=k;     
+return(r);     
+}
+
+
+----------------------------------------------------------------
+// Java Usando Hash Table
+
+public  class Solution {
+    
+    
+boolean issub (String s, Map<String, Integer> strw, int lw)
+{
+  if (strw.containsKey(s.substring(0,lw)))     /* If substring found update hash table */
+   {
+    int x=strw.get(s.substring(0,lw))-1;
+    strw.put(s.substring(0,lw),x);
+    if (x==0) 
+     {
+      strw.remove(s.substring(0,lw));  
+      if (s.length()==lw) return(true);       /* If string is ending return true */
+     } 
+    return (issub(s.substring(lw),strw,lw));  /* If string not at end, call again for remaining */
+   }
+  return(false);                              /* If substring not found return false */
+}    
+    
+
+    
+    
+public  List<Integer> findSubstring(String s, String[] words) {
+
+List<Integer> r=new ArrayList<Integer>();
+Map<String, Integer> strw = new HashMap<>();           /* Build hash table to search */
+int i,lwords=words[0].length();                        /* length of the words */
+   
+if (s.length()<lwords*words.length) return(r);         /* String should be greater than length of the words multiplied by number of words */
+ 
+for (i=0;i<words.length;i++)                           /* Add all words to an unique string with line breaks */
+{
+ if (strw.containsKey(words[i]))
+  {
+   int x=strw.get(words[i])+1;
+   strw.put(words[i],x);  
+  }
+ else
+  {
+   strw.put(words[i],1);  
+  }    
+}
+
+i=0;    
+while (i<=s.length()-lwords*words.length)                  /* For every position of the string, check if is a substring */
+{
+  Map<String, Integer> strwTemp = new HashMap<>(strw);  
+  if (issub(s.substring(i,i+lwords*words.length),strwTemp,lwords))  r.add(i);                     /* If yes, mark */
+  i++;
+} 
+
+return(r);     
+}
+            
+            
+}
+
+
+
+
+
+
 
 
 ================================================================================================================================================
@@ -712,6 +849,131 @@ void rotate(int** matrix, int matrixRowSize, int matrixColSize) {
         }
     }
 }    
+
+================================================================================================================================================
+
+53. Maximum Subarray
+
+int maxSubArray(int* nums, int numsSize) {
+        
+    int start=0;
+    int end=numsSize-1;
+    int r=0;
+    int sum;
+    int i;
+    if (numsSize==0) return(0);
+    if (numsSize==1) return(nums[0]);
+    
+    int max=nums[0];
+    while ((start<=end) && (nums[start]<0)) 
+     {
+      if (nums[start]>max) max=nums[start];  
+      start++;
+     }
+    if (start>end) return(max);    
+    while ((end>=start) && (nums[end]<0)) 
+     {
+      if (nums[end]>max) max=nums[end];
+      end--;
+     }
+    i=start;
+    sum=0;
+    max=0;    
+    while (i<end)
+     {
+      sum=sum+nums[i];
+      if (sum>max) max=sum;  
+      i++;  
+      if (sum<0) 
+       {
+        start=i;
+        sum=0;  
+       }   
+      }   
+    i=end;
+    sum=0;
+    while (i>start)
+     {
+      sum=sum+nums[i];
+      if (sum>max) max=sum;  
+      i--;  
+      if (sum<0) 
+       {
+        end=i;
+        sum=0;  
+       }   
+      }   
+    while (start<=end) 
+    {
+     r=r+nums[start++];
+    }    
+    return (max>r ? max : r);
+}
+        
+----------------------------------------------------------------------------------------------------
+
+class Solution {
+    public int maxSubArray(int[] nums) {
+        
+    int start=0;
+    int end=nums.length-1;
+    int r=0;
+    int sum;
+    int i;
+    if (nums.length==0) return(0);
+    if (nums.length==1) return(nums[0]);
+    
+    int max=nums[0];
+    while ((start<=end) && (nums[start]<0)) 
+     {
+      if (nums[start]>max) max=nums[start];  
+      start++;
+     }
+    if (start>end) return(max);    
+    while ((end>=start) && (nums[end]<0)) 
+     {
+      if (nums[end]>max) max=nums[end];
+      end--;
+     }
+    i=start;
+    sum=0;
+    max=0;    
+    while (i<end)
+     {
+      sum=sum+nums[i];
+      if (sum>max) max=sum;  
+      i++;  
+      if (sum<0) 
+       {
+        start=i;
+        sum=0;  
+       }   
+      }   
+    i=end;
+    sum=0;
+    while (i>start)
+     {
+      sum=sum+nums[i];
+      if (sum>max) max=sum;  
+      i--;  
+      if (sum<0) 
+       {
+        end=i;
+        sum=0;  
+       }   
+      }   
+    while (start<=end) 
+    {
+     r=r+nums[start++];
+    }    
+    return (max>r ? max : r);
+}
+        
+        
+}
+        
+
+
 
 ================================================================================================================================================
 
@@ -1616,6 +1878,109 @@ public class Solution {
         if ((p.val>root.val) && (q.val>root.val)) return(lowestCommonAncestor(root.right,p,q));
         return(root);
     }
+}
+
+================================================================================================================================================
+
+240. Search a 2D Matrix II
+
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        
+    int n=matrix.length;                // Returning false if empty
+    if (n==0) return (false);    
+    int m=matrix[0].length;
+    if (m==0) return (false);    
+
+    return(findMatrix(matrix, target, 0, m-1, 0, n-1));    // If not resolve
+        
+}
+
+public boolean findVector(int[][] m, int target, int x0, int x1, int y0, int y1) {
+    if (x1==x0)                                    // When 1 column, resolve as vector finding y ...
+     {
+      if (y1<y0) return(false);
+      int pos=(y0+y1)/2;  
+      if (m[pos][x0]==target) return(true);
+      if (m[pos][x0]>target) return (findVector(m,target,x0,x1,y0,pos-1));
+      return (findVector(m,target,x0,x1,pos+1,y1));     
+     }   
+    else                                             // or x
+     {
+        
+      if (x1<x0) return(false);
+      int pos=(x0+x1)/2; 
+      if (m[y0][pos]==target) return(true);
+      if (m[y0][pos]>target) return (findVector(m,target,x0,pos-1,y0,y1));
+      return (findVector(m,target,pos+1,x1,y0,y1));
+     }       
+}
+    
+public boolean findMatrix(int[][] matrix, int target, int x0, int x1, int y0, int y1) {    
+
+    
+int m=x1-x0+1;      // Calculate width and height of matrix to process
+int n=y1-y0+1;
+
+if ((m==1) || (n==1)) return(findVector(matrix,target,x0,x1,y0,y1));  // when 1 line or 1 column, resolve as vector 
+
+if (m==2) return(findVector(matrix,target,x0,x0,y0,y1) | findVector(matrix,target,x1,x1,y0,y1)); // when 2, resolve as 2 vectors
+if (n==2) return(findVector(matrix,target,x0,x1,y0,y0) | findVector(matrix,target,x0,x1,y1,y1));    
+    
+int i,j,k,previousi=0,previousj=0;                // If 3 or more find the nearest in diagonal, breaking in 2 sub matrix
+
+i=0;             
+j=0;
+k=0;   
+        
+if (matrix[i+y0][j+x0]==target) return(true); 
+if (matrix[y0+n-1][x0+m-1]==target) return(true);         
+if (matrix[i+y0][j+x0]>target) return(false); 
+if (matrix[y0+n-1][x0+m-1]<target) return(false);         
+
+while ((i<n) && (j<m) && (matrix[i+y0][j+x0]<target))
+ {    
+  previousi=i;    
+  previousj=j;
+  k++;  
+  if (n>m)
+   {
+    j++;
+    i=k*(n-1)/(m-1);
+   }
+  else
+   {
+    i++;
+    j=k*(m-1)/(n-1);
+   }   
+ }  
+    
+if (matrix[i+y0][j+x0]==target) return(true); 
+    
+return (findMatrix(matrix, target, j+x0, x1, y0, y0+i-1) | findMatrix(matrix, target, x0, previousj+x0, previousi+y0+1, y1));    
+
+}
+    
+}
+
+================================================================================================================================================
+
+258. Add Digits
+
+int ad (int num)
+{
+ int s=0;
+ while (num>0)
+  { 
+   s=s+num%10;
+   num=num/10;  
+  }
+ return(s);   
+}    
+
+int addDigits(int num) {
+    while (num>=10) num=ad(num);
+    return(num);
 }
 
 ================================================================================================================================================
@@ -2850,7 +3215,7 @@ char* frequencySort(char* s) {
     return(ss);
 }
 
------Another solution using linked list------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----Another solution using linked list---------------------------------
 
 char* frequencySort(char* s) {
     
@@ -2983,7 +3348,7 @@ return(r);
 
 }
 
------And another solution using one vector linked to another and not using malloc -------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----And another solution using one vector linked to another and not using malloc --------------------------------------------------------------
 
 
 char* frequencySort(char* s) {
@@ -3078,6 +3443,164 @@ public class Solution {
         return(p);
     }
     
+}
+
+================================================================================================================================================
+
+498. Diagonal Traverse
+
+class Solution {
+    public int[] findDiagonalOrder(int[][] matrix) {
+
+    int[] p ={0,0};                 // point p set to start 0,0
+    boolean up=true;                // starting to go up
+    int m=matrix.length;            // if matrix is empty returns empty
+    if (m==0) 
+     {   
+       int[]x ={}; 
+       return(x);
+     }  
+    int n=matrix[0].length;         // n = number of columns, m = number of lines        
+        
+    int[] r = new int[m*n];         // result length = m*n
+        
+        
+    if (m==1) return (matrix[0]);   // if one line return line
+    if (n==1)                       // if one column return column as line
+     { 
+      int i;  
+      for (i=0;i<m;i++) r[i]=matrix[i][0];
+      return(r);    
+     }   
+        
+    int k=0;    
+    while ((p[1]!=m-1) || (p[0]!=n-1))
+    {
+     r[k]=matrix[p[1]][p[0]];                  // Keep all steps
+//   System.out.println(p[0]+"  "+p[1]);   
+     k++;    
+     if (up)                                  // Going up
+      { 
+       p[0]++;
+       p[1]--;
+       if ((p[1]<0) && (p[0]==n))              // Corner - right / up
+        {
+         p[1]=1;
+         p[0]=n-1;  
+         up=false;  
+        }
+       else
+        {   
+         if (p[1]<0)                            // Top edge
+          {
+           p[1]=0;
+           up=false;  
+          }
+         if (p[0]==n)                           // Right edge        
+          {
+           p[0]=n-1;
+           p[1]=p[1]+2;  
+           up=false;  
+          }
+        }
+      }   
+     else                                       // going down
+      { 
+       p[0]--;
+       p[1]++;
+       if ((p[0]<0) && (p[1]==m))               // Corner   left / down
+        {
+         p[1]=m-1;
+         p[0]=1;  
+         up=true;  
+        }
+       else
+        {   
+         if (p[0]<0)                            // Left edge
+          {
+           p[0]=0;
+           up=true;  
+          }
+         if (p[1]==m)                            // Bottom edge
+          {
+           p[1]=m-1;
+           p[0]=p[0]+2;  
+           up=true;  
+          }
+        }
+      }   
+    }
+   r[k]=matrix[p[1]][p[0]];                      // Add last item (right , bottom)
+   return(r);                                    // return
+ }
+}
+
+================================================================================================================================================
+
+500. Keyboard Rule
+
+class Solution {
+    public String[] findWords(String[] words) {
+        String[] r = new String [words.length];
+        
+        String[] linhas = {"qwertyuiopQWERTYUIOP","asdfghjklASDFGHJKL","zxcvbnmZXCVBNM"};
+        int i,j,k,g=0;
+        
+        for (i=0;i<words.length;i++)
+         {
+          String fl=words[i].substring(0,1);
+          for (j=0;j<3;j++)
+           {
+            if (linhas[j].contains(fl))
+             {
+              k=0;  
+              while (linhas[j].contains(words[i].substring(k,k+1)))
+               {
+                k++;
+                if (k==words[i].length())
+                 {
+                  r[g]=words[i];
+                  g++;  
+                  break;  
+                 }   
+               }   
+             }   
+           }   
+         } 
+       
+       String[] r2 = new String [g];
+       for (i=0;i<g;i++) r2[i]=r[i];
+       return(r2); 
+        
+    }
+}
+
+================================================================================================================================================
+
+506. Relative Ranks
+
+class Solution {
+    public String[] findRelativeRanks(int[] nums) {
+        
+    long ns [] = new long[nums.length];
+     
+    int i;
+        
+    for (i=0;i<nums.length;i++) ns[i]=nums[i]*10000+i;       /* Keep original pos in lowest bits */
+    Arrays.sort(ns);                                         /* Order */
+    for (i=0;i<nums.length;i++) ns[i]=(ns[i]%10000)*10000+(nums.length-i);  /* Orig.pos->upper bits, inv.order pos->lowest bits*/
+    Arrays.sort(ns);
+    String s[] = new String[nums.length];    
+    for (i=0;i<nums.length;i++)                              /* Create string array with each order position */
+     {
+      long x=(ns[i]%10000);
+      if (x==1) s[i]="Gold Medal";
+      if (x==2) s[i]="Silver Medal";
+      if (x==3) s[i]="Bronze Medal";
+      if (x>3) s[i]=""+x;
+     } 
+    return(s);    
+  }
 }
 
 ================================================================================================================================================
@@ -3421,6 +3944,28 @@ public class Solution {
     }
 }
 
+
+================================================================================================================================================
+606. Construct String from Binary Tree
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public String tree2str(TreeNode t) {
+        if (t==null) return("");
+        if ((t.left!=null) && (t.right!=null)) return (""+t.val+"("+tree2str(t.left)+")("+tree2str(t.right)+")");  
+        if ((t.left!=null) && (t.right==null)) return (""+t.val+"("+tree2str(t.left)+")");
+        if ((t.left==null) && (t.right!=null)) return (""+t.val+"()("+tree2str(t.right)+")");
+        return (""+t.val);
+    }
+}
 
 ================================================================================================================================================
 
