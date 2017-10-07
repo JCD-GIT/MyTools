@@ -3896,9 +3896,8 @@ int distributeCandies(int* candies, int candiesSize) {
     int total=0;
     int types=0;
     int i;
-    int control[200001];   
+    int control[200001]={0};   
     
-    for (i=0;i<=200000;i++) control[i]=0;    // In C is needed to start values / reset the array 
     for (i=0;i<candiesSize;i++)
      {
       if (++control[candies[i]+100000]==1) types++;  
@@ -4213,4 +4212,40 @@ public class Solution {
     }
 }
 
+================================================================================================================================================
+
+680. Valid Palindrome II
+
+class Solution {
+    public boolean validPalindrome(String s) {
+
+     int i=0,j=s.length()-1;  
+     
+     while (i<j)
+     {
+      if (s.charAt(i)!=s.charAt(j)) 
+       {
+        return ((ispalindrome(s.substring(i+1,j+1))) || (ispalindrome(s.substring(i,j)))); 
+       }   
+      i++;
+      j--;   
+     } 
+     return(true);   
+        
+    }
+    
+    boolean ispalindrome (String s)
+    {
+     int i=0,j=s.length()-1;
+        
+     while (i<j)
+     {
+      if (s.charAt(i)!=s.charAt(j)) return(false);
+      i++;
+      j--;   
+     } 
+     return (true);   
+    }  
+}
+        
 ================================================================================================================================================
