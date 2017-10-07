@@ -2496,6 +2496,49 @@ boolean isPalindrome (String s)
 
 ================================================================================================================================================
 
+337. House Robber III
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public int rob(TreeNode root) {
+     
+     if (root==null) return(0);
+     int x=robval(root);
+     int y=rob(root.left)+rob(root.right);   
+     return (x >= y ? x : y );   
+    }
+    
+    int robval (TreeNode r)
+    {
+     if (r==null) return(0);
+     int s=0;
+     if (r!=null) s=s+r.val;
+     if (r.left!=null)
+     {   
+      TreeNode t=r.left;
+      if (t.left!=null)  s=s+rob(t.left);
+      if (t.right!=null) s=s+rob(t.right);
+     }   
+     if (r.right!=null)
+     {   
+      TreeNode t=r.right;
+      if (t.left!=null)  s=s+rob(t.left);
+      if (t.right!=null) s=s+rob(t.right);
+     }   
+     return(s);   
+    }    
+}
+
+================================================================================================================================================
+
 342. Power of Four
 
 public class Solution {
