@@ -709,6 +709,54 @@ public class Solution {
         return(-1);
     }
 }
+
+================================================================================================================================================
+
+34. Search for a Range
+
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+      
+    int min=0;
+    int max=nums.length-1;
+    int i=0;
+    int[] r=new int[2];    
+
+    if (nums.length==0)    
+      {
+       r[0]=-1;
+       r[1]=-1;  
+       return(r); 
+      }
+    while (max-min>1)
+     {
+      i=(max+min)/2;  
+      if (nums[i]==target) break;
+      if (nums[i]<target)
+       min=i;
+      else
+       max=i;   
+     }
+     if (nums[max]==target) i=max;
+     if (nums[min]==target) i=min;
+     if (nums[i]==target)
+      {
+       int j=i;
+       while ((j>=0) && (nums[j]==target)) j--;
+       r[0]=j+1;
+       j=i;  
+       while ((j<nums.length) && (nums[j]==target)) j++;
+       r[1]=j-1;
+      }
+     else   
+      {
+       r[0]=-1;
+       r[1]=-1;  
+      }
+     return(r); 
+    }
+}
+
 ================================================================================================================================================
 
 43. Multiply Strings 
@@ -1072,6 +1120,43 @@ public class Solution {
     }
 }
 
+================================================================================================================================================
+
+80. Remove Duplicates from Sorted Array II
+
+class Solution {
+    public int removeDuplicates(int[] nums) {
+     
+    if (nums.length<3) return(nums.length);
+        
+    int i,j,val;
+    boolean rep=false;    
+    i=1;
+    j=1;
+    val=nums[0];
+    
+    while (j<nums.length)
+     {
+      nums[i]=nums[j];  
+      if (nums[j]==val)
+       {
+        if (!rep) 
+        {   
+         rep=true;
+         i++;
+        }  
+       }
+      else
+       {
+        val=nums[j];
+        rep=false;
+        i++;
+       }
+       j++; 
+     }   
+     return(i);   
+    }
+}
 
 ================================================================================================================================================
 
@@ -1640,6 +1725,159 @@ public class Solution {
       return(true);
      }
     
+}
+
+================================================================================================================================================
+
+210. Course Schedule II
+
+// Best Solution using recursivity
+
+class Solution {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        
+    Map<Integer, List<Integer>> cursos = new HashMap<>();
+    Map<Integer, Integer> rcursos = new HashMap<>();
+        
+        
+    int i=0,j,k=0;
+    
+    int[] r=new int[numCourses];
+    int[] rf=new int[0];
+        
+    for (i=0; i<prerequisites.length; i++)      /* First add all courses to a hash table */
+     {
+      List<Integer> temp = new ArrayList<>();  
+      if (cursos.containsKey(prerequisites[i][0])) temp=cursos.get(prerequisites[i][0]);
+      temp.add(prerequisites[i][1]);
+      cursos.put(prerequisites[i][0],temp);  
+     }
+        
+    for (i=0;i<numCourses;i++)
+     {
+      k=findpath(i, cursos, rcursos, r, k);
+      if (k<0) return (rf);  
+     }
+    return(r);    
+        
+        
+        
+   }
+    
+   public int findpath(int i, Map<Integer, List<Integer>> cursos, Map<Integer, Integer> rcursos, int[] r, int k ) 
+   {
+    if (rcursos.containsKey(i))
+     {
+      if (rcursos.get(i)==-1) return(-1);  
+      return(k);   
+     }
+    rcursos.put(i,-1);   
+    List<Integer> temp = new ArrayList<>(); 
+    if (!cursos.containsKey(i))
+     {
+      rcursos.put(i,1);   
+      r[k]=i;
+      k++;
+      return(k);  
+     }
+    else   
+     {   
+      temp=cursos.get(i);
+      int j;
+      for (j=0;j<temp.size();j++)
+       {
+        k=findpath(temp.get(j), cursos, rcursos, r, k);
+        if (k<0) return (-1);
+       }
+      cursos.remove(i);  
+      rcursos.put(i,1);  
+      r[k]=i;
+      k++;  
+      return(k);  
+     }
+   }   
+}
+
+--------------------------------------------------------------------------------------------------------------------
+
+Other solution not using recursivity with O=N*N, slow when N increases
+
+class Solution {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        
+    Map<Integer, List<Integer>> cursos = new HashMap<>();
+    Map<Integer, Integer> rcursos = new HashMap<>();
+        
+        
+    int i=0,j,k=0;
+    
+    int[] r=new int[numCourses];
+        
+    boolean reducing=true;    
+        
+    for (i=0; i<prerequisites.length; i++)      /* First add all courses to a hash table */
+     {
+      List<Integer> temp = new ArrayList<>();  
+      if (cursos.containsKey(prerequisites[i][0])) temp=cursos.get(prerequisites[i][0]);
+      temp.add(prerequisites[i][1]);
+      cursos.put(prerequisites[i][0],temp);  
+     }
+        
+        
+        
+    while (reducing)                          /* While is possible to remove courses from hash table */
+     {
+      reducing=false;
+      for (i=0; i<numCourses; i++)           /* For every course with pre req ... */
+       if (!rcursos.containsKey(i))   
+       {
+        List<Integer> temp = new ArrayList<>();  
+        if (cursos.containsKey(i))
+         {   
+          temp=cursos.get(i);  /* Get list of pre req */
+          j=0;
+          while (j<temp.size())                         /* Remove all pre reqs without pre req adding to result */
+           {
+             if (!cursos.containsKey(temp.get(j)))
+              {
+               if (!rcursos.containsKey(temp.get(j)))
+                {
+                 r[k]=temp.get(j);
+                 k++;
+                 rcursos.put(temp.get(j),1);  
+                }   
+               temp.remove(j);
+              }  
+             else
+              j++;   
+           }
+          if (temp.size()==0)                 /* If at the end no pre req anymore, add to result to and remove course from prereq */
+           {
+            if (!rcursos.containsKey(i))
+             {
+              r[k]=i;
+              k++;  
+              rcursos.put(i,1);  
+             }  
+            cursos.remove(i);
+            reducing=true;
+           }
+         }
+        else
+         {
+          if (!rcursos.containsKey(i))
+           {
+            r[k]=i;
+            k++;  
+            rcursos.put(i,1);  
+           }  
+         }   
+       }  
+     }
+     if (k==numCourses) return(r);
+     int[] rf=new int[0]; 
+     return(rf);   
+   }
 }
 
 ================================================================================================================================================
