@@ -1054,6 +1054,55 @@ public class Solution {
 
 ================================================================================================================================================
 
+64. Minimum Path Sum
+
+class Solution {
+    public int minPathSum(int[][] grid) {
+     
+     int[][] soma=new int[grid.length][grid[0].length];
+        
+     int i,j;
+        
+     for (i=0;i<grid.length;i++)
+      for (j=0;j<grid[0].length;j++)
+       soma[i][j]=-1;   
+        
+     return mpsun(grid,0,0,soma);   
+    }
+    
+    int mpsun (int[][] grid, int i, int j, int[][] s) {
+        
+    if (s[i][j]>=0) return(s[i][j]);
+        
+    int x=0,y=0,r=0;
+      
+    if ((i<grid.length-1) && (j<grid[i].length-1))
+     {  
+      x=mpsun(grid, i+1,j,s)+grid[i][j];
+      y=mpsun(grid, i,j+1,s)+grid[i][j];
+      r = ( x < y ? x : y);
+     }
+    else
+     {   
+      if ((i>=grid.length-1) && (j>=grid[i].length-1)) 
+       r = grid[i][j];
+      else
+       {   
+        if (i>=grid.length-1) 
+         r = mpsun(grid, i,j+1,s)+grid[i][j];
+        else
+         r = mpsun(grid, i+1,j,s)+grid[i][j];
+       }
+     }
+    s[i][j]=r;    
+    return(r);    
+  }      
+        
+}
+
+
+================================================================================================================================================
+
 69. Sqrt(x)
 
 public class Solution{
@@ -3200,6 +3249,193 @@ public class Solution {
         
     }
 }
+
+
+================================================================================================================================================
+
+417. Pacific Atlantic Water Flow
+
+// Not using reciprocity
+
+class Solution {
+    public List<int[]> pacificAtlantic(int[][] matrix) {
+    
+    List<int[]> r=new ArrayList();
+        
+    int m=matrix.length;
+    if (m==0) return(r);   
+    int n=matrix[0].length;               
+        
+    boolean [][] atl = new boolean [matrix.length][matrix[0].length];
+    boolean [][] pac = new boolean [matrix.length][matrix[0].length];
+        
+    boolean equalok=false;    
+    
+    int i,j,max;
+    
+    for (i=0;i<m;i++)
+     {
+      max=-1;  
+      j=0;  
+      while ((j<n) && (matrix[i][j]>=max))  
+       {
+        max=matrix[i][j];
+        pac[i][j]=true;
+        j++;  
+       }
+     }    
+    for (j=0;j<n;j++)
+     {
+      max=-1;  
+      i=0;
+      while ((i<m) && (matrix[i][j]>=max))  
+       {
+        max=matrix[i][j];
+        pac[i][j]=true;
+        i++;  
+       }
+     }
+    for (i=0;i<m;i++)
+     {
+      max=-1;
+      j=n-1;  
+      while ((j>=0) && (matrix[i][j]>=max))  
+       {
+        max=matrix[i][j];
+        atl[i][j]=true;
+        j--;  
+       }
+     }    
+    for (j=0;j<n;j++)
+     {
+      max=-1;
+      i=m-1;  
+      while ((i>=0) && (matrix[i][j]>=max))  
+       {
+        max=matrix[i][j];
+        atl[i][j]=true;
+        i--;  
+       }
+    }
+   boolean reducing =true;
+        
+   while (reducing)
+    {
+     reducing=false;  
+     for (i=0;i<m;i++)
+      for (j=0;j<n;j++)
+       {
+        if (!(pac[i][j]))
+         {
+          boolean temp=false;  
+          if ((!temp) && (i>=1)  &&  (pac[i-1][j]) && (matrix[i-1][j] <= matrix[i][j])) temp=true;
+          if ((!temp) && (j>=1)  &&  (pac[i][j-1]) && (matrix[i][j-1] <= matrix[i][j])) temp=true;
+          if ((!temp) && (j<n-1) &&  (pac[i][j+1]) && (matrix[i][j+1] <= matrix[i][j])) temp=true;
+          if ((!temp) && (i<m-1) &&  (pac[i+1][j]) && (matrix[i+1][j] <= matrix[i][j])) temp=true;
+          if (temp)
+           {
+            reducing=true;
+            pac[i][j]=true;
+           }   
+         }   
+       }   
+     }
+   
+   reducing=true;     
+   while (reducing)
+    {
+     reducing=false;  
+     for (i=0;i<m;i++)
+      for (j=0;j<n;j++)
+       {
+        if (!(atl[i][j]))
+         {
+          boolean temp=false;  
+          if ((!temp) && (i>=1)  &&  (atl[i-1][j]) && (matrix[i-1][j] <= matrix[i][j])) temp=true;
+          if ((!temp) && (j>=1)  &&  (atl[i][j-1]) && (matrix[i][j-1] <= matrix[i][j])) temp=true;
+          if ((!temp) && (j<n-1) &&  (atl[i][j+1]) && (matrix[i][j+1] <= matrix[i][j])) temp=true;
+          if ((!temp) && (i<m-1) &&  (atl[i+1][j]) && (matrix[i+1][j] <= matrix[i][j])) temp=true;
+          if (temp)
+           {
+            reducing=true;
+            atl[i][j]=true; 
+           }   
+         }   
+       }   
+    }       
+        
+        
+   
+   for (i=0;i<m;i++)
+    for (j=0;j<n;j++)
+     if (pac[i][j] && atl[i][j]) 
+      {
+       int []par = {i,j};  
+       r.add(par);  
+      }   
+    return(r);  
+  }      
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+// Using reciprocity. Shorter and 3 times faster
+
+class Solution {
+    public List<int[]> pacificAtlantic(int[][] matrix) {
+    
+    List<int[]> r=new ArrayList();
+        
+    int m=matrix.length;
+    if (m==0) return(r);   
+    int n=matrix[0].length;    
+        
+    char [][] contr = new char [m][n];
+    
+    int i,j;
+    
+    for (i=0,   j=0;   i<m; i++) marksea('P',i,j,-1,matrix,contr);  
+    for (i=0,   j=0;   j<n; j++) marksea('P',i,j,-1,matrix,contr);  
+    for (i=0,   j=n-1; i<m; i++) marksea('A',i,j,-1,matrix,contr);  
+    for (i=m-1, j=0;   j<n; j++) marksea('A',i,j,-1,matrix,contr);  
+
+    for (i=0;i<m;i++)
+     {    
+      for (j=0;j<n;j++)
+       {   
+        if (contr[i][j]=='X')
+         {   
+          int []par = {i,j};  
+          r.add(par);
+         }
+           
+       }   
+     }
+          
+    return(r);
+  }
+    
+    void marksea(char c, int i, int j, int v, int[][] mat, char[][] contr) {
+        
+    if ((mat[i][j]<v) || (contr[i][j]==c) || (contr[i][j]=='X'))  return;
+  
+    if (contr[i][j]=='P')  
+     contr[i][j]='X';
+    else
+     contr[i][j]=c;
+        
+    int m=mat.length;
+    int n=mat[0].length;  
+      
+    if (i<m-1) marksea(c, i+1, j, mat[i][j], mat, contr);    
+    if (i>0)   marksea(c, i-1, j, mat[i][j], mat, contr);    
+    if (j<n-1) marksea(c, i, j+1, mat[i][j], mat, contr);    
+    if (j>0)   marksea(c, i, j-1, mat[i][j], mat, contr);    
+
+    return;  
+  }      
+}
+
 
 ================================================================================================================================================
 
