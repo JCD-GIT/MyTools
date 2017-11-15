@@ -4766,3 +4766,147 @@ class Solution {
 }
         
 ================================================================================================================================================
+
+Function to generate all possible multiples from a int vector with prime numbers:
+
+O=N*(2^N)
+
+#include <stdio.h>
+
+void geramult (int *nums, int s)
+ {
+  long i,r,map=0,flag;
+
+
+  for (map=1;map<(1<<s);map++)
+   {
+    flag=1;
+    r=1;
+    i=0;
+    while (flag<(1<<s))
+     {
+      if (flag&map) r=r*nums[i];
+      i++;
+      flag=flag<<1;
+     }
+    printf("%lu ",r);
+   }
+   printf("\n");
+   return;
+  }
+
+
+int main()
+ {
+  int param[10]={2,3,5,7,11};
+  geramult(param,5);
+ }
+
+--------------------------------------------------------------------------
+
+In Java reusing previous multiplication results:
+
+O = 2^(N-1)
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.awt.SystemColor.control;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+    int[] teste={2,3,5,7,11,13,17};
+    geramult(teste);
+
+    }
+
+
+    static void geramult (int [] nums)
+    {
+     List<Integer> controle  = new ArrayList<>();
+
+     Integer i,j,s;
+
+     for (i=0;i<nums.length;i++)
+      {
+       controle.add(nums[i]);
+       System.out.print(nums[i]+" ");
+       s=controle.size();
+       j=0;
+       while (j+1<s)
+        {
+         controle.add(nums[i]*controle.get(j));
+         System.out.print(nums[i]*controle.get(j)+" ");
+         j++;
+        }
+      }
+     System.out.println("");
+     return;
+
+    }
+
+}
+
+
+--------------------------------------------------------------------------
+
+Same using same list
+
+O = 2^(N-1)
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.awt.SystemColor.control;
+
+public class Main {
+
+    List<Integer> tempx=new ArrayList<Integer>();
+        
+    tempx.add(2);
+    tempx.add(3);
+    tempx.add(5);
+    tempx.add(7);
+    tempx.add(11);
+    tempx.add(13);
+    tempx.add(17);
+    tempx.add(19);
+
+        
+    geramult(tempx);
+
+    }
+
+
+
+void geramult (List<Integer> lista)
+
+{
+int s=lista.size();
+int limit=s;
+int i,n=0;
+
+while (n<s)
+  {
+   System.out.print(lista.get(n)+" "); 
+   int s2=lista.size(); 
+   for (i=0; i<n; i++)
+    { 
+     int x=lista.get(i)*lista.get(n);
+     System.out.print(x+" ");
+     lista.add(x);
+    }
+   for (i=s; i<s2; i++)
+    { 
+     int x=lista.get(i)*lista.get(n);
+     System.out.print(x+" ");
+     lista.add(x);
+    }
+   n++;
+  }    
+ return;
+}
+
+
