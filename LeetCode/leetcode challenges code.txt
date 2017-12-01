@@ -432,6 +432,40 @@ class Solution {
 }
 
 
+================================================================================================================================================
+
+24. Swap Nodes in Pairs
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode swapPairs(ListNode head) {
+        
+        ListNode p=head;
+        ListNode r=head;
+        
+        
+        if ((p!=null) && (p.next!=null)) r=p.next;
+        
+        while ((p!=null) && (p.next!=null))
+         {
+          ListNode psave=p;  
+          ListNode pnow=p;
+          p=p.next;
+          pnow.next=p.next;
+          p.next=pnow;
+          p=pnow.next; 
+          if ((p!=null) && (p.next!=null)) psave.next=p.next;
+         }
+        return(r);
+    }
+}
 
 ================================================================================================================================================
 
@@ -1207,6 +1241,76 @@ class Solution {
     }
 }
 
+
+================================================================================================================================================
+ 
+98. Validate Binary Search Tree
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        
+        if (root==null) return(true);
+        
+        long[] temp = new long[2];
+        temp[0]=root.val;
+        temp[1]=root.val;
+        
+        return (isVBST(root,temp));        
+        
+    }
+    
+        
+        public boolean isVBST(TreeNode root, long[]minmax) {
+        
+        if (root==null) return(true);    /* Trees with no branchs are BST */
+            
+        long max=root.val,min=root.val; 
+        boolean rl,rr;    
+            
+        if (root.right!=null)             /* Return false if right branch is less than value or left branch is greater */    
+         if (root.right.val <= root.val) 
+          return(false);
+         else
+          max= root.right.val;            /* If not false, max and min are updated */  
+        if (root.left!=null) 
+         if (root.left.val >= root.val) 
+          return(false);
+         else
+          min= root.left.val;  
+
+        long[] mml = new long[2];             /* Prepare array for left and right search */
+        long[] mmr = new long[2];    
+            
+        mml[0]=(min<minmax[0]) ? min : minmax[0];   /* Left min to root.val-1 */
+        mmr[1]=(max>minmax[1]) ? max : minmax[1];   /* Right root.val+1 to max */
+            long x=root.val;
+        mml[1]=x-1;
+        mmr[0]=x+1;    
+            
+        rl=isVBST(root.left,mml);                                /* Do the same with left and right branch */
+         if ((rl==false) || (mml[1]>=root.val)) return(false);   /* They should also be BST */
+        rr=isVBST(root.right,mmr);                               /* If not return false */   
+         if ((rr==false) || (mmr[0]<=root.val)) return(false);   /* If return true, confirm if no value at left is greater than root.val */
+                                                                 /* and no value at right is less than root.val */      
+        if (mml[0]<minmax[0]) minmax[0]=mml[0];                  /* Update max and min to keep to upper branches */  
+        if (mmr[1]>minmax[1]) minmax[1]=mmr[1];   
+          
+        return(true);        
+        
+    }
+    
+    
+}
+
 ================================================================================================================================================
 
 110. Balanced Binary Tree
@@ -1429,6 +1533,39 @@ void solve(char** board, int boardRowSize, int boardColSize) {
     
 }    
  
+================================================================================================================================================
+
+134. Gas Station
+
+class Solution {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        
+        boolean lowpoint=false;
+        int topdeficit=0;
+        int extragas=0;
+        int start=0;
+        int i;
+        
+        for (i=0;i<gas.length;i++)
+         {
+          extragas=extragas+gas[i]-cost[i];               /* Keep gas credit */
+          if ((extragas<0) && (extragas<topdeficit))      /* When down, below 0, get minimum */
+           { 
+            topdeficit=extragas;
+            lowpoint=true;  
+           }
+          else
+           {
+            if ((lowpoint) && (gas[i]>cost[i]))           /* When minimum found, save start */
+             {
+              lowpoint=false;
+              start=i;   
+             }   
+           }   
+         }
+       return (extragas>=0) ? start : -1;                 /* At the end, if there is credit is possible starting from minimum point */
+  }
+}
 
 ================================================================================================================================================
 
@@ -2072,6 +2209,32 @@ public class Solution {
    }
 }
 
+================================================================================================================================================
+
+226. Invert Binary Tree
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if (root==null) return (root);
+        TreeNode temp=root.left;
+        root.left=root.right;
+        root.right=temp;
+        invertTree(root.left);
+        invertTree(root.right);
+        return(root);
+        
+        
+    }
+}
 
 ================================================================================================================================================
 
@@ -2248,6 +2411,28 @@ return (findMatrix(matrix, target, j+x0, x1, y0, y0+i-1) | findMatrix(matrix, ta
 
 }
     
+}
+
+================================================================================================================================================
+
+242. Valid Anagram
+
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        
+        int[] contr = new int['z'-'a'+1];
+        
+        int sz;
+        
+        if ((sz=s.length())!=t.length()) return(false);
+        
+        int i;
+        
+        for (i=0;i<sz;i++) contr[s.charAt(i)-'a']++;
+        for (i=0;i<sz;i++) if ((--contr[t.charAt(i)-'a'])<0) return(false);  
+        return(true);
+         
+    }
 }
 
 ================================================================================================================================================
@@ -2958,6 +3143,115 @@ int wiggleMaxLength(int* nums, int numsSize) {
      return(longest);   
       
 }
+================================================================================================================================================
+
+377. Combination Sum IV
+
+// In C using recursivity
+
+int cs4(int* nums, int numsSize, int target, int* rt) {    
+     
+    if (target<=0) return(0);               /* If negative or zero, not possible */
+    if (numsSize==0) return(0);             /* If list is empty, not possible */ 
+    if (rt[target]>=0) return (rt[target]); /* If this target was already calculate in preliminar iteraction, return */
+        
+    int i,r=0,j=0;
+    int nums2[numsSize];
+    for (i=0;i<numsSize; i++) if (target-nums[i]>=0) nums2[j++]=nums[i];  /* Create new array including only useful values */
+    for (i=0;i<numsSize; i++)
+     {
+      if (target-nums[i]==0)                                      /* If value = target done */
+        r++;
+      else  
+        r=r+cs4(nums2, j, target-nums[i], rt);                    /* If not try with target = target-value ... recursivity */
+     }   
+    rt[target]=r;                                                 /* At the end, before returning, keep result in case it is needed */
+    return(r);
+   }
+
+int combinationSum4(int* nums, int numsSize, int target) {        /* Main program */
+        int rt[target+1];                                         /* Create array to keep results */
+        int i;
+        for (i=0;i<=target;i++) rt[i]=-1;
+        return (cs4(nums,numsSize,target,rt));                    /* Call function for the first time */
+}
+
+------------------------------------------------------------------------------------------
+
+// In Java using Combination formula for repeated (N!/(A!*B!*C! ...). To avoid Overflow in Factorial calcs, Factorial was processed together with division
+
+class Solution {
+    public int combinationSum4(int[] nums, int target) {
+        
+    int pos=0,cnt=0,sum=0,ii,jj;    
+    boolean end=false;
+       
+    for (ii=0,jj=0;ii<nums.length;ii++)              /* Filter array with only numbers <= target */
+     {
+      if (nums[ii]<=target) nums[jj]=nums[ii];
+      jj++;  
+     }   
+        
+    if (jj==0) return(0);    
+    int[] mult=new int[jj];
+        
+    while (!end)
+     {
+      if (sum==target)                               /* if it is a selection that sum match use Combination formula */
+       {
+        int n=0,i,j=0,k,nfat,max=0,nmax=0;
+        for (i=0;i<mult.length;i++) if (mult[i]!=0) n=n+mult[i];   /* Calc N */
+        int[] todivide=new int[n];                                 
+        for (i=0;i<mult.length;i++)
+         {
+          int x=mult[i];
+          while (x>1)
+           {
+            todivide[j]=x;
+            j++;  
+            x--;  
+           }
+         }
+        nfat=1;
+        i=2;  
+        while (i<=n)                                        /* To avoid overflow calc fatorial and divide at same time */
+         {
+          nfat=nfat*i;
+          i++;  
+          for (k=j-1;(k>=0) && (nfat>1) && (j>0);k--)
+           {
+            if (nfat%todivide[k]==0)
+             {
+              nfat=nfat/todivide[k];
+              j--;
+              if (j>=0) todivide[k]=todivide[j];
+             }
+           }   
+         }
+        cnt=cnt+nfat;                                      /* Add all possible combinations to result */
+       }   
+      mult[pos]++;                                         /* Find all possible cases to match target adding */
+      sum=sum+nums[pos];  
+      while (mult[pos]*nums[pos]>target)
+       {
+        sum=sum-mult[pos]*nums[pos];
+        mult[pos]=0;
+        pos++;
+        if (pos==mult.length)                              /* When last numeber, done */
+         { 
+          end=true;
+          break;
+         }   
+        mult[pos]++;
+        sum=sum+nums[pos]; 
+       }
+      pos=0;
+     }
+    return(cnt);  
+   }
+}
+
+
 ================================================================================================================================================
 
 389. Find the Difference  
