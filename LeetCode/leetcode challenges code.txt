@@ -2329,6 +2329,55 @@ public class Solution {
         return(root);
     }
 }
+================================================================================================================================================
+
+237. Delete Node in a Linked List
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+void deleteNode(struct ListNode* node) {
+    struct ListNode* x;
+    
+    x=node->next;
+    while (x->next!=NULL)
+    {
+     node->val=x->val;
+     node=node->next;   
+     x=x->next;   
+    }
+   node->val=x->val;
+   node->next=NULL; 
+   return; 
+}
+
+-----------------------------------------------------------
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public void deleteNode(ListNode node) {
+        if (node.next==null) return;
+        ListNode x=node.next;
+        node.val=x.val;
+        if (x.next==null)            
+         node.next=null;
+        else
+         deleteNode(x);
+        return;
+    }
+}
+
 
 ================================================================================================================================================
 
@@ -3456,7 +3505,60 @@ public class Solution {
           
     }
 }
+
+
 ================================================================================================================================================
+
+402. Remove K Digits
+
+char* removeKdigits2(char* num, int k) {
+
+    if (k==0) return (num);                 /* No number to remove, same string */
+    if (k>=strlen(num)) return("0");        /* Removing all, zero */
+
+    int i;
+    int min=10;    
+    int kmin;
+
+    char* p;    
+
+    char* buffer;
+    buffer = (char *)malloc(strlen(num)+1-k);   /* Alloc area to retur */    
+
+    for (i=0;i<=k;i++)                       /* Find minimun digit in first K */
+     {
+      if (num[i]-'0'<min) 
+       {
+        min=num[i]-'0';
+        kmin=i;   
+       }      
+     }
+
+    buffer[0]=num[kmin];                 /* Return the digit found + same function with how many digits are missing */ 
+    int x=strlen(num+kmin+1);    
+    if ((x>0) && (x>k-kmin))  
+     {
+      p=removeKdigits2(num+kmin+1, k-kmin);
+      strcpy(buffer+1,p);    
+     }       
+    else
+     buffer[1]=0;                      
+
+    return (buffer);   
+}                 
+    
+char* removeKdigits(char* num, int k) {
+  
+   char r[strlen(num)];               /* Main function calling the recursive function */
+   char* p=r; 
+   p=removeKdigits2(num, k);          /* Final result should not have 0 on left */
+   while (*p=='0') p++;
+   return(strlen(p)==0) ? "0" : p; 
+}    
+  
+
+================================================================================================================================================
+
 404. Sum of Left Leaves 
 
 /**
