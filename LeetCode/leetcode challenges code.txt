@@ -225,6 +225,51 @@ int myAtoi(char* str) {
     return(signal*value);
 }
 
+
+================================================================================================================================================
+
+9. Palindrome Number
+
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        
+        int i = 1;
+        int z = x;
+        while (z>=10) 
+           {  
+            i++;
+            z=z/10;
+           }   
+        return(isPal(x,i));      
+    }
+    
+    
+    bool isPal(int x, int size) {
+        
+        int z;
+        
+        if (x<0) return (false);
+        if ((x<10) & (size==1))
+           return (true);
+        
+        if ((x<100) & (size==2)) 
+         {
+          if (x/10 == x%10) return (true);   
+         }   
+        else
+         {
+          z = x/(pow(10,size-1));
+          if (x%10 == z)
+            return(isPal(x/10-z*(pow(10,size-2)),size-2)); 
+         }   
+        return(false);
+    }    
+ 
+    
+    
+};
+
 ================================================================================================================================================
 
 12. Integer to Roman
