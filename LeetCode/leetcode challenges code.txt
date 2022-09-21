@@ -387,6 +387,92 @@ public:
   }
 };
 
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+
+================================================================================================================================================
+
+19. Remove Nth Node From End of List
+
+// First solution 
+
+struct ListNode* removeNthFromEnd(struct ListNode* head, int n){
+    
+
+   struct ListNode* list1[50];  
+        
+   struct ListNode* addr = head;
+   
+   int i=0;     
+   while (addr!=NULL) 
+     {
+      list1[i] = addr;
+      i++; 
+      addr = addr->next; 
+     } 
+    
+    if (i>n)
+     { 
+      addr = list1[i-n-1];  
+      if (n!=1)
+         addr->next = list1[i-n+1];
+      else
+         addr->next = NULL;
+     } 
+    else
+     {
+      head = head->next;
+     }   
+    return(head);         
+   
+};    
+
+// Second solution better. Enable for n greater than 30
+
+#include <deque>
+using namespace std;
+
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        if (!head || !n)
+        {
+            return head;
+        }
+
+
+
+        struct ListNode* items[n+1];
+        struct ListNode* toReturn = head;
+        int count = 0;
+        for (struct ListNode* currentItem = head; currentItem; currentItem = currentItem->next)
+        {
+            items[count%(n+1)]=currentItem;
+            count++;
+        }
+       
+        // In case we must remove the first item.
+        if (count == n)
+        {
+            toReturn = head->next;
+            delete head;
+        }
+        else 
+        {
+            items[count%(n+1)]->next = n == 1 ? nullptr : items[(count+2)%(n+1)];
+        }
+
+        return toReturn;
+    }
+};
+
 ================================================================================================================================================
 
 
@@ -1048,6 +1134,43 @@ void rotate(int** matrix, int matrixRowSize, int matrixColSize) {
         }
     }
 }    
+
+================================================================================================================================================
+
+50. Pow(x, n)
+
+class Solution {
+public:
+
+double myPow(double x, int n){
+    
+    int m;
+    
+    if (x==1)
+       return(x); 
+    
+    if (n==0)
+       return(1);
+        
+    if (n==1)
+       return(x);
+    
+    if (n < 0) 
+       { 
+         x = 1/x; 
+         m = -(n/2);
+       } 
+    else
+       m = n/2;
+        
+    if ((n%2)==0)    
+       return (myPow(x*x,m));
+    else
+       return (myPow(x*x,m)*x); 
+        
+
+}
+};
 
 ================================================================================================================================================
 
