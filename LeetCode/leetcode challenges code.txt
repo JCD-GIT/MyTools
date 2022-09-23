@@ -1248,6 +1248,57 @@ double myPow(double x, int n){
 }
 };
 
+// Less iterations, faster
+
+class Solution {
+public:
+
+double myPow(double x, int n){
+    
+    int m,r;
+
+    double pp;
+    
+    int factor = 16;
+        
+    if (x==1)
+       return(x); 
+    
+    if (n==0)
+       return(1);
+        
+    if (n==1)
+       return(x);
+    
+    if ((n<factor) & (n>-factor))
+       factor = 2;
+    
+    if (n < 0) 
+       { 
+         x = 1/x; 
+         m = -(n/factor);
+       } 
+    else
+       m = n/factor;
+    
+    pp = x*x;
+    if (factor==16) pp = pp*pp*pp*pp*pp*pp*pp*pp;
+    
+    r = n%factor;    
+    if ((r)==0)    
+      {  
+       return (myPow(pp,m));
+      }
+    else
+     {
+      if (r<0) r=-r;  
+      return (myPow(pp,m)*myPow(x,r)); 
+     }  
+        
+
+}
+};
+
 ================================================================================================================================================
 
 53. Maximum Subarray
