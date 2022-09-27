@@ -672,6 +672,30 @@ class Solution {
 
 ================================================================================================================================================
 
+26. Remove Duplicates from Sorted Array
+
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        
+    int i=0,j=0, old=nums[0]-1;
+        
+    while (i<nums.size()) 
+     {
+      if (nums[i]!=old)
+       {
+        if (i!=j) nums[j]=nums[i];  
+        old = nums[i];
+        j++;
+       }   
+      i++;
+     }  
+    return(j);    
+    }
+};
+
+================================================================================================================================================
+
 27. Remove Element 
 
 int removeElement(int* nums, int numsSize, int val) {
