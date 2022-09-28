@@ -77,6 +77,66 @@ public class Solution {
 
 ================================================================================================================================================
 
+3. Longest Substring Without Repeating Characters
+
+C
+
+bool repete(char * s, char c,int inicio,int final)
+{
+ int i=inicio;
+    
+ while (i<final)
+  {  
+   if (s[i]==c) return(true);
+   i++;
+  }  
+ return(false);   
+}  
+    
+
+int lengthOfLongestSubstring(char * s){
+    
+    int lng = 0;
+    int i,j=0,sz=strlen(s);
+
+    while (j+lng<sz)
+     {   
+      i=j;
+      while ((i<sz) & !(repete(s,s[i],j,i))) i++;
+      if (i-j>lng)
+         lng = i-j; 
+      j++;
+     }   
+    return(lng);
+
+}
+
+
+
+C++
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        
+    int lng = 0;
+    int i,j=0,sz=s.size();
+
+    while (j+lng<sz)
+     {   
+      i=j;
+      while (i<sz & (s.substr(j,i-j).find(s[i])==string::npos)) i++;  
+      if (i-j>lng)
+         lng = i-j; 
+      j++;
+     }   
+    return(lng);
+        
+    }
+};
+
+================================================================================================================================================
+
 5. Longest Palindromic Substring
 
 public class Solution {
