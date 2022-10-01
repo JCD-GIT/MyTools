@@ -325,13 +325,14 @@ class Solution {
 public:
     string convert(string s, int numRows) {
         
+    if (numRows==1) return(s);    
+        
     int jump=2*numRows-2;
     int round=numRows-1;
-    int loop=s.size()/numRows;    
+    int loop=1+s.size()/(2*(numRows-1));    
     int i,r;
     string result="";
-        
-    if (numRows==1) return(s);    
+           
     
     r=0;
   
@@ -381,13 +382,14 @@ class Solution {
 public:
     string convert(string s, int numRows) {
         
+    if (numRows==1) return(s);    
+        
     int jump=2*numRows-2;
     int round=numRows-1;
-    int loop=s.size()/numRows;    
+    int loop=1+s.size()/(2*(numRows-1));    
     int i,r;
     string result="";
         
-    if (numRows==1) return(s);    
     
     r=0;
   
@@ -436,12 +438,13 @@ char getstrpos(char * s, int pos)
 
 char * convert(char * s, int numRows){
         
+    if (numRows==1) return(s);
+    
     int jump=2*numRows-2;
     int round=numRows-1;
-    int loop=strlen(s)/numRows;    
+    int loop=1+(strlen(s)/(2*(numRows-1)));    
     int i,r,rpos;
-
-    if (numRows==1) return(s);    
+  
     
     r=0;
     
