@@ -315,6 +315,169 @@ public class Solution {
 
 ================================================================================================================================================
 
+6. Zigzag Conversion
+
+Solution 1.
+
+#include <cctype>
+
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        
+    int jump=2*numRows-2;
+    int round=numRows-1;
+    int loop=s.size()/numRows;    
+    int i,r;
+    string result="";
+        
+    if (numRows==1) return(s);    
+    
+    r=0;
+  
+    while (r<=round)
+     {   
+      for (i=0;i<=jump*loop;i=i+jump)
+       {
+        if ((r>0 & r<round))
+          {
+           result=result+getstrpos(s,i-r);
+           result=result+getstrpos(s,i+r); 
+          }
+        else
+          result=result+getstrpos(s,i+r);  
+       } 
+      r++;  
+     }
+    return(removespaces(result));    
+                      
+}
+    
+ 
+ string removespaces(string s)
+    {
+     int pos;   
+     while ((pos=s.find(" "))!=string::npos)
+       s=s.substr(0,pos)+s.substr(pos+1,s.size()-pos-1);
+     return(s);   
+    }
+    
+    
+    char getstrpos(string s, int pos)
+    {
+     if ((pos>=0) & (pos<s.size()))
+      return(s[pos]);
+     else
+      return(' ');   
+    }    
+        
+};
+
+Solution 2.
+
+#include <cctype>
+
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        
+    int jump=2*numRows-2;
+    int round=numRows-1;
+    int loop=s.size()/numRows;    
+    int i,r;
+    string result="";
+        
+    if (numRows==1) return(s);    
+    
+    r=0;
+  
+    while (r<=round)
+     {   
+      for (i=0;i<=jump*loop;i=i+jump)
+       {
+        if ((r>0 & r<round))
+          {
+           result=getstrpos(result,s,i-r);
+           result=getstrpos(result,s,i+r); 
+          }
+        else
+          result=getstrpos(result,s,i+r);  
+       } 
+      r++;  
+     }
+    return(result);    
+                      
+}
+                      
+    string getstrpos(string r, string s, int pos)
+    {
+     if ((pos>=0) & (pos<s.size()))
+      return(r+s[pos]);
+     else
+      return(r);   
+    }    
+        
+};
+
+And in C (faster)
+
+char result[1000];
+
+char getstrpos(char * s, int pos)
+    {
+     
+     if ((pos>=0) & (pos<strlen(s)))
+      {
+       return(s[pos]);
+      }  
+     else
+      return('$');   
+    }    
+
+char * convert(char * s, int numRows){
+        
+    int jump=2*numRows-2;
+    int round=numRows-1;
+    int loop=strlen(s)/numRows;    
+    int i,r,rpos;
+
+    if (numRows==1) return(s);    
+    
+    r=0;
+    
+    rpos=0;
+  
+    while (r<=round)
+     {   
+       
+      for (i=0;i<=jump*loop;i=i+jump)
+       {
+        if ((r>0) & (r<round))
+          {
+           result[rpos]=getstrpos(s,i-r);
+           rpos++; 
+           if (result[rpos-1]=='$') rpos--; 
+           result[rpos]=getstrpos(s,i+r);
+           rpos++;
+           if (result[rpos-1]=='$') rpos--; 
+          }
+        else
+         {  
+          result[rpos]=getstrpos(s,i+r);
+          rpos++;
+          if (result[rpos-1]=='$') rpos--;  
+         }   
+       }
+      r++;  
+     }
+    result[rpos]=0;
+    return(result);    
+}
+    
+ 
+
+================================================================================================================================================
+
 7. Reverse Integer 
 
 public class Solution {
