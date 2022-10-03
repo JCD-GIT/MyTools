@@ -421,6 +421,74 @@ public:
         
 };
 
+Solution using matrix:
+
+class Solution {
+public:
+    string convert(string s, int numRows) {
+    
+    char x[numRows][s.size()];
+        
+    int i,j,k;
+        
+    bool zig=true;    
+        
+    string res="";   
+        
+    if (numRows==1) return(s);    
+        
+    for (i=0;i<numRows;i++)
+     for (j=0;j<s.size();j++)
+      x[i][j]=' ';
+        
+    i=0;
+    j=0;
+    k=0;    
+        
+    while (k<s.size())   
+     {
+      //cout <<i;
+      //cout <<j; 
+      if (zig)
+       {
+        x[i][j]=s[k];
+        k++;
+        i++;
+        if (i==numRows)
+         {
+          i--;
+          i--;  
+          j++;
+          zig=false;  
+         }  
+       }
+      else
+       {
+        x[i][j]=s[k];
+        k++;
+        i--;
+        j++;
+        if (i<0)
+         {
+          i++;
+          i++;  
+          j--;
+          zig=true;
+         }  
+       }   
+     }   
+
+        
+    for (i=0;i<numRows;i++)
+     for (j=0;j<s.size();j++) 
+      if (x[i][j]!=' ')
+        res=res+x[i][j];   
+    return(res);    
+    }    
+        
+};
+
+
 And in C (faster)
 
 char result[1000];
