@@ -677,6 +677,76 @@ public:
     
 };
 
+
+================================================================================================================================================
+
+10. Regular Expression Matching
+
+// Recursive solution
+
+class Solution {
+public:
+    bool isMatch(string s, string p) {
+    
+    p=optimize(p);
+        
+    string strtemp;  
+        
+    int i,j,pos;    
+        
+    char rep;    
+        
+    if ((pos=p.find('*'))==string::npos)
+     {
+      if (s.size()!=p.size()) 
+         return(false);
+      else
+         for (i=0;i<s.size();i++)
+          {
+           if ((p[i]!='.') & (p[i]!=s[i]))
+              return(false); 
+          }  
+         return(true); 
+     }   
+    else
+     {
+      rep=p[pos-1];
+      i=0;
+      while (i < 20-pos+1)
+       { 
+        strtemp="";   
+        if (isMatch(s,(p.substr(0,pos-1)+strtemp+p.substr(pos+1,p.size()-pos-1)))) return(true); 
+          
+        for (j=0;j<i;j++)
+         {
+          strtemp=strtemp+rep;
+          if (isMatch(s,(p.substr(0,pos-1)+strtemp+p.substr(pos+1,p.size()-pos-1)))) return(true);
+         }
+        i++;  
+       }
+     }   
+    return(false);    
+    }  
+    
+  string optimize(string p)
+   {
+    
+    int pos=0;  
+    while (((pos=p.find('*',pos))!=string::npos) & (pos+1<p.size()))  
+     {
+      if ((p[pos-1]==p[pos+1]) & (p[pos+2]=='*'))
+        { 
+         p = p.substr(0,pos-1)+p.substr(pos+1,p.size()-pos-1);
+        }
+      else
+       pos++;  
+     }
+    return(p);  
+   }   
+    
+       
+};
+
 ================================================================================================================================================
 
 12. Integer to Roman
