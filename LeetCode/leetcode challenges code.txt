@@ -703,7 +703,7 @@ public:
       else
          for (i=0;i<s.size();i++)
           {
-           if ((p[i]!='.') & (p[i]!=s[i]))
+           if ((p[i]!='.') && (p[i]!=s[i]))
               return(false); 
           }  
          return(true); 
@@ -720,7 +720,7 @@ public:
         for (j=0;j<i;j++)
          {
           strtemp=strtemp+rep;
-          if ((rep!='.') & (s.find(strtemp)==string::npos)) 
+          if ((rep!='.') && (s.find(strtemp)==string::npos)) 
              break;  
           else
              if (isMatch(s,(p.substr(0,pos-1)+strtemp+p.substr(pos+1,p.size()-pos-1)))) return(true);
@@ -777,7 +777,7 @@ public:
      {  
       if (s.size()==1)
        {  
-        if ((s[0]==p[0]) | (p[0]=='.'))  
+        if ((s[0]==p[0]) || (p[0]=='.'))  
           return(true);
         return(false);
        }  
@@ -788,7 +788,7 @@ public:
         
     if ((p.size()>0) & (s.size()>0))           // Remove matches at end
      {
-      if ((p[p.size()-1]==s[s.size()-1]) | (p[p.size()-1]=='.'))
+      if ((p[p.size()-1]==s[s.size()-1]) || (p[p.size()-1]=='.'))
           return (isMatch(s.substr(0,s.size()-1),p.substr(0,p.size()-1))); 
      }   
         
@@ -856,6 +856,7 @@ public:
     
 
 };
+
 
 
 
