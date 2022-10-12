@@ -858,7 +858,57 @@ public:
 };
 
 
+================================================================================================================================================
 
+11. Container With Most Water
+
+// First solution (slow when long lists)
+
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        
+    int i, j, max=0, shorter;
+        
+    for (i=1;i<height.size();i++)
+      for (j=i-1;j>=0;j--)
+       {
+        shorter = height[i];
+        if (shorter > height[j]) shorter = height[j];
+        if ((shorter * (i-j)) > max) max = shorter * (i-j);  
+       } 
+    return(max);      
+        
+    }
+};
+
+// Faster solution
+
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        
+    int i, j, max=0, area, lowv;    
+        
+    i=0;
+    j=height.size()-1;
+        
+    while (i<j)
+    {
+     lowv = (height[i] < height[j]) ? height[i] : height[j];   // Get shorter line
+     area=(j-i)*lowv;    
+     if (area>max) max=area;                                   // Update max area if greater
+     if (height[i] < height[j])
+        while ((i<j) && (height[i] <= lowv))                   // Move to inside lines until get a longer one
+          i++;
+     else
+        while ((i<j) && (height[j] <= lowv))
+          j--;     
+    }   
+    return(max);      
+        
+    }
+};
 
 ================================================================================================================================================
 
