@@ -1039,6 +1039,39 @@ public:
 
 ================================================================================================================================================
 
+14. Longest Common Prefix
+
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        
+    int i,j,lng;
+        
+    string s;
+        
+    s=strs[0];
+    lng=s.size();    
+        
+    for (i=0;i<strs.size();i++)
+      {
+       j=0;
+       if (strs[i].size()<lng) lng=strs[i].size(); 
+       while (j<lng)
+        {
+         if (s[j]==strs[i][j])
+           j++;
+         else
+           lng=j;
+        }
+       if (lng==0) break; 
+      }
+     s=s.substr(0,lng);   
+     return(s);   
+    }
+};
+
+================================================================================================================================================
+
 19. Remove Nth Node From End of List
 
 // First solution 
