@@ -1072,6 +1072,197 @@ public:
 
 ================================================================================================================================================
 
+15. 3Sum
+
+// 1st Solution 
+
+#include <string>
+
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        
+            
+    vector<vector<int>> r;  
+    
+    int i,j, x, pos, pos1, pos2, index, v1,v2,v3,lastfound;
+        
+    bool threediff;
+        
+    string numbers="",proci=",",procj="",rproc="";
+        
+    for (i=0;i<nums.size();i++)   // Create a string with all number and index
+     {
+      numbers=numbers+"("+to_string(nums[i])+")"+"["+to_string(i)+"]";   
+     }
+    for (i=0;i<nums.size();i++)    // Find all possible double not repeating
+     {
+      if (proci.find(","+to_string(nums[i])+",")==std::string::npos)
+       {
+        proci=proci+to_string(nums[i])+",";
+        procj=",";  
+        for (j=i+1;j<nums.size();j++)
+         {
+          if (procj.find(","+to_string(nums[j])+",")==std::string::npos) 
+            {
+             procj=procj+to_string(nums[j])+",";        // For each double find what is missing third value and search
+             x = 0-nums[i]-nums[j];
+             lastfound=0; 
+             threediff=false; 
+             while ((!threediff) && ((pos=numbers.find("("+to_string(x)+")",lastfound))!=std::string::npos))
+              {
+               lastfound=pos+1;  
+               pos1=numbers.find("[",pos);
+               pos2=numbers.find("]",pos);
+               index=stoi(numbers.substr(pos1+1,pos2-pos1-1));
+               if ((index!=i) && (index!=j))   // If third is a different one conclude adding to answer if not repeated
+                {
+                 threediff=true;  
+                 v1=nums[i];
+                 v2=nums[j];
+                 v3=x;
+                 if (v1>v2) 
+                  {
+                   x=v2;
+                   v2=v1;
+                   v1=x;  
+                  }
+                 if (v2>v3) 
+                  {
+                   x=v2;
+                   v2=v3;
+                   v3=x;  
+                  }  
+                 if (v1>v2) 
+                  {
+                   x=v2;
+                   v2=v1;
+                   v1=x;  
+                  }
+                 if (rproc.find("["+to_string(v1)+","+to_string(v2)+","+to_string(v3)+"]")==std::string::npos)
+                  {
+                   rproc=rproc+"["+to_string(v1)+","+to_string(v2)+","+to_string(v3)+"]";
+                   r.push_back({v1,v2,v3});
+                  }  
+                }   
+                   
+              }  
+                 
+            }  
+         }   
+       }   
+     }  
+    return(r);    
+    }
+};
+
+// Similar solution using lists instead strings
+
+#include <string>
+
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+     
+  
+            
+    vector<vector<int>> r;  
+        
+    list<int> proci, numbers_once, numbers_twice, numbers_3times;
+    list<string> rproc;   
+        
+    
+    int i,j, x, v1, v2, v3 ;
+        
+    bool toadd;
+        
+    for (i=0;i<nums.size();i++)   // Create a string with all number and index
+     {
+
+      if (find(numbers_once.begin(), numbers_once.end(), nums[i])!=numbers_once.end())
+        {
+         if (find(numbers_twice.begin(), numbers_twice.end(), nums[i])!=numbers_twice.end())
+           numbers_3times.push_back(nums[i]);
+         else
+          {
+           numbers_twice.push_back(nums[i]);
+         }  
+        }
+      else
+        numbers_once.push_back(nums[i]); 
+     }
+
+    for (i=0;i<nums.size();i++)    // Find all possible double not repeating
+     {
+     if (find(proci.begin(), proci.end(), nums[i])==proci.end())  
+       {
+        proci.push_back(nums[i]);
+        list<int> procj;  
+        for (j=i+1;j<nums.size();j++)
+         {
+          if (find(procj.begin(), procj.end(), nums[j])==procj.end())   
+            {
+             procj.push_back(nums[j]);        // For each double find what is missing third value and search
+             x = 0-nums[i]-nums[j];
+             toadd=false; 
+             if ((x==nums[i]) && (x==nums[j]))
+               {  
+                if  (find(numbers_3times.begin(), numbers_3times.end(), x)!=numbers_3times.end()) toadd=true;
+               }    
+             else
+               {  
+                if ((x==nums[i]) || (x==nums[j]))
+                  {  
+                   if  (find(numbers_twice.begin(), numbers_twice.end(), x)!=numbers_twice.end())
+                    {  
+                     toadd=true;
+                    }
+                  }  
+                else
+                  if  (find(numbers_once.begin(), numbers_once.end(), x)!=numbers_once.end()) 
+                  {  
+                    toadd=true;
+                  }    
+               }   
+             if (toadd)
+               {  
+                v1=nums[i];
+                v2=nums[j];
+                v3=x;
+                if (v1>v2) 
+                  {
+                   x=v2;
+                   v2=v1;
+                   v1=x;  
+                  }
+                if (v2>v3) 
+                  {
+                   x=v2;
+                   v2=v3;
+                   v3=x;  
+                  }  
+                if (v1>v2) 
+                  {
+                   x=v2;
+                   v2=v1;
+                   v1=x;  
+                  }
+                if (find(rproc.begin(), rproc.end(), "["+to_string(v1)+","+to_string(v2)+","+to_string(v3)+"]")==rproc.end()) 
+                  {
+                   rproc.push_back("["+to_string(v1)+","+to_string(v2)+","+to_string(v3)+"]"); 
+                   r.push_back({v1,v2,v3});
+                  } 
+                }   
+            }
+          }
+       }
+     }
+   return(r);     
+  }     
+};
+
+================================================================================================================================================
+
 19. Remove Nth Node From End of List
 
 // First solution 
