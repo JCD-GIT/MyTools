@@ -1261,6 +1261,184 @@ public:
   }     
 };
 
+// Using Hash Table
+
+#include <string>
+
+
+
+class Solution {
+    
+int hsize=100000;  
+
+    
+    
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+              
+    vector<vector<int>> r;  
+        
+    list<int> poshasht[hsize]; 
+    list<int> neghasht[hsize]; 
+    list<int> twicehasht[hsize];     
+        
+    vector<int> posnums;
+    vector<int> negnums;
+        
+    list<string> rproc;   
+    
+    list<int> proci,procj;    
+    bool toadd;    
+        
+    int zerocounter=0;
+        
+    int i,j, x, v1, v2, v3 ;
+        
+    
+        
+    for (i=0;i<nums.size();i++)   // Create a string with all number and index separating positives and negatives
+     {
+      if (nums[i]>=0) 
+        { 
+         if (nums[i]==0)
+          {
+           zerocounter++;
+           if (zerocounter==3)
+               r.push_back({0,0,0});
+          }  
+         posnums.push_back(nums[i]); 
+         if (checkhasht(nums[i], poshasht) )  
+           add2hasht(nums[i], twicehasht);
+         else
+           add2hasht(nums[i], poshasht);
+        }  
+      else 
+        { 
+         negnums.push_back(nums[i]); 
+         if (checkhasht(nums[i], neghasht) )
+           add2hasht(nums[i], twicehasht);
+         else
+           add2hasht(nums[i], neghasht);
+        }  
+     }
+    proci={};
+        
+    for (i=0;i<posnums.size();i++)    // Find all possible double (positive+positive) not repeating. Third should be negative.
+     {
+     if (find(proci.begin(), proci.end(), posnums[i])==proci.end())  
+       {
+        proci.push_back(posnums[i]);
+        procj={};  
+        for (j=i+1;j<posnums.size();j++)
+         {
+          if (find(procj.begin(), procj.end(), posnums[j])==procj.end())   
+            {
+
+             procj.push_back(posnums[j]);        // For each double find what is missing third value and search
+             x = 0-posnums[i]-posnums[j];
+             toadd=false; 
+             if  (checkhasht(x, neghasht)) toadd=true; //if  (find(numbers_once.begin(), numbers_once.end(), x)!=numbers_once.end())
+             if (toadd)
+               { 
+                v1=x; 
+                v2=posnums[i];
+                v3=posnums[j];
+                if (v2>v3) 
+                  {
+                   x=v2;
+                   v2=v3;
+                   v3=x;  
+                  }
+                if (find(rproc.begin(), rproc.end(), "["+to_string(v1)+","+to_string(v2)+","+to_string(v3)+"]")==rproc.end()) 
+                  {
+                   rproc.push_back("["+to_string(v1)+","+to_string(v2)+","+to_string(v3)+"]");  
+                   r.push_back({v1,v2,v3});
+                  } 
+                }   
+            }
+          }
+       }
+     }
+    proci={};
+        
+    for (i=0;i<negnums.size();i++)    // Find all possible double (negative+negative) not repeating. Third should be positive.
+     {
+      if (find(proci.begin(), proci.end(), negnums[i])==proci.end())  
+       {
+        proci.push_back(negnums[i]);
+        procj={};  
+        for (j=i+1;j<negnums.size();j++)
+         {
+          if (find(procj.begin(), procj.end(), negnums[j])==procj.end())   
+            {
+             procj.push_back(negnums[j]);        // For each double find what is missing third value and search
+             x = 0-negnums[i]-negnums[j];
+             toadd=false; 
+             if  (checkhasht(x, poshasht)) toadd=true; //if  (find(numbers_once.begin(), numbers_once.end(), x)!=numbers_once.end())
+             if (toadd)
+               { 
+                v3=x; 
+                v1=negnums[i];
+                v2=negnums[j];
+                if (v1>v2) 
+                  {
+                   x=v2;
+                   v2=v1;
+                   v1=x;  
+                  }
+                if (find(rproc.begin(), rproc.end(), "["+to_string(v1)+","+to_string(v2)+","+to_string(v3)+"]")==rproc.end()) 
+                  {
+                   rproc.push_back("["+to_string(v1)+","+to_string(v2)+","+to_string(v3)+"]"); 
+                   r.push_back({v1,v2,v3});
+                  } 
+                }   
+            }
+          }
+       }
+     }
+          
+        
+   return(r);     
+  } 
+    
+void add2hasht(int x, list<int> t[]) {
+    
+  int i,index;
+    
+  bool toadd=true;
+    
+    
+
+    
+  index = x%hsize;
+  if (index<0) index=-index;    
+    
+    
+  if (find(t[index].begin(), t[index].end(), x)==t[index].end())
+        {
+         t[index].push_back(x);
+        }
+  return;  
+}
+
+bool checkhasht(int x, list<int> t[]) {
+    
+  int i,index;
+    
+  bool r=false;  
+    
+  index = x%hsize;
+  if (index<0) index=-index;  
+    
+  if (find(t[index].begin(), t[index].end(), x)!=t[index].end()) 
+      return(true);
+  return(false);  
+}   
+    
+    
+    
+};
+
 ================================================================================================================================================
 
 19. Remove Nth Node From End of List
