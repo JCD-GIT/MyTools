@@ -2060,6 +2060,60 @@ class Solution {
     }
 }
 
+
+================================================================================================================================================
+
+35. Search Insert Position
+
+C:
+ 
+int searchInsert(int* nums, int numsSize, int target){
+
+int i;
+
+for (i=0; i<numsSize; i++)
+  {
+   if (nums[i]>=target) 
+     return(i);   
+  }
+ return(numsSize); 
+}
+
+
+Python:
+
+class Solution(object):
+    def searchInsert(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        
+        i=0
+        while i<len(nums):        
+          if (nums[i]>=target): 
+            return(i)
+          i=i+1     
+        return(i) 
+
+
+Java:
+
+class Solution {
+    public int searchInsert(int[] nums, int target) {
+
+    int i;
+
+    for (i=0; i<nums.length; i++)
+     {
+      if (nums[i]>=target) 
+        return(i);   
+     }
+    return(nums.length); 
+  }  
+}  
+
 ================================================================================================================================================
 
 36. Valid Sudoku
@@ -2488,7 +2542,61 @@ class Solution {
 }
         
 
+================================================================================================================================================
 
+58. Length of Last Word
+
+C:
+
+int lengthOfLastWord(char * s){
+  int i=0,j;
+   while (s[i]!=0) i++;
+   i--;
+   while (s[i]==' ') i--;
+   j=i;
+   while (s[i]!=' ') 
+     {
+      i--;
+      if (i<0) break;
+     }
+   return(j-i);  
+
+Java:
+
+class Solution {
+    public int lengthOfLastWord(String s) {
+       int i=s.length()-1,j; 
+       while (s.charAt(i)==' ') i--;
+       j=i;
+       while (s.charAt(i)!=' ')
+         {
+          i--;
+          if (i<0) break;
+         }  
+       return(j-i);   
+    }
+}
+
+Python:
+
+class Solution(object):
+    def lengthOfLastWord(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        i = len(s)-1
+        while (s[i]==' '):
+          i=i-1
+        j=i
+        while (s[i]!=' '): 
+          i=i-1
+          if (i<0):
+            break
+        return(j-i) 
+
+
+}
 
 ================================================================================================================================================
 
@@ -2567,6 +2675,96 @@ class Solution {
         
 }
 
+
+================================================================================================================================================
+
+66. Plus One
+
+Python:
+
+class Solution(object):
+    def plusOne(self, digits):
+        """
+        :type digits: List[int]
+        :rtype: List[int]
+        """
+
+        i = len(digits) - 1
+        while (i>=0):
+          digits[i]=digits[i]+1
+          if (digits[i]==10):
+             digits[i]=0
+             i = i-1
+          else:
+             break
+        if (digits[0]==0):
+           digits.insert(0, 1)
+        return(digits)   
+
+
+Java:
+
+class Solution {
+    public int[] plusOne(int[] digits) {
+        int i;
+        i = digits.length - 1;
+        while (i>=0)
+          {
+           digits[i]=digits[i]+1;
+           if (digits[i]==10)
+             {
+              digits[i]=0;
+              i = i-1;
+             }
+           else
+             break;
+           }   
+        if (digits[0]!=0)
+           return(digits);   
+        int newdig[] = new int[digits.length + 1];
+        newdig[0]=1;
+        for (i=0;i<digits.length;i++)
+           newdig[i+1]=digits[i];
+        return(newdig);   
+    }
+}
+
+
+C:
+
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+int* plusOne(int* digits, int digitsSize, int* returnSize){
+
+        int i=digitsSize-1;
+        int* newdig;
+        while (i>=0)
+          {
+           digits[i]=digits[i]+1;
+           if (digits[i]==10)
+             {
+              digits[i]=0;
+              i = i-1;
+             }
+           else
+             break;
+           }   
+        if (digits[0]!=0)
+           {
+            *returnSize=digitsSize;  
+            return(digits);
+            }
+        else
+           {
+            *returnSize=digitsSize+1;   
+            newdig = (int*) malloc((digitsSize+1) * sizeof(int));   
+            newdig[0]=1;
+            for (i=0;i<digitsSize;i++)
+              newdig[i+1]=digits[i];
+            return(newdig);
+           }   
+}
 
 ================================================================================================================================================
 
