@@ -8,9 +8,6 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
-import com.sun.media.jfxmedia.MediaPlayer;
-import javafx.scene.media.Media;
-import  sun.audio.*;    //import the sun.audio package
 import  java.io.*;
 
 import javax.sound.sampled.AudioInputStream;
@@ -48,6 +45,9 @@ public class Main {
 	public static boolean compare_folder = false;
 	public static String folder2compare = "";
 	public static String input_dir = "";
+	public static String dir_div = "\\";
+	
+	
 	
 
 
@@ -56,6 +56,9 @@ public class Main {
 
         Picture m;
         File f;
+		
+		Path path = Paths.get("/home");
+		if (Files.exists(path)) dir_div = "/";
 
         /* With a unique parameter just get a list of all picture files */
         if (args.length == 1) {
@@ -97,7 +100,7 @@ public class Main {
               /* With five parameters, do the same as three, but number the files if it's the case */
                 if (args.length == 5) {
 					input_dir = args[1];
-					if (input_dir.substring(input_dir.length()-1).equals("\\"))
+					if (input_dir.substring(input_dir.length()-1).equals(dir_div))
 						input_dir = input_dir.substring(0,input_dir.length()-1);
                     if (args[4].equals("-n")) 
 						Main.number_files=true;
@@ -311,14 +314,14 @@ class Picture {
                 if (picturesExt.contains("."+ext.toLowerCase()))
                 {
                     if (Main.show) {
-                        System.out.println("id#:["+picture_total+"]\t"+ dir + "\\" + file.getName());
+                        System.out.println("id#:["+picture_total+"]\t"+ dir + Main.dir_div + file.getName());
                     }
                     picture_total++;
                     attrib(index, file);/* AllFiles[index]=file; */
                     index++;
                 }
             }
-            if (file.isDirectory()) getdir(dir + "\\" + file.getName());
+            if (file.isDirectory()) getdir(dir + Main.dir_div + file.getName());
         }
         picture_count = picture_total;
         return (0);
@@ -381,7 +384,7 @@ class Picture {
 		    }
 
         for (i = 0; i < n; i++) {    /* For each picture from list or to be selected randomly */
-            System.out.println("\n" + (i + 1) + "/" + n);
+            System.out.println("\n" + (i + 1) + Main.dir_div + n);
             if (picture_count == 1)    /* if only one picture remaining, play this one and select all again */
             {
                 pos = 0;
@@ -428,11 +431,12 @@ class Picture {
 			    change_name = temp.getAbsolutePath();
 				change_name = change_name.substring(Main.input_dir.length());
 				
-			    pos = change_name.indexOf("\\");
+				
+			    pos = change_name.indexOf(Main.dir_div);
 				while (pos>=0)
 					 {
 					   change_name = change_name.substring(0,pos)+"_"+change_name.substring(pos+1);	
-					   pos = change_name.indexOf("\\");
+					   pos = change_name.indexOf(Main.dir_div);
 					 }
 
 				pos = change_name.indexOf(" ");
@@ -456,7 +460,7 @@ class Picture {
 		           String m = month.getDisplayName(TextStyle.SHORT, Locale.getDefault());
                    int year = currentDate.getYear();
 				   change_name = "Picked(" + i + ")" + m + year + change_name;
-			       path_text = target_Folder + "\\" + change_name;
+			       path_text = target_Folder + Main.dir_div + change_name;
 				
    				   Path TO = Paths.get(path_text);
                    CopyOption[] options = new CopyOption[]{
@@ -472,17 +476,17 @@ class Picture {
 			else
 		      {
                 change_name = temp.getName();
-			    path_text = target_Folder + "\\" + change_name;
+			    path_text = target_Folder + Main.dir_div + change_name;
 			
-                if (Main.number_files) path_text = target_Folder + "\\(" + zerofill(i+1,n) + ")"+ temp.getName();
+                if (Main.number_files) path_text = target_Folder + Main.dir_div + "(" + zerofill(i+1,n) + ")"+ temp.getName();
                 target = new File(path_text);
                 int j = 0;
                 while (target.exists()) {
                     j++;
-                    target = new File(target_Folder + "\\" + j);
+                    target = new File(target_Folder + Main.dir_div + j);
                     if (!target.exists()) target.mkdir();
 
-    	            path_text = target_Folder + "\\" + j + "\\" + temp.getName();
+    	            path_text = target_Folder + Main.dir_div + j + Main.dir_div + temp.getName();
                     target = new File(path_text);
                 }
               
