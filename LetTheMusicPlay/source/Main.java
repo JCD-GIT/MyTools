@@ -19,6 +19,7 @@ import java.io.FileNotFoundException;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.Random;
@@ -37,6 +38,7 @@ public class Main {
     public static boolean number_files = false;
     public static int maxsubgroup;
     public static boolean subgroup=false;
+	public static String dir_div = "\\";
 
 
     public static void main(String[] args) {
@@ -44,6 +46,9 @@ public class Main {
 
         Musica m;
         File f;
+		
+		Path path = Paths.get("/home");
+		if (Files.exists(path)) dir_div = "/";
 
         int n=1;
         boolean isfile=false;
@@ -227,14 +232,14 @@ public class Main {
                         ext = fname.substring(fname.length() - 3);
                         if ((Objects.equals(ext.toLowerCase(), "wma")) | (Objects.equals(ext.toLowerCase(), "mp3"))) {
                             if (Main.show) {
-                                System.out.println("id#:["+music_total+"]\t"+ dir + "\\" + file.getName());
+                                System.out.println("id#:["+music_total+"]\t"+ dir + Main.dir_div + file.getName());
                             }
                             music_total++;
                             attrib(index, file);/* AllFiles[index]=file; */
                             index++;
                         }
                     }
-                    if (file.isDirectory()) getdir(dir + "\\" + file.getName());
+                    if (file.isDirectory()) getdir(dir + Main.dir_div + file.getName());
                 }
                 music_count = music_total;
                 return (0);
@@ -253,6 +258,68 @@ public class Main {
                 }
                 return (r);
             }
+
+
+            int embaralha(int group,int time) {
+               if (group < 2) return (0);
+               if (music_total/group < 2) return (0);
+               int sg,tg,slice,sgini,tgini,sgend,tgend,sind,tind;
+               File temp;
+               int i;
+               Random rand = new Random();
+               while (time>0)
+                {
+                 sg = rand.nextInt(group);
+                 tg = rand.nextInt(group);
+                 while (tg == sg)
+                  {
+                   tg = rand.nextInt(group);
+                  }
+                 slice = music_total/group;
+                 sgini = sg*slice;
+                 tgini = tg*slice;
+                 if (sg == group-1)
+                    {
+                     sgend = music_total-1;
+                    }
+                 else
+                    {
+                     sgend = (sg+1)*slice-1;
+                    }
+                 if (tg == group-1)
+                    {
+                     tgend = music_total-1;
+                    }
+                 else
+                    {
+                     tgend = (tg+1)*slice-1;
+                    }
+                 sind = sgini+rand.nextInt(sgend-sgini+1);
+                 tind = tgini+rand.nextInt(tgend-tgini+1);
+                 temp = AllFiles[sind];
+                 AllFiles[sind] = AllFiles[tind];
+                 AllFiles[tind] = temp;
+                 time--;
+                }
+            try
+              {
+                FileWriter bw = new FileWriter("Music_IDs.txt");
+                for (i=0;i<music_total;i++)
+                  {
+                     String pname = AllFiles[i].getAbsolutePath();
+                     String ID = String.valueOf(i); 
+                     bw.write("["+ID+"] "+pname+"\n"); 
+ 
+                  }
+                bw.close();
+               }
+              catch (IOException e) {
+                 System.out.println("Error creating log file!");
+               }
+            return(1);
+           }
+
+
             /* Play or copy musics according */
             int select_musics(Musica mus, int n, String target_Folder, int ids_file[]) {
                 File temp;
@@ -273,8 +340,20 @@ public class Main {
                     aleatory = false;
                 }
 
+                if (aleatory) {
+                   /* for (i = 0; i < music_total; i++) {
+                     System.out.println("ID[" + i + "]   " + AllFiles[i]); 
+                   } */
+
+                   embaralha(5,7*music_total); 
+
+                   /* for (i = 0; i < music_total; i++) {
+                     System.out.println("ID[" + i + "]   " + AllFiles[i]);            
+                   } */ 
+                }
+   
                 for (i = 0; i < n; i++) {    /* For each music from list or to be selected randomly */
-                    System.out.println("\n" + (i + 1) + "/" + n);
+                    System.out.println("\n" + (i + 1) + Main.dir_div + n);
                     if (music_count == 1)    /* if only one music remaining, play this one and select all again */
                     {
                         pos = 0;
@@ -319,11 +398,11 @@ public class Main {
                     {
                         if (Main.subgroup)
                         {
-                            target_Folder = target_Original + "\\LetTheMusicPlay" + (i/Main.maxsubgroup+1);
+                            target_Folder = target_Original + Main.dir_div +"LetTheMusicPlay" + (i/Main.maxsubgroup+1);
                         }
                         else
                         {
-                            target_Folder = target_Original + "\\LetTheMusicPlay";
+                            target_Folder = target_Original + Main.dir_div +"LetTheMusicPlay";
                         }
                     }
                     target = new File(target_Folder);
@@ -332,15 +411,15 @@ public class Main {
                     if (copy_files) {     /* when copying if same filename exist, copy to a different folder */
 
 
-                        String path_text = target_Folder + "\\" + temp.getName();
-                        if (Main.number_files) path_text = target_Folder + "\\(" + zerofill(i+1,n) + ")"+ temp.getName();
+                        String path_text = target_Folder + Main.dir_div + temp.getName();
+                        if (Main.number_files) path_text = target_Folder + Main.dir_div +"(" + zerofill(i+1,n) + ")"+ temp.getName();
                         target = new File(path_text);
                         int j = 0;
                         while (target.exists()) {
                             j++;
-                            target = new File(target_Folder + "\\" + j);
+                            target = new File(target_Folder + Main.dir_div + j);
                             if (!target.exists()) target.mkdir();
-                            path_text = target_Folder + "\\" + j + "\\" + temp.getName();
+                            path_text = target_Folder + Main.dir_div + j + Main.dir_div + temp.getName();
                             target = new File(path_text);
                         }
                         Path TO = Paths.get(path_text);
