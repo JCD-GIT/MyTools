@@ -1754,6 +1754,134 @@ public class Solution{
 
 ================================================================================================================================================
 
+70. Climbing Stairs
+
+Python Solution:
+
+class Solution(object):
+
+
+    
+    def climbStairs(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        
+        lista = []
+
+        def cs(self, s):
+
+           i = 0
+           while (i < len(s)-1):
+             if (s[i]=="1" and s[i+1]=="1"):
+                temp = s[:i]+"2"+s[i+2:]
+                if not temp in lista:
+                   lista.append(temp) 
+                   cs(self,temp)
+             i = i+1   
+           return      
+
+        s = ""
+        res = 1
+
+        for i in range (n):
+            s = "1" + s
+        lista.append(s)    
+        cs(self, s) 
+        return(len(lista))
+
+
+Other Python Solution to solve Timeout:
+
+class Solution(object):
+    
+    def climbStairs(self, n):
+
+        """
+        :type n: int
+        :rtype: int
+        """
+        
+        lista =[1,2]
+
+        i = 2
+        while (i<n):
+           lista.append(lista[i-1]+lista[i-2]) 
+           i = i+1
+        return(lista[n-1])  
+
+C Solution 1:
+
+int cs(char s[], char lista[])
+{
+  int i=0,c;
+  char temp[50],key[50];
+  temp[0]=0;
+  while (i<strlen(s)-1)
+    {
+     if ((s[i]=='1') && (s[i+1]=='1'))
+        {
+         strncpy (temp, s, i);
+         temp[i] = '2';
+         strcpy (temp+i+1, s+i+2);
+         key[0]='(';
+         strcpy (key+1,temp);
+         key[strlen(temp)+1]=')';
+         if (! strstr(lista,key))
+             strcpy(lista+strlen(lista),key);
+             cs(temp,lista);
+        } 
+      i = i+1;    
+    }
+ for (i=0,c=0;i<strlen(lista);i++)
+   {
+    if (lista[i]=='(') c++;
+   }   
+ return(c);
+}
+
+int climbStairs(int n) {
+        
+        char listax[10000];
+        char s[50];
+        int i;
+
+        s[0]=0;
+        listax[0]=0;
+        printf("==> %s",listax);
+        for (i=0;i<n;i++)
+         {
+          s[i]='1';
+         }
+        return(cs(s,listax)+1);
+} 
+
+
+C Solution 2:
+
+int climbStairs(int n) {
+
+int i,lista[50];
+
+lista[1]=1;
+lista[2]=2;
+
+i = 2;
+
+while (i<n)
+{
+   i = i+1; 
+   lista[i]=lista[i-1]+lista[i-2];
+}
+return(lista[n]); 
+
+
+}
+
+
+================================================================================================================================================
+
 73. Set Matrix Zeroes
 
 public class Solution {
